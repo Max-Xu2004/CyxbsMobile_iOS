@@ -14,6 +14,7 @@
 #import "WeDateViewController.h"
 #import "CQUPTMapViewController.h"
 #import "TODOMainViewController.h"
+#import "掌上重邮-Swift.h"
 
 @interface FinderToolViewController () <
     UIScrollViewDelegate
@@ -356,8 +357,8 @@
     if (sender.isChooingNow == YES) {
         [sender toggleFavoriteStates];
     }else {
-//        TestArrangeViewController *vc = [[TestArrangeViewController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
+        TestArrangeViewController *vc = [[TestArrangeViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

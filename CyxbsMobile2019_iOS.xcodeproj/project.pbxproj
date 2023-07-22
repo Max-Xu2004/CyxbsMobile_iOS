@@ -241,6 +241,10 @@
 		73AAA1D526C918250084E44D /* PurchaseInfoOrderIDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C226C918240084E44D /* PurchaseInfoOrderIDView.m */; };
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
+		752F30452A6C4FBF0056DC80 /* IDSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30412A6C4FBF0056DC80 /* IDSViewController.swift */; };
+		752F30462A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */; };
+		752F30472A6C4FBF0056DC80 /* ExamArrangementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */; };
+		752F304A2A6C50B30056DC80 /* TestArrangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1053,6 +1057,10 @@
 		73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBaseTableViewCell.m; sourceTree = "<group>"; };
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
+		752F30412A6C4FBF0056DC80 /* IDSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDSViewController.swift; sourceTree = "<group>"; };
+		752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamArrangementsAnalysis.swift; sourceTree = "<group>"; };
+		752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamArrangementsModel.swift; sourceTree = "<group>"; };
+		752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeViewController.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -2633,6 +2641,7 @@
 		18CDF4D4257F91BC006E8E5C /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				752F303D2A6C4F590056DC80 /* Discover_TestArrange */,
 				7AA4C48528922AE300E204C8 /* Source */,
 				18CDF4D5257F91BC006E8E5C /* Discover_MainPage */,
 				B0F08FEE28A24F9000986EB6 /* IDSBinding */,
@@ -3792,6 +3801,41 @@
 				73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */,
 			);
 			path = "GenericClass  ";
+			sourceTree = "<group>";
+		};
+		752F303D2A6C4F590056DC80 /* Discover_TestArrange */ = {
+			isa = PBXGroup;
+			children = (
+				752F30402A6C4F9A0056DC80 /* ViewController */,
+				752F303F2A6C4F8E0056DC80 /* View */,
+				752F303E2A6C4F810056DC80 /* Model */,
+			);
+			path = Discover_TestArrange;
+			sourceTree = "<group>";
+		};
+		752F303E2A6C4F810056DC80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */,
+				752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		752F303F2A6C4F8E0056DC80 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		752F30402A6C4F9A0056DC80 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */,
+				752F30412A6C4FBF0056DC80 /* IDSViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		7A64BFF22892826F007CCB1E /* Source */ = {
@@ -6147,11 +6191,15 @@
 				AA7ABAA62873EA5500BA6790 /* FuncView.m in Sources */,
 				73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */,
 				AA7ABA292873EA4100BA6790 /* CircleLabelBtn.m in Sources */,
+				752F304A2A6C50B30056DC80 /* TestArrangeViewController.swift in Sources */,
 				73AAA1D526C918250084E44D /* PurchaseInfoOrderIDView.m in Sources */,
 				14FBBD4E2805489A00D5B05D /* SSRTextCycleCell.m in Sources */,
 				AA0DDB75286C8B1A00802324 /* JHPageController.m in Sources */,
 				AA7ABAAA2873EA5500BA6790 /* MGDClickCoreLayer.m in Sources */,
 				14CED37F288A594600BADA8B /* RisingRouterRequest.m in Sources */,
+				752F30472A6C4FBF0056DC80 /* ExamArrangementsModel.swift in Sources */,
+				752F30452A6C4FBF0056DC80 /* IDSViewController.swift in Sources */,
+				752F30462A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift in Sources */,
 				AA86E3B82636630800756F05 /* ScheduleInfoModel.m in Sources */,
 				D0101F69243587A1004337ED /* GKPhotoView.m in Sources */,
 				AA7AB9672873E5EA00BA6790 /* SZHSearchEndCv.m in Sources */,

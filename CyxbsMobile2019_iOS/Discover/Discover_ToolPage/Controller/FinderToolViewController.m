@@ -216,7 +216,8 @@
     FinderToolViewItem *item4 = [[FinderToolViewItem alloc]initWithIconView:@"校历" Title:@"校历" Detail:@"学期安排一目了然"];
     FinderToolViewItem *item5 = [[FinderToolViewItem alloc]initWithIconView:@"重邮地图" Title:@"重邮地图" Detail:@"校园地图，尽收重邮风光"];
     FinderToolViewItem *item6 = [[FinderToolViewItem alloc] initWithIconView:@"邮子清单" Title:@"邮子清单" Detail:@"邮子清单"];
-    FinderToolViewItem *item7 = [[FinderToolViewItem alloc]initWithIconView:@"更多功能" Title:@"更多功能" Detail:@"敬请期待"];
+    FinderToolViewItem *item7 = [[FinderToolViewItem alloc]initWithIconView:@"我的考试" Title:@"我的考试" Detail:@"考试安排、成绩学分轻松查询"];
+    FinderToolViewItem *item8 = [[FinderToolViewItem alloc]initWithIconView:@"更多功能" Title:@"更多功能" Detail:@"敬请期待"];
     
     [item1 addTarget:self action:@selector(chooseWeDate:) forControlEvents:UIControlEventTouchUpInside];
     [item2 addTarget:self action:@selector(chooseSchoolBus:) forControlEvents:UIControlEventTouchUpInside];
@@ -224,6 +225,7 @@
     [item4 addTarget:self action:@selector(chooseSchoolSchedule:) forControlEvents:UIControlEventTouchUpInside];
     [item5 addTarget:self action:@selector(chooseCQUPTMap:) forControlEvents:UIControlEventTouchUpInside];
     [item6 addTarget:self action:@selector(chooseToDo:) forControlEvents:UIControlEventTouchUpInside];
+    [item7 addTarget:self action:@selector(chooseTestArrange:) forControlEvents:UIControlEventTouchUpInside];
     
     NSMutableArray *itemsArray = [NSMutableArray array];
     [itemsArray addObject:item1];
@@ -233,6 +235,7 @@
     [itemsArray addObject:item5];
     [itemsArray addObject:item6];
     [itemsArray addObject:item7];
+    [itemsArray addObject:item8];
     
     self.toolViewItems = itemsArray;
     for (FinderToolViewItem*item in self.toolViewItems) {
@@ -346,6 +349,15 @@
         TODOMainViewController *vc = [[TODOMainViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+/// 我的考试
+- (void)chooseTestArrange:(FinderToolViewItem *)sender  {
+    if (sender.isChooingNow == YES) {
+        [sender toggleFavoriteStates];
+    }else {
+//        TestArrangeViewController *vc = [[TestArrangeViewController alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

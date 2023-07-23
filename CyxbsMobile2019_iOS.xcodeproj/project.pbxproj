@@ -245,6 +245,7 @@
 		752F30462A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */; };
 		752F30472A6C4FBF0056DC80 /* ExamArrangementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */; };
 		752F304A2A6C50B30056DC80 /* TestArrangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */; };
+		752F304F2A6D0DA80056DC80 /* TestArrangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1061,6 +1062,7 @@
 		752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamArrangementsAnalysis.swift; sourceTree = "<group>"; };
 		752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamArrangementsModel.swift; sourceTree = "<group>"; };
 		752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeViewController.swift; sourceTree = "<group>"; };
+		752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeView.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -3825,6 +3827,7 @@
 		752F303F2A6C4F8E0056DC80 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6463,6 +6466,7 @@
 				AA7AB96A2873E5EA00BA6790 /* QASegementBarBtn.m in Sources */,
 				1A141368235F524B0001417E /* HttpClient.m in Sources */,
 				646B19A02833983E0015DF28 /* NextStationBtn.m in Sources */,
+				752F304F2A6D0DA80056DC80 /* TestArrangeView.swift in Sources */,
 				AA0DDB55286C8B1900802324 /* MineTableViewCell.m in Sources */,
 				AA7AB9682873E5EA00BA6790 /* QAVerticalScrollView.m in Sources */,
 				AAE3305925E2A42B00324750 /* RemarkTableViewCell.m in Sources */,

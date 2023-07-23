@@ -18,7 +18,14 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
         print("载入登陆页面中")
-        webView = WKWebView(frame: view.bounds)
+        
+        self.view.addSubview(topBar)
+        self.topBar.addSubview(self.titleLab)
+        self.topBar.addSubview(self.backButton)
+        setPosition()
+        self.backButton.addTarget(self, action: #selector(popController), for: .touchUpInside)
+        
+        webView = WKWebView(frame: CGRect(x: 0, y: 80, width: self.view.bounds.width, height: self.view.bounds.height-80))
         webView.accessibilityLanguage = "zh-CN"
         webView.navigationDelegate = self
         webView.load(URLRequest(url: URL(string: "http://jwzx.cqupt.edu.cn/user.php")!))
@@ -30,8 +37,11 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        print("网页加载完成")
-        
+        print("网页加载完成")
+        if webView.url == URL(string: "http://jwzx.cqupt.edu.cn/user.php"){
+            print("已登陆")
+            self.alreadyLogin()
+        }
     }
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
@@ -43,49 +53,69 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
         }
         if webView.url == URL(string: "http://jwzx.cqupt.edu.cn/index.php"){
             print("跳转至首页（登陆完成）")
-            if let cookies = HTTPCookieStorage.shared.cookies(for: webView.url!) {
-                // 设置 cookies1 到 webView2 的 HTTPCookieStorage
-                self.loginCompletion?(cookies)
-            }
-//            webView.evaluateJavaScript("document.cookie") { (result, error) in
-//                        if let cookies = result as? String {
-//                            print("Cookies: \(cookies)")
-//                            // 在这里可以对获取到的 Cookie 进行后续处理
-//                            self.processCookies(cookies)
-//                        }
-//                    }
-            
+            self.alreadyLogin()
         }
-       }
+    }
     
     func jumpToIDSLoginPage()  {
         webView.load(URLRequest(url: URL(string: "http://jwzx.cqupt.edu.cn/tysfrz/index.php")!))
     } //跳转IDS登陆页面
     
-    func processCookies(_ cookieString: String) {
-        // 将字符串按照分号进行拆分
-        let cookieComponents = cookieString.components(separatedBy: "; ")
-
-        // 创建一个空的字典，用于存储解析后的cookie参数
-        var cookieProperties = [HTTPCookiePropertyKey: Any]()
-
-        for component in cookieComponents {
-            // 将每个参数按照等号进行拆分，获取key和value
-            let keyValue = component.components(separatedBy: "=")
-            if keyValue.count == 2 {
-                let key = keyValue[0]
-                let value = keyValue[1]
-                cookieProperties[HTTPCookiePropertyKey(key)] = value
-            }
+    
+    func alreadyLogin (){
+        if let cookies = HTTPCookieStorage.shared.cookies(for: webView.url!) {
+            self.loginCompletion?(cookies)
         }
-
-        // 创建HTTPCookie对象
-        if let cookie = HTTPCookie(properties: cookieProperties) {
-            // 在这里可以使用cookie对象进行相应的操作
-            print("处理完的Cookie: \(cookie)")
-        } else {
-            print("无法创建HTTPCookie对象")
-        }
-        }
+    }
+    
+    lazy var topBar:UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 80))
+        view.backgroundColor = self.view.backgroundColor
+        return view
+    }()
+    
+    lazy var titleLab: UILabel = {
+        let label = UILabel()
+        label.text = "请登录"
+//        label.font = UIFont(name: "PingFangSCBold", size: 21)
+        label.font = UIFont.boldSystemFont(ofSize: 21)
+        label.textColor = .black
+//        if #available(iOS 11.0, *) {
+//            label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#F0F0F2", alpha: 1))
+//        } else {
+//            label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#FFFFFF", alpha: 1))
+//        }
+        
+        return label
+    }()
+    
+    lazy var backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "LQQBackButton"), for: .normal)
+        button.setImage(UIImage(named: "EmptyClassBackButton"), for: .highlighted)
+        return button
+    }()
+    
+    func setPosition(){
+        //返回按钮
+        self.backButton.translatesAutoresizingMaskIntoConstraints = false
+        self.backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 17).isActive = true
+        self.backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 43).isActive = true
+        self.backButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        self.backButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
+        self.backButton.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        self.backButton.imageView?.widthAnchor.constraint(equalToConstant: 7).isActive = true
+        self.backButton.imageView?.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        //标题栏
+        self.titleLab.translatesAutoresizingMaskIntoConstraints = false
+        self.titleLab.leadingAnchor.constraint(equalTo: self.backButton.trailingAnchor, constant: 20).isActive = true
+        self.titleLab.centerYAnchor.constraint(equalTo: self.backButton.centerYAnchor).isActive = true
+        
+    }
+    
+    @objc func popController(){
+        self.navigationController?.popViewController(animated: true)
+    }
 
 }

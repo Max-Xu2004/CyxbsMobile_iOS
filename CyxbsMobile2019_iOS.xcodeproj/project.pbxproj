@@ -242,10 +242,14 @@
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
 		752F30452A6C4FBF0056DC80 /* IDSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30412A6C4FBF0056DC80 /* IDSViewController.swift */; };
-		752F30462A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */; };
-		752F30472A6C4FBF0056DC80 /* ExamArrangementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */; };
+		752F30462A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30422A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift */; };
+		752F30472A6C4FBF0056DC80 /* TestArrangementsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30432A6C4FBF0056DC80 /* TestArrangementsModel.swift */; };
 		752F304A2A6C50B30056DC80 /* TestArrangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */; };
 		752F304F2A6D0DA80056DC80 /* TestArrangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */; };
+		752F30532A6D5AE20056DC80 /* TestCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */; };
+		752F30552A6D64780056DC80 /* UIColor+DM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30542A6D64780056DC80 /* UIColor+DM.swift */; };
+		752F30572A6E00D40056DC80 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30562A6E00D40056DC80 /* TopView.swift */; };
+		752F30592A6E00EE0056DC80 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30582A6E00EE0056DC80 /* BottomView.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1059,10 +1063,14 @@
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
 		752F30412A6C4FBF0056DC80 /* IDSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDSViewController.swift; sourceTree = "<group>"; };
-		752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamArrangementsAnalysis.swift; sourceTree = "<group>"; };
-		752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamArrangementsModel.swift; sourceTree = "<group>"; };
+		752F30422A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestArrangementsAnalysis.swift; sourceTree = "<group>"; };
+		752F30432A6C4FBF0056DC80 /* TestArrangementsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestArrangementsModel.swift; sourceTree = "<group>"; };
 		752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeViewController.swift; sourceTree = "<group>"; };
 		752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeView.swift; sourceTree = "<group>"; };
+		752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCardTableViewCell.swift; sourceTree = "<group>"; };
+		752F30542A6D64780056DC80 /* UIColor+DM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DM.swift"; sourceTree = "<group>"; };
+		752F30562A6E00D40056DC80 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		752F30582A6E00EE0056DC80 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -3818,8 +3826,8 @@
 		752F303E2A6C4F810056DC80 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				752F30422A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift */,
-				752F30432A6C4FBF0056DC80 /* ExamArrangementsModel.swift */,
+				752F30422A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift */,
+				752F30432A6C4FBF0056DC80 /* TestArrangementsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3828,6 +3836,10 @@
 			isa = PBXGroup;
 			children = (
 				752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */,
+				752F30562A6E00D40056DC80 /* TopView.swift */,
+				752F30582A6E00EE0056DC80 /* BottomView.swift */,
+				752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */,
+				752F30542A6D64780056DC80 /* UIColor+DM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6161,6 +6173,7 @@
 				AA7ABAF32873EA6D00BA6790 /* DynamicDetailMainVC.m in Sources */,
 				AAC7CA0B25F7725200E6B5D5 /* MainPage2RequestModel.m in Sources */,
 				DB34EB30239BD4550052B65E /* LessonMatter.m in Sources */,
+				752F30552A6D64780056DC80 /* UIColor+DM.swift in Sources */,
 				18CDF67D257F91BD006E8E5C /* PeopleListCellTableViewCell.m in Sources */,
 				AA4CD60A25EF6747002D9394 /* IgnoreDataModel.m in Sources */,
 				B0F08FFD28A2509900986EB6 /* RisingRouter+Extension.m in Sources */,
@@ -6174,6 +6187,7 @@
 				D0101F61243587A1004337ED /* GKLoadingView.m in Sources */,
 				1A799562252B43E400603253 /* SwiftyClient.swift in Sources */,
 				7311328526CCEC2400EF88C1 /* ExchangeCenterViewController.m in Sources */,
+				752F30572A6E00D40056DC80 /* TopView.swift in Sources */,
 				1AC2550823C9B14F00DF0475 /* DidNotCheckInDot.m in Sources */,
 				FE2C135F27AEF629001CF7AF /* DiscoverTodoSheetView.m in Sources */,
 				FE2C136727AEF629001CF7AF /* TodoSyncTool.m in Sources */,
@@ -6200,9 +6214,9 @@
 				AA0DDB75286C8B1A00802324 /* JHPageController.m in Sources */,
 				AA7ABAAA2873EA5500BA6790 /* MGDClickCoreLayer.m in Sources */,
 				14CED37F288A594600BADA8B /* RisingRouterRequest.m in Sources */,
-				752F30472A6C4FBF0056DC80 /* ExamArrangementsModel.swift in Sources */,
+				752F30472A6C4FBF0056DC80 /* TestArrangementsModel.swift in Sources */,
 				752F30452A6C4FBF0056DC80 /* IDSViewController.swift in Sources */,
-				752F30462A6C4FBF0056DC80 /* ExamArrangementsAnalysis.swift in Sources */,
+				752F30462A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift in Sources */,
 				AA86E3B82636630800756F05 /* ScheduleInfoModel.m in Sources */,
 				D0101F69243587A1004337ED /* GKPhotoView.m in Sources */,
 				AA7AB9672873E5EA00BA6790 /* SZHSearchEndCv.m in Sources */,
@@ -6461,6 +6475,7 @@
 				18CDF69D257F91BD006E8E5C /* CQUPTMapSearchResultCell.m in Sources */,
 				AA7ABA2A2873EA4100BA6790 /* SZHReleasView.m in Sources */,
 				DB34EB2E239BD4550052B65E /* RemindTableViewCell.m in Sources */,
+				752F30592A6E00EE0056DC80 /* BottomView.swift in Sources */,
 				7311328626CCEC2400EF88C1 /* Goods.m in Sources */,
 				AAE3308725E3AD5E00324750 /* MainPageNumBtn.m in Sources */,
 				AA7AB96A2873E5EA00BA6790 /* QASegementBarBtn.m in Sources */,
@@ -6472,6 +6487,7 @@
 				AAE3305925E2A42B00324750 /* RemarkTableViewCell.m in Sources */,
 				B51C501D28A625330011465E /* LoginView.m in Sources */,
 				DB34EB3C239BD4550052B65E /* DayLabel.m in Sources */,
+				752F30532A6D5AE20056DC80 /* TestCardTableViewCell.swift in Sources */,
 				B0F08FFA28A24F9000986EB6 /* IdsBindingView.m in Sources */,
 				FE2C135427AEF629001CF7AF /* ToDoDetailRemarkView.m in Sources */,
 				49628E3C26D52E6C00805A08 /* TypeButton.m in Sources */,

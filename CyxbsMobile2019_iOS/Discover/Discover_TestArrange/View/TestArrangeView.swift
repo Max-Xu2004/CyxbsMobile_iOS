@@ -46,11 +46,11 @@ class TestArrangeView: UIView{
 //        label.font = UIFont(name: "PingFangSCBold", size: 21)
         label.font = UIFont.boldSystemFont(ofSize: 21)
         label.textColor = .black
-//        if #available(iOS 11.0, *) {
-//            label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#F0F0F2", alpha: 1))
-//        } else {
-//            label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#FFFFFF", alpha: 1))
-//        }
+        if #available(iOS 11.0, *) {
+            label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#F0F0F2")!, alpha: 1)
+        } else {
+            label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#FFFFFF")!, alpha: 1)
+        }
         
         return label
     }()

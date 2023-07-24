@@ -42,22 +42,26 @@ class TestArrangeViewController: UIViewController,WKNavigationDelegate {
                                 print("登陆过期，二次跳转")
                                 self.presentLoginScreen()
                             }
-                            // 将页面源代码保存到变量或进行其他处理
-                        
-                            self.exams = analyze(html: htmlString)
-                            for exam in self.exams {
-                                print("Student ID: \(exam.studentID)")
-                                print("Name: \(exam.name)")
-                                print("Exam Type: \(exam.examType)")
-                                print("Course Code: \(exam.courseCode)")
-                                print("Course Name: \(exam.courseName)")
-                                print("Exam Week: \(exam.examWeek)")
-                                print("Weekday: \(exam.weekday)")
-                                print("Exam Time: \(exam.examTime)")
-                                print("Exam Location: \(exam.examLocation)")
-                                print("Seat Number: \(exam.seatNumber)")
-                                print("Exam Eligibility: \(exam.examEligibility)")
-                                print("------")
+                            else{
+                                // 将页面源代码保存到变量或进行其他处理
+                            
+                                self.exams = analyze(html: htmlString)
+                                for exam in self.exams {
+                                    print("Student ID: \(exam.studentID)")
+                                    print("Name: \(exam.name)")
+                                    print("Exam Type: \(exam.examType)")
+                                    print("Course Code: \(exam.courseCode)")
+                                    print("Course Name: \(exam.courseName)")
+                                    print("Exam Week: \(exam.examWeek)")
+                                    print("Weekday: \(exam.weekday)")
+                                    print("Exam Time: \(exam.examTime)")
+                                    print("Exam Location: \(exam.examLocation)")
+                                    print("Seat Number: \(exam.seatNumber)")
+                                    print("Exam Eligibility: \(exam.examEligibility)")
+                                    print("------")
+                                }
+                                self.mainView.userNameLabel.text = self.exams[0].name
+                                self.mainView.idLabel.text = self.exams[0].studentID
                             }
                             
                         } else if let error = error {

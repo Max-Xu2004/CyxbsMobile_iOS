@@ -3092,6 +3092,7 @@
 		1A799560252B43CF00603253 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				752F30542A6D64780056DC80 /* UIColor+DM.swift */,
 				1A799561252B43E400603253 /* SwiftyClient.swift */,
 			);
 			path = Tools;
@@ -3839,7 +3840,6 @@
 				752F30562A6E00D40056DC80 /* TopView.swift */,
 				752F30582A6E00EE0056DC80 /* BottomView.swift */,
 				752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */,
-				752F30542A6D64780056DC80 /* UIColor+DM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

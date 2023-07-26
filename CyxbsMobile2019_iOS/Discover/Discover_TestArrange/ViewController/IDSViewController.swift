@@ -78,9 +78,7 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
     lazy var titleLab: UILabel = {
         let label = UILabel()
         label.text = "请登录"
-//        label.font = UIFont(name: "PingFangSCBold", size: 21)
-        label.font = UIFont.boldSystemFont(ofSize: 21)
-//        label.textColor = .black
+        label.font = UIFont(name: "PingFangSC-Semibold", size: 21)
         label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#15315B")!, alpha: 1)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#F0F0F2")!, alpha: 1)
@@ -117,7 +115,7 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
     }
     
     @objc func popController(){
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }

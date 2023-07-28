@@ -1,6 +1,6 @@
 //
-//  ExamArrangementsAnalysis.swift
-//  ExamArrangements
+//  TestArrangementsAnalysis.swift
+//  CyxbsMobile2019_iOS
 //
 //  Created by 许晋嘉 on 2023/7/17.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftSoup
 
-func analyze(html: String)->[ExamAM] {
+func testArrangementsanalyze(html: String)->[ExamAM] {
     var exams:[ExamAM] = []
     do {
         let doc = try SwiftSoup.parse(html)

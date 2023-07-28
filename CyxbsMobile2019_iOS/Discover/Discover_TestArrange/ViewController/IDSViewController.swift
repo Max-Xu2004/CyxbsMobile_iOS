@@ -68,10 +68,6 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
         }
     }
     
-    func getUserInfos (){
-        
-    }
-    
     lazy var topBar:UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 80))
         view.backgroundColor = self.view.backgroundColor
@@ -80,7 +76,7 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
     
     lazy var titleLab: UILabel = {
         let label = UILabel()
-        label.text = "请登录"
+        label.text = "请登录统一认证码"
         label.font = UIFont(name: "PingFangSC-Semibold", size: 21)
         label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#15315B")!, alpha: 1)
         if #available(iOS 11.0, *) {

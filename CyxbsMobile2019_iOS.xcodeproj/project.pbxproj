@@ -254,6 +254,7 @@
 		7565E2A82A7239A700A8E9BA /* Adaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2A72A7239A700A8E9BA /* Adaptation.swift */; };
 		7565E2AA2A7373C400A8E9BA /* ArabicToChineseNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2A92A7373C400A8E9BA /* ArabicToChineseNumber.swift */; };
 		7565E2AC2A73AE0800A8E9BA /* UserInfoAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2AB2A73AE0800A8E9BA /* UserInfoAnalysis.swift */; };
+		7565E2AE2A73C30800A8E9BA /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2AD2A73C30700A8E9BA /* UserInfoModel.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1079,6 +1080,7 @@
 		7565E2A72A7239A700A8E9BA /* Adaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adaptation.swift; sourceTree = "<group>"; };
 		7565E2A92A7373C400A8E9BA /* ArabicToChineseNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicToChineseNumber.swift; sourceTree = "<group>"; };
 		7565E2AB2A73AE0800A8E9BA /* UserInfoAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAnalysis.swift; sourceTree = "<group>"; };
+		7565E2AD2A73C30700A8E9BA /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -3840,6 +3842,7 @@
 				752F30422A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift */,
 				752F30432A6C4FBF0056DC80 /* TestArrangementsModel.swift */,
 				7565E2AB2A73AE0800A8E9BA /* UserInfoAnalysis.swift */,
+				7565E2AD2A73C30700A8E9BA /* UserInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6059,6 +6062,7 @@
 				AA7ABA272873EA4100BA6790 /* CYRleaseSaveDraftAlertBtn.m in Sources */,
 				73AAA1CD26C918250084E44D /* DetailsMainViewController.m in Sources */,
 				187DF4BE260310DD000BCDE9 /* FTEmptyView.m in Sources */,
+				7565E2AE2A73C30800A8E9BA /* UserInfoModel.swift in Sources */,
 				14B73F81281BED7B00D08ADD /* MessagePresentController.m in Sources */,
 				AA4FA1FA25C2E2E5005139BA /* PraiseTableViewCell.m in Sources */,
 				AA4FF36525879CD500C31286 /* MineSettingViewController.m in Sources */,

@@ -56,7 +56,8 @@ class TestArrangeViewController: UIViewController,
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //        print("网页加载完成")
+        print("网页加载完成")
+        //当加载页面为考试安排页面时，分析考试安排
         if webView.url == URL(string: "http://jwzx.cqupt.edu.cn/student/ksap.php#stuKsTab-ks"){
             webView.evaluateJavaScript("document.documentElement.outerHTML.toString()", completionHandler: { [self] (html, error) in
                 if let htmlString = html as? String {
@@ -71,27 +72,54 @@ class TestArrangeViewController: UIViewController,
                     else{
                         print("成绩加载完成")
                         // 将页面源代码保存到变量或进行其他处理
-                        self.exams = analyze(html: htmlString)
-                        for exam in self.exams {
-                            print("Student ID: \(exam.studentID)")
-                            print("Name: \(exam.name)")
-                            print("Exam Type: \(exam.examType)")
-                            print("Course Code: \(exam.courseCode)")
-                            print("Course Name: \(exam.courseName)")
-                            print("Exam Week: \(exam.examWeek)")
-                            print("Weekday: \(exam.weekday)")
-                            print("Exam Time: \(exam.examTime)")
-                            print("Exam Location: \(exam.examLocation)")
-                            print("Seat Number: \(exam.seatNumber)")
-                            print("Exam Eligibility: \(exam.examEligibility)")
-                            print("------")
-                        }
-                        self.bottomView.userNameLabel.text = self.exams[0].name
-                        self.bottomView.idLabel.text = self.exams[0].studentID
-                        self.getExamArrangeDataSucceed()
-                        self.addTitleLabel()
-                        self.scoreEnterButton.removeTarget(self, action: #selector(self.popController), for: .touchUpInside)
-                        //移除登录栏按钮事件，防止二次登录
+                        self.exams = testArrangementsanalyze(html: htmlString)
+                        if exams.count > 0 {
+                            for exam in self.exams {
+                                print("Student ID: \(exam.studentID)")
+                                print("Name: \(exam.name)")
+                                print("Exam Type: \(exam.examType)")
+                                print("Course Code: \(exam.courseCode)")
+                                print("Course Name: \(exam.courseName)")
+                                print("Exam Week: \(exam.examWeek)")
+                                print("Weekday: \(exam.weekday)")
+                                print("Exam Time: \(exam.examTime)")
+                                print("Exam Location: \(exam.examLocation)")
+                                print("Seat Number: \(exam.seatNumber)")
+                                print("Exam Eligibility: \(exam.examEligibility)")
+                                print("------")
+                            }
+                            self.getUserInfos()
+                            self.getExamArrangeDataSucceed()
+                            self.addTitleLabel()
+                            self.scoreEnterButton.removeTarget(self, action: #selector(self.popController), for: .touchUpInside) //移除登录栏按钮事件，防止二次登录
+                        }else {
+                            self.getUserInfos()
+                            self.scoreEnterButton.removeTarget(self, action: #selector(self.popController), for: .touchUpInside) //移除登录栏按钮事件，防止二次登录
+                            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                            // 设置展示的文本信息
+                            hud?.labelText = "您当前没有考试哦～"
+                            // 模拟耗时操作
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                // 隐藏MBProgressHUD
+                                MBProgressHUD.hide(for: hud, animated: true)
+                            }
+                        } //当exams中含exam的数量为0，说明没有考试安排
+                    }
+                    
+                } else if let error = error {
+                    print("获取页面源代码失败：\(error.localizedDescription)")
+                }
+            })
+        }
+        //当加载页面为个人服务页面时，分析个人信息
+        if webView.url == URL(string: "http://jwzx.cqupt.edu.cn/user.php"){
+            webView.evaluateJavaScript("document.documentElement.outerHTML.toString()", completionHandler: { [self] (html, error) in
+                if let htmlString = html as? String {
+                    print("个人信息页面源代码：\(htmlString) \n")
+                    if let userInfo = UserInfoModel.parseUserInfo(from: htmlString){
+                        bottomView.userNameLabel.text = userInfo.name
+                        bottomView.idLabel.text = userInfo.studentNumber
+                        bottomView.majorLabel.text = userInfo.major
                     }
                     
                 } else if let error = error {
@@ -241,7 +269,11 @@ class TestArrangeViewController: UIViewController,
         let pointCount = self.exams.count
         let spacing: CGFloat = 166.13
         let pointAndDottedLineView = PointAndDottedLineView(pointCount: pointCount, spacing: spacing)
-        pointAndDottedLineView.frame = CGRect(x: -30, y: 78, width: 11, height: pointAndDottedLineView.bigCircle!.width + spacing * CGFloat(pointCount - 1))
+        if isIPhoneX() {
+            pointAndDottedLineView.frame = CGRect(x: -30, y: 78 + statusBarHeight, width: 11, height: pointAndDottedLineView.bigCircle!.width + spacing * CGFloat(pointCount - 1))
+        }else{
+            pointAndDottedLineView.frame = CGRect(x: -30, y: 78, width: 11, height: pointAndDottedLineView.bigCircle!.width + spacing * CGFloat(pointCount - 1))
+        }
         self.tableView?.clipsToBounds = false
         self.tableView?.addSubview(pointAndDottedLineView)
         if pointAndDottedLineView.isNoExam {
@@ -419,6 +451,10 @@ class TestArrangeViewController: UIViewController,
             return chinese
         }
         return ""
+    }
+    
+    func getUserInfos (){
+        webView.load(URLRequest(url: URL(string: "http://jwzx.cqupt.edu.cn/user.php")!))
     }
         
         

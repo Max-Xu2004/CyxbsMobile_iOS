@@ -55,7 +55,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addWeekTimeLabel() {
         let label = UILabel()
         label.text = "十一周周一"
-        label.font = UIFont(name: "PingFangSC-Bold", size: 15)
+        label.font = UIFont(name: PingFangSCBold, size: 15)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#F0F0F2")!, alpha: 1)
         } else {
@@ -68,7 +68,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addLeftDayLabel() {
         let label = UILabel()
         label.text = "还剩5天考试"
-        label.font = UIFont(name: "PingFangSC-Regular", size: 13)
+        label.font = UIFont(name: PingFangSCRegular, size: 13)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#3A39D3")!, darkColor: UIColor(hexString: "#0BCCF0")!, alpha: 1)
         }
@@ -97,7 +97,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addSubjectLabel() {
         let label = UILabel()
         label.text = "大学物理"
-        label.font = UIFont(name: "PingFangSC-Semibold", size: 18)
+        label.font = UIFont(name: PingFangSCBold, size: 18)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#F0F0F2")!, alpha: 1)
         }
@@ -111,21 +111,21 @@ class TestCardTableViewCell: UITableViewCell {
     private func addClockImage() {
         let clockImageView = UIImageView()
         clockImage = clockImageView
-        clockImageView.image = UIImage(named: "nowClassTime") // 从课表那边拿过来用的图片
+        clockImageView.image = UIImage(named: "nowClassTime")
         contentView.addSubview(clockImageView)
     }
     
     private func addLocationImage() {
         let locationImageView = UIImageView()
         locationImage = locationImageView
-        locationImageView.image = UIImage(named: "nowLocation") // 从课表那边拿过来用的图片
+        locationImageView.image = UIImage(named: "nowLocation") 
         contentView.addSubview(locationImageView)
     }
     
     private func addTestNatureLabel() {
         let label = UILabel()
         label.text = "半期"
-        label.font = UIFont(name: "PingFangSCRegular", size: 13)
+        label.font = UIFont(name: PingFangSCRegular, size: 13)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#F0F0F2")!, alpha: 1)
         }
@@ -139,7 +139,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addDayLabel() {
         let label = UILabel()
         label.text = "11月8号"
-        label.font = UIFont(name: "PingFangSC-Regular", size: 13)
+        label.font = UIFont(name: PingFangSCRegular, size: 13)
 
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#EFEFF1")!, alpha: 1)
@@ -154,7 +154,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addTimeLabel() {
         let label = UILabel()
         label.text = "14:00 - 16:00"
-        label.font = UIFont(name: "PingFangSC-Regular", size: 13)
+        label.font = UIFont(name: PingFangSCRegular, size: 13)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#EFEFF1")!, alpha: 1)
         }
@@ -168,7 +168,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addClassLabel() {
         let label = UILabel()
         label.text = "3402"
-        label.font = UIFont(name: "PingFangSC-Regular", size: 13)
+        label.font = UIFont(name: PingFangSCRegular, size: 13)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#EFEFF1")!, alpha: 1)
         } else {
@@ -181,7 +181,7 @@ class TestCardTableViewCell: UITableViewCell {
     private func addSeatNumLabel() {
         let label = UILabel()
         label.text = "58号"
-        label.font = UIFont(name: "PingFangSC-Regular", size: 13)
+        label.font = UIFont(name: PingFangSCRegular, size: 13)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#EFEFF1")!, alpha: 1)
         } else {

@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"开学日期为%@",getDateStart_NSString);
     [self addBackButton];
     [self addToolTitle];
     [self addSettingButton];

@@ -13,6 +13,12 @@ class TopView: UIView{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        if #available(iOS 11.0, *) {
+            self.backgroundColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#F8F9FC")!, darkColor: UIColor(hexString: "#000101")!, alpha: 1)
+        }
+        else {
+            self.backgroundColor = UIColor(hexString: "#F8F9FC")
+        }
         addSubview(self.titleLab)
         addSubview(self.backButton)
         setPosition()

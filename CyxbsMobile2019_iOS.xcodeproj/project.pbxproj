@@ -247,9 +247,13 @@
 		752F304A2A6C50B30056DC80 /* TestArrangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */; };
 		752F304F2A6D0DA80056DC80 /* TestArrangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */; };
 		752F30532A6D5AE20056DC80 /* TestCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */; };
-		752F30552A6D64780056DC80 /* UIColor+DM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30542A6D64780056DC80 /* UIColor+DM.swift */; };
+		752F30552A6D64780056DC80 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30542A6D64780056DC80 /* UIColorExtension.swift */; };
 		752F30572A6E00D40056DC80 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30562A6E00D40056DC80 /* TopView.swift */; };
 		752F30592A6E00EE0056DC80 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752F30582A6E00EE0056DC80 /* BottomView.swift */; };
+		7565E2A62A71382800A8E9BA /* PointAndDottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2A52A71382800A8E9BA /* PointAndDottedLineView.swift */; };
+		7565E2A82A7239A700A8E9BA /* Adaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2A72A7239A700A8E9BA /* Adaptation.swift */; };
+		7565E2AA2A7373C400A8E9BA /* ArabicToChineseNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2A92A7373C400A8E9BA /* ArabicToChineseNumber.swift */; };
+		7565E2AC2A73AE0800A8E9BA /* UserInfoAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2AB2A73AE0800A8E9BA /* UserInfoAnalysis.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1068,9 +1072,13 @@
 		752F30492A6C50B30056DC80 /* TestArrangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeViewController.swift; sourceTree = "<group>"; };
 		752F304E2A6D0DA80056DC80 /* TestArrangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArrangeView.swift; sourceTree = "<group>"; };
 		752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCardTableViewCell.swift; sourceTree = "<group>"; };
-		752F30542A6D64780056DC80 /* UIColor+DM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+DM.swift"; sourceTree = "<group>"; };
+		752F30542A6D64780056DC80 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		752F30562A6E00D40056DC80 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		752F30582A6E00EE0056DC80 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		7565E2A52A71382800A8E9BA /* PointAndDottedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAndDottedLineView.swift; sourceTree = "<group>"; };
+		7565E2A72A7239A700A8E9BA /* Adaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adaptation.swift; sourceTree = "<group>"; };
+		7565E2A92A7373C400A8E9BA /* ArabicToChineseNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArabicToChineseNumber.swift; sourceTree = "<group>"; };
+		7565E2AB2A73AE0800A8E9BA /* UserInfoAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAnalysis.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -3092,8 +3100,10 @@
 		1A799560252B43CF00603253 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				752F30542A6D64780056DC80 /* UIColor+DM.swift */,
+				752F30542A6D64780056DC80 /* UIColorExtension.swift */,
 				1A799561252B43E400603253 /* SwiftyClient.swift */,
+				7565E2A72A7239A700A8E9BA /* Adaptation.swift */,
+				7565E2A92A7373C400A8E9BA /* ArabicToChineseNumber.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -3829,6 +3839,7 @@
 			children = (
 				752F30422A6C4FBF0056DC80 /* TestArrangementsAnalysis.swift */,
 				752F30432A6C4FBF0056DC80 /* TestArrangementsModel.swift */,
+				7565E2AB2A73AE0800A8E9BA /* UserInfoAnalysis.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3840,6 +3851,7 @@
 				752F30562A6E00D40056DC80 /* TopView.swift */,
 				752F30582A6E00EE0056DC80 /* BottomView.swift */,
 				752F30522A6D5AE20056DC80 /* TestCardTableViewCell.swift */,
+				7565E2A52A71382800A8E9BA /* PointAndDottedLineView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6173,7 +6185,7 @@
 				AA7ABAF32873EA6D00BA6790 /* DynamicDetailMainVC.m in Sources */,
 				AAC7CA0B25F7725200E6B5D5 /* MainPage2RequestModel.m in Sources */,
 				DB34EB30239BD4550052B65E /* LessonMatter.m in Sources */,
-				752F30552A6D64780056DC80 /* UIColor+DM.swift in Sources */,
+				752F30552A6D64780056DC80 /* UIColorExtension.swift in Sources */,
 				18CDF67D257F91BD006E8E5C /* PeopleListCellTableViewCell.m in Sources */,
 				AA4CD60A25EF6747002D9394 /* IgnoreDataModel.m in Sources */,
 				B0F08FFD28A2509900986EB6 /* RisingRouter+Extension.m in Sources */,
@@ -6212,6 +6224,7 @@
 				73AAA1D526C918250084E44D /* PurchaseInfoOrderIDView.m in Sources */,
 				14FBBD4E2805489A00D5B05D /* SSRTextCycleCell.m in Sources */,
 				AA0DDB75286C8B1A00802324 /* JHPageController.m in Sources */,
+				7565E2A62A71382800A8E9BA /* PointAndDottedLineView.swift in Sources */,
 				AA7ABAAA2873EA5500BA6790 /* MGDClickCoreLayer.m in Sources */,
 				14CED37F288A594600BADA8B /* RisingRouterRequest.m in Sources */,
 				752F30472A6C4FBF0056DC80 /* TestArrangementsModel.swift in Sources */,
@@ -6373,6 +6386,7 @@
 				FE2C135927AEF629001CF7AF /* ToDoDetailReminderTimeView.m in Sources */,
 				D0101F63243587A1004337ED /* GKScrollView.m in Sources */,
 				18CDF4C7257F8DBD006E8E5C /* sendCodeView.m in Sources */,
+				7565E2AC2A73AE0800A8E9BA /* UserInfoAnalysis.swift in Sources */,
 				AA7ABA242873EA4100BA6790 /* SZHReleaseDynamic.m in Sources */,
 				49628E3226D52C6000805A08 /* FeedBackVC.m in Sources */,
 				AA7AB95F2873E5EA00BA6790 /* SearchTopView.m in Sources */,
@@ -6419,6 +6433,7 @@
 				1A141365235F524B0001417E /* UIFont+AdaptiveFont.m in Sources */,
 				AAE3305325E2A41900324750 /* ArticleTableViewCell.m in Sources */,
 				1A344BB723E96AD80014A3B4 /* MineAboutController.m in Sources */,
+				7565E2A82A7239A700A8E9BA /* Adaptation.swift in Sources */,
 				18CDF691257F91BD006E8E5C /* CQUPTMapStarPlaceItem.m in Sources */,
 				AA0DDB72286C8B1A00802324 /* PMPPickerView.m in Sources */,
 				1A141320235F521C0001417E /* BaseTableViewController.m in Sources */,
@@ -6510,6 +6525,7 @@
 				18CDF66A257F91BD006E8E5C /* DiscoverAD.m in Sources */,
 				AA0DDB67286C8B1A00802324 /* FollowersTableViewCell.m in Sources */,
 				FE2C134F27AEF629001CF7AF /* ToDoDetaileViewController.m in Sources */,
+				7565E2AA2A7373C400A8E9BA /* ArabicToChineseNumber.swift in Sources */,
 				646B1990283001A60015DF28 /* StationMAPointAnnotation.m in Sources */,
 				187DF4C5260310FA000BCDE9 /* UITextView+WZB.m in Sources */,
 				4931631E26CD7B7900140412 /* StampCenterVC.m in Sources */,

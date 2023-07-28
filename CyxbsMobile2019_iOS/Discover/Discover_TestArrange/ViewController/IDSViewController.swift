@@ -17,7 +17,6 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-        print("载入登陆页面中")
         
         self.view.addSubview(topBar)
         self.topBar.addSubview(self.titleLab)
@@ -67,6 +66,10 @@ class IDSViewController: UIViewController,WKNavigationDelegate {
         if let cookies = HTTPCookieStorage.shared.cookies(for: webView.url!) {
             self.loginCompletion?(cookies)
         }
+    }
+    
+    func getUserInfos (){
+        
     }
     
     lazy var topBar:UIView = {

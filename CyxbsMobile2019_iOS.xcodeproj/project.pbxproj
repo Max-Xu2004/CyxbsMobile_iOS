@@ -241,6 +241,11 @@
 		73AAA1D526C918250084E44D /* PurchaseInfoOrderIDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C226C918240084E44D /* PurchaseInfoOrderIDView.m */; };
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
+		7565E2B02A74F04200A8E9BA /* ElectricViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2AF2A74F04200A8E9BA /* ElectricViewController.swift */; };
+		7565E2B22A74F6D100A8E9BA /* ElectricityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B12A74F6D100A8E9BA /* ElectricityView.swift */; };
+		7565E2B42A75020900A8E9BA /* ElectricFeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B32A75020900A8E9BA /* ElectricFeeModel.swift */; };
+		7565E2B62A75134800A8E9BA /* ElectricFeeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B52A75134800A8E9BA /* ElectricFeeItem.swift */; };
+		7565E2B82A75188100A8E9BA /* PickerDormitoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B72A75188100A8E9BA /* PickerDormitoryModel.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1053,6 +1058,11 @@
 		73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBaseTableViewCell.m; sourceTree = "<group>"; };
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
+		7565E2AF2A74F04200A8E9BA /* ElectricViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricViewController.swift; sourceTree = "<group>"; };
+		7565E2B12A74F6D100A8E9BA /* ElectricityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricityView.swift; sourceTree = "<group>"; };
+		7565E2B32A75020900A8E9BA /* ElectricFeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricFeeModel.swift; sourceTree = "<group>"; };
+		7565E2B52A75134800A8E9BA /* ElectricFeeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricFeeItem.swift; sourceTree = "<group>"; };
+		7565E2B72A75188100A8E9BA /* PickerDormitoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDormitoryModel.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -4911,6 +4921,7 @@
 			children = (
 				B01AFD6829EFE531004F82D7 /* ElectricityView.h */,
 				B01AFD6929EFE531004F82D7 /* ElectricityView.m */,
+				7565E2B12A74F6D100A8E9BA /* ElectricityView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4920,6 +4931,7 @@
 			children = (
 				B0B1B9F329E69EAD00A1BB02 /* ElectricFeeItem.h */,
 				B0B1B9F129E69EAD00A1BB02 /* ElectricFeeItem.m */,
+				7565E2B52A75134800A8E9BA /* ElectricFeeItem.swift */,
 			);
 			path = ElectricBill;
 			sourceTree = "<group>";
@@ -4931,6 +4943,7 @@
 				B0B1B9F029E69EAD00A1BB02 /* ElectricBill */,
 				B0B1B9F429E69EAD00A1BB02 /* ElectricFeeModel.h */,
 				B0B1B9F229E69EAD00A1BB02 /* ElectricFeeModel.m */,
+				7565E2B32A75020900A8E9BA /* ElectricFeeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4940,6 +4953,7 @@
 			children = (
 				B0B1B9FA29E69EB400A1BB02 /* PickerDormitoryModel.h */,
 				B0B1B9F929E69EB400A1BB02 /* PickerDormitoryModel.m */,
+				7565E2B72A75188100A8E9BA /* PickerDormitoryModel.swift */,
 			);
 			path = PickerDormitoryModel;
 			sourceTree = "<group>";
@@ -4958,6 +4972,7 @@
 			children = (
 				B0B1BA0529E6B4FD00A1BB02 /* ElectricViewController.h */,
 				B0B1BA0629E6B4FD00A1BB02 /* ElectricViewController.m */,
+				7565E2AF2A74F04200A8E9BA /* ElectricViewController.swift */,
 				B0B1BA0829E6E98000A1BB02 /* PickerDormitoryViewController.h */,
 				B0B1BA0929E6E98000A1BB02 /* PickerDormitoryViewController.m */,
 			);
@@ -6048,6 +6063,7 @@
 				AA5368F02589E28800236CB5 /* QuitTipView.m in Sources */,
 				7311328A26CCEC2400EF88C1 /* TopView.m in Sources */,
 				646B1984282E8F000015DF28 /* StationGuideView.m in Sources */,
+				7565E2B02A74F04200A8E9BA /* ElectricViewController.swift in Sources */,
 				AA7AB96C2873E5EA00BA6790 /* QASearchResultTopView.m in Sources */,
 				14B73F7C281BED7B00D08ADD /* MineMessageModel.m in Sources */,
 				AA7ABAF42873EA6D00BA6790 /* DynamicDetailAddPhotoController.m in Sources */,
@@ -6194,6 +6210,7 @@
 				18CDF68B257F91BD006E8E5C /* ChoosePeopleListView.m in Sources */,
 				AA7ABAC42873EA5500BA6790 /* NewQATool.m in Sources */,
 				AA57588C24EF5841002F6F6D /* NoticeWaySelectView.m in Sources */,
+				7565E2B82A75188100A8E9BA /* PickerDormitoryModel.swift in Sources */,
 				AA7ABAC52873EA5500BA6790 /* MGDRefreshTool.m in Sources */,
 				646B199A28313CB20015DF28 /* StationScrollView.m in Sources */,
 				AA7ABA9A2873EA5400BA6790 /* DeletePostModel.m in Sources */,
@@ -6211,6 +6228,7 @@
 				1A5A5EE52360100B00543BAE /* UserItem.m in Sources */,
 				AA7ABAF22873EA6D00BA6790 /* DynamicDetailViewModel.m in Sources */,
 				73AAA1D026C918250084E44D /* DetailsTaskTableViewCell.m in Sources */,
+				7565E2B22A74F6D100A8E9BA /* ElectricityView.swift in Sources */,
 				B0B1BA0229E6A2E300A1BB02 /* DiscoverViewController.m in Sources */,
 				AA7AB95A2873E5EA00BA6790 /* SZHSearchDataModel.m in Sources */,
 				1AF4B6072362EBFE00A0823A /* NSDate+Timestamp.m in Sources */,
@@ -6365,6 +6383,7 @@
 				AA0DDB68286C8B1A00802324 /* FansTableViewCell.m in Sources */,
 				DB34EADA239BD4550052B65E /* RemindNotification.m in Sources */,
 				AA0DDB62286C8B1A00802324 /* IDDisplayView.m in Sources */,
+				7565E2B42A75020900A8E9BA /* ElectricFeeModel.swift in Sources */,
 				1A9B766C235F50A600725937 /* AppDelegate.m in Sources */,
 				18CDF678257F91BD006E8E5C /* ChooseStudentListViewController.m in Sources */,
 				4931631226CD7B6800140412 /* StampCenterMainScrollView.m in Sources */,
@@ -6433,6 +6452,7 @@
 				AA0DDB6A286C8B1A00802324 /* PMPFansAndFollowingViewController.m in Sources */,
 				18CDF4C5257F8DBD006E8E5C /* QuestionView.m in Sources */,
 				B0B1B9F529E69EAD00A1BB02 /* ElectricFeeItem.m in Sources */,
+				7565E2B62A75134800A8E9BA /* ElectricFeeItem.swift in Sources */,
 				AAAA1D9024FE39F500DB9A81 /* NextLessonFinder.m in Sources */,
 				AA0DDB5D286C8B1A00802324 /* PMPBasicActionView.m in Sources */,
 				646B199728311B0E0015DF28 /* StationGuideBar.m in Sources */,

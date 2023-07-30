@@ -13,7 +13,7 @@ class ElectricFeeModel {
     var electricFeeItem: ElectricFeeItem?
 
     /// 网络请求
-    func requestSuccess(success: (() -> Void)?, failure: ((Error) -> Void)?) {
+    func request(success: (() -> Void)?, failure: ((Error) -> Void)?) {
         // 缓存中有寝室号和寝室楼号就直接查询，否则传空试图从后端获取
         let parameters: [String: Any] = (UserItemTool.defaultItem().building != nil && UserItemTool.defaultItem().room != nil) ?
         ["building": UserItemTool.defaultItem().building ?? "", "room": UserItemTool.defaultItem().room ?? ""] :

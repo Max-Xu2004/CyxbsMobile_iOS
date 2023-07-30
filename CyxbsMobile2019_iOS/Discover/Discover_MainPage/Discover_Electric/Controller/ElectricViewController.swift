@@ -49,9 +49,9 @@ class ElectricViewController: UIViewController {
         elecModel = ElectricFeeModel()
         elecModel.request(success: {
             if let buildAndRoom = self.elecModel.electricFeeItem?.buildAndRoom {
-                UserItemTool.defaultItem.building = String(buildAndRoom.prefix(2))
-                UserItemTool.defaultItem.room = String(buildAndRoom.suffix(from: buildAndRoom.index(buildAndRoom.startIndex, offsetBy: 3)))
-                print("\(UserItemTool.defaultItem.building), \(UserItemTool.defaultItem.room)")
+                UserItemTool.defaultItem().building = String(buildAndRoom.prefix(2))
+                UserItemTool.defaultItem().room = String(buildAndRoom.suffix(from: buildAndRoom.index(buildAndRoom.startIndex, offsetBy: 3)))
+                print("\(UserItemTool.defaultItem().building), \(UserItemTool.defaultItem().room)")
                 self.updateElectricFeeUI()
             } else {
                 print("可能是房间号输入错误")
@@ -65,11 +65,11 @@ class ElectricViewController: UIViewController {
 
     private func bindingRoomFailed() {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
-        hud.mode = .text
-        hud.labelText = "绑定的宿舍号可能有问题哦，请重新绑定"
-        UserItemTool.defaultItem.building = nil
-        UserItemTool.defaultItem.room = nil
-        hud.hide(true, afterDelay: 1.2)
+        hud?.mode = .text
+        hud?.labelText = "绑定的宿舍号可能有问题哦，请重新绑定"
+        UserItemTool.defaultItem().building = nil
+        UserItemTool.defaultItem().room = nil
+        hud?.hide(true, afterDelay: 1.2)
     }
 
     private func requestElectricFeeFailed() {

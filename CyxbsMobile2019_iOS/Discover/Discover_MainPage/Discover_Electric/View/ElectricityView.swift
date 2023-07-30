@@ -67,10 +67,16 @@ class ElectricityView: UIView {
     private func addElectricFeeTime() {
         // 右上角抄表时间
         if let timeStr = UserDefaults.standard.string(forKey: "ElectricFee_time") {
-            let elecTime = NSDate.dateString(timeStr, fromFormatter: .defaultFormatter, withDateFormat: "M.dd").stringFromFormatter(.defaultFormatter, withDateFormat: "M月dd日抄表")
-            electricFeeTime.text = elecTime
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "M.dd"
+            if let date = dateFormatter.date(from: timeStr) {
+                dateFormatter.dateFormat = "M月dd日抄表"
+                let elecTime = dateFormatter.string(from: date)
+                electricFeeTime.text = elecTime
+                electricFeeTime.text = elecTime
+                }
         }
-
+        
         addSubview(electricFeeTime)
     }
 

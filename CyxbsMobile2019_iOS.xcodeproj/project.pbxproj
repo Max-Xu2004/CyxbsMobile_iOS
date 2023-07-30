@@ -246,6 +246,8 @@
 		7565E2B42A75020900A8E9BA /* ElectricFeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B32A75020900A8E9BA /* ElectricFeeModel.swift */; };
 		7565E2B62A75134800A8E9BA /* ElectricFeeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B52A75134800A8E9BA /* ElectricFeeItem.swift */; };
 		7565E2B82A75188100A8E9BA /* PickerDormitoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565E2B72A75188100A8E9BA /* PickerDormitoryModel.swift */; };
+		75C296CA2A7575A1009D7354 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C296C92A7575A1009D7354 /* UIColorExtension.swift */; };
+		75C296CC2A757934009D7354 /* PickerDormitoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C296CB2A757934009D7354 /* PickerDormitoryViewController.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1063,6 +1065,8 @@
 		7565E2B32A75020900A8E9BA /* ElectricFeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricFeeModel.swift; sourceTree = "<group>"; };
 		7565E2B52A75134800A8E9BA /* ElectricFeeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricFeeItem.swift; sourceTree = "<group>"; };
 		7565E2B72A75188100A8E9BA /* PickerDormitoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDormitoryModel.swift; sourceTree = "<group>"; };
+		75C296C92A7575A1009D7354 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		75C296CB2A757934009D7354 /* PickerDormitoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDormitoryViewController.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -3083,6 +3087,7 @@
 		1A799560252B43CF00603253 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				75C296C92A7575A1009D7354 /* UIColorExtension.swift */,
 				1A799561252B43E400603253 /* SwiftyClient.swift */,
 			);
 			path = Tools;
@@ -4975,6 +4980,7 @@
 				7565E2AF2A74F04200A8E9BA /* ElectricViewController.swift */,
 				B0B1BA0829E6E98000A1BB02 /* PickerDormitoryViewController.h */,
 				B0B1BA0929E6E98000A1BB02 /* PickerDormitoryViewController.m */,
+				75C296CB2A757934009D7354 /* PickerDormitoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -6016,6 +6022,7 @@
 				14B73F7F281BED7B00D08ADD /* DiscoverMineMessageVC.m in Sources */,
 				AA49098924F3BF5A007CB3BC /* TransitionManager.m in Sources */,
 				DB34EB28239BD4550052B65E /* DetailLessonController.m in Sources */,
+				75C296CA2A7575A1009D7354 /* UIColorExtension.swift in Sources */,
 				AA7ABAAD2873EA5500BA6790 /* FunctionBtn.m in Sources */,
 				AA57588924EE739F002F6F6D /* TimeBtnSelectedBackView.m in Sources */,
 				4931630D26CD7B6800140412 /* StampCenterCollectionHeaderView.m in Sources */,
@@ -6027,6 +6034,7 @@
 				14B73F8B2823577600D08ADD /* SSRButton.m in Sources */,
 				DB34EACF239BD4550052B65E /* WYCClassAndRemindDataModel.m in Sources */,
 				FE2C136027AEF629001CF7AF /* DiscoverTodoSelectTimeView.m in Sources */,
+				75C296CC2A757934009D7354 /* PickerDormitoryViewController.swift in Sources */,
 				14B73F73281BED7B00D08ADD /* ActiveMessageVC.m in Sources */,
 				AA7ABAA12873EA5400BA6790 /* PostH5Item.m in Sources */,
 				1404747D27F46F0D00307209 /* DiscoverADController.m in Sources */,

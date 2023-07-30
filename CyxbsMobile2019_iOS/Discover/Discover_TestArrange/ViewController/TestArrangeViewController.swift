@@ -95,13 +95,10 @@ class TestArrangeViewController: UIViewController,
                         }else {
                             self.getUserInfos()
                             self.scoreEnterButton.removeTarget(self, action: #selector(self.popController), for: .touchUpInside) //移除登录栏按钮事件，防止二次登录
-                            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                            // 设置展示的文本信息
+                            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+                            hud?.mode = .text
                             hud?.labelText = "您当前没有考试哦～"
-                            // 模拟耗时操作
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                                // 隐藏MBProgressHUD
-                                MBProgressHUD.hide(for: hud, animated: true)
+                            hud?.hide(true, afterDelay: 3)
                             }
                         } //当exams中含exam的数量为0，说明没有考试安排
                     }
@@ -277,14 +274,10 @@ class TestArrangeViewController: UIViewController,
         self.tableView?.clipsToBounds = false
         self.tableView?.addSubview(pointAndDottedLineView)
         if pointAndDottedLineView.isNoExam {
-            // 创建MBProgressHUD对象并添加到当前视图中
-            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            // 设置展示的文本信息
+            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+            hud?.mode = .text
             hud?.labelText = "您当前没有考试哦～"
-            // 模拟耗时操作
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                // 隐藏MBProgressHUD
-                MBProgressHUD.hide(for: hud, animated: true)
+            hud?.hide(true, afterDelay: 3)
                 
             }
         }

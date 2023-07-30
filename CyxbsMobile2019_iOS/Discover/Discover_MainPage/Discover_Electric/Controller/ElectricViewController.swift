@@ -62,6 +62,17 @@ class ElectricViewController: UIViewController {
             self.requestElectricFeeFailed()
         })
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let vc = PickerDormitoryViewController()
+        vc.block = { [weak self] in
+            self?.requestData()
+        }
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overFullScreen
+        self.navigationController?.present(vc, animated: true, completion: nil)
+    }
+
 
     private func bindingRoomFailed() {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
@@ -73,7 +84,12 @@ class ElectricViewController: UIViewController {
     }
 
     private func requestElectricFeeFailed() {
-        // MBProgressHUD 版本被注释掉，因为在 Swift 代码中未提供，您可以根据需要实现显示错误消息的其他方法
+//        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+//        hud?.mode = .text
+//        hud?.labelText = "电费查询服务器开小差了哦，请稍后重试"
+//        UserItemTool.defaultItem().building = nil
+//        UserItemTool.defaultItem().room = nil
+//        hud?.hide(true, afterDelay: 1.2)
     }
 
     private func updateElectricFeeUI() {
@@ -91,9 +107,5 @@ class ElectricViewController: UIViewController {
         }
     }
 }
-
-// 在这里实现 ElectricFeeModel 类
-
-// 在这里实现 ElectricityView 类
 
 

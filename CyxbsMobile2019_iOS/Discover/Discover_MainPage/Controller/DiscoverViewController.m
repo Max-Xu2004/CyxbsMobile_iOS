@@ -19,7 +19,7 @@
 #import "CalendarViewController.h"         // 校历
 #import "DiscoverADModel.h"                // banner
 #import "SchoolBusVC.h"                    // 校车
-#import "ElectricViewController.h"         // 电费
+//#import "ElectricViewController.h"         // 电费
 
 // View
 #import "FinderView.h"

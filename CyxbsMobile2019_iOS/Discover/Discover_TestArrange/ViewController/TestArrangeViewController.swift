@@ -99,7 +99,6 @@ class TestArrangeViewController: UIViewController,
                             hud?.mode = .text
                             hud?.labelText = "您当前没有考试哦～"
                             hud?.hide(true, afterDelay: 3)
-                            }
                         } //当exams中含exam的数量为0，说明没有考试安排
                     }
                     
@@ -278,8 +277,6 @@ class TestArrangeViewController: UIViewController,
             hud?.mode = .text
             hud?.labelText = "您当前没有考试哦～"
             hud?.hide(true, afterDelay: 3)
-                
-            }
         }
     }
     // MARK: - tableView代理

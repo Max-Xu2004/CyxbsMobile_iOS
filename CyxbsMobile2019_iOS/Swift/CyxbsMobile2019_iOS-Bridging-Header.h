@@ -118,6 +118,9 @@ for(NSString *fontFamilyName in [UIFont familyNames]){
 
 // Bahnschrift字体
 #define BahnschriftBold @"Bahnschrift_Bold"
+//Bahnschrift字体部分
+#define ImpactMedium @"Impact"
+#define ImpactRegular @"Impact"
 
 
 

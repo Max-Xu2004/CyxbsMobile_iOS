@@ -25,7 +25,7 @@ class ElectricityView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUIDefaults()
-        addHintLabel()
+        refreshViewIfNeeded()
     }
 
     required init?(coder: NSCoder) {
@@ -69,10 +69,12 @@ class ElectricityView: UIView {
         if let timeStr = UserDefaults.standard.string(forKey: "ElectricFee_time") {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "M.dd"
+            electricFeeTime.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#F0F0F2", alpha: 1))
+            electricFeeTime.font = UIFont(name: PingFangSCLight, size: 10)
+            electricFeeTime.alpha = 0.54
             if let date = dateFormatter.date(from: timeStr) {
                 dateFormatter.dateFormat = "M月dd日抄表"
                 let elecTime = dateFormatter.string(from: date)
-                electricFeeTime.text = elecTime
                 electricFeeTime.text = elecTime
                 }
         }
@@ -86,6 +88,8 @@ class ElectricityView: UIView {
         } else {
             electricFeeMoney.text = "0"
         }
+        electricFeeMoney.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#2A4E84", alpha: 1), darkColor: UIColor(hexString: "#DFDFE3", alpha: 1))
+        electricFeeMoney.font = UIFont(name: ImpactMedium, size: 36)
         addSubview(electricFeeMoney)
     }
 
@@ -95,30 +99,40 @@ class ElectricityView: UIView {
         } else {
             electricConsumption.text = "0"
         }
+        electricConsumption.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#2A4E84", alpha: 1), darkColor: UIColor(hexString: "#DFDFE3", alpha: 1))
+        electricConsumption.font = UIFont(name: ImpactMedium, size: 36)
         addSubview(electricConsumption)
     }
 
     private func addElectricFeeYuan() {
         // 汉字“元”
         electricFeeYuan.text = "元"
+        electricFeeYuan.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#F0F0F2", alpha: 1))
+        electricFeeYuan.font = UIFont(name: PingFangSCMedium, size: 13)
         addSubview(electricFeeYuan)
     }
 
     private func addElectricFeeDu() {
         // 汉字“度”
         electricFeeDu.text = "度"
+        electricFeeDu.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#F0F0F2", alpha: 1))
+        electricFeeDu.font = UIFont(name: PingFangSCMedium, size: 13)
         addSubview(electricFeeDu)
     }
 
     private func addElectricFeeHintLeft() {
         // 汉字“费用、本月”
         electricFeeHintLeft.text = "费用/本月"
+        electricFeeHintLeft.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 0.6), darkColor: UIColor(hexString: "#F0F0F2", alpha: 0.6))
+        electricFeeHintLeft.font = UIFont(name: PingFangSCMedium, size: 13)
         addSubview(electricFeeHintLeft)
     }
 
     private func addElectricFeeHintRight() {
         // 汉字“使用度数，本月”
         electricFeeHintRight.text = "使用度数/本月"
+        electricFeeHintRight.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 0.6), darkColor: UIColor(hexString: "#F0F0F2", alpha: 0.6))
+        electricFeeHintRight.font = UIFont(name: PingFangSCMedium, size: 13)
         addSubview(electricFeeHintRight)
     }
 
@@ -169,6 +183,9 @@ class ElectricityView: UIView {
     }
 
     private func addHintLabel() {
+        hintLabel.text = "还未绑定账号哦～"
+        hintLabel.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B", alpha: 1), darkColor: UIColor(hexString: "#F0F0F2", alpha: 1))
+        hintLabel.font = UIFont(name: PingFangSCLight, size: 15)
         addSubview(hintLabel)
         hintLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

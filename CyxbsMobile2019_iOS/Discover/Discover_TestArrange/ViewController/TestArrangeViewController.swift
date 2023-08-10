@@ -7,6 +7,7 @@
 
 import UIKit
 import WebKit
+import MJRefresh
 
 class TestArrangeViewController: UIViewController,
                                  WKNavigationDelegate,
@@ -24,6 +25,7 @@ class TestArrangeViewController: UIViewController,
     var titleLabel: UILabel!
     var dateFormatter1: DateFormatter!
     var startDate: Date!
+    var userInfo: TestUserInfoModel?
     
     
     override func viewDidLoad() {
@@ -43,7 +45,6 @@ class TestArrangeViewController: UIViewController,
         dateFormatter1 = DateFormatter()
         dateFormatter1.locale = Locale(identifier: "zh_CN")
         dateFormatter1.dateFormat = "M月d号"
-        
         webView = WKWebView(frame: view.bounds)
         webView.accessibilityLanguage = "zh-CN"
         webView.navigationDelegate = self
@@ -53,6 +54,7 @@ class TestArrangeViewController: UIViewController,
         self.addBottomView()
         self.addTableView()
         self.addSeperateLine()
+        self.loadStoredData()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -73,6 +75,11 @@ class TestArrangeViewController: UIViewController,
                         print("成绩加载完成")
                         // 将页面源代码保存到变量或进行其他处理
                         self.exams = testArrangementsanalyze(html: htmlString)
+                        do{
+                            UserDefaults.standard.set(try JSONEncoder().encode(self.exams), forKey: "testArrangements")
+                        }catch{
+                            print("考试安排持久化错误")
+                        }
                         if exams.count > 0 {
                             for exam in self.exams {
                                 print("Student ID: \(exam.studentID)")
@@ -88,6 +95,7 @@ class TestArrangeViewController: UIViewController,
                                 print("Exam Eligibility: \(exam.examEligibility)")
                                 print("------")
                             }
+                            
                             self.getUserInfos()
                             self.getExamArrangeDataSucceed()
                             self.addTitleLabel()
@@ -112,10 +120,14 @@ class TestArrangeViewController: UIViewController,
             webView.evaluateJavaScript("document.documentElement.outerHTML.toString()", completionHandler: { [self] (html, error) in
                 if let htmlString = html as? String {
                     print("个人信息页面源代码：\(htmlString) \n")
-                    if let userInfo = UserInfoModel.parseUserInfo(from: htmlString){
-                        bottomView.userNameLabel.text = userInfo.name
-                        bottomView.idLabel.text = userInfo.studentNumber
-                        bottomView.majorLabel.text = userInfo.major
+                    if let userInfoData = TestUserInfoModel.parseUserInfo(from: htmlString){
+                        self.userInfo = userInfoData
+                        self.showUserInfos()
+                        do{
+                            UserDefaults.standard.set(try JSONEncoder().encode(userInfo), forKey: "testUserInfo")
+                        }catch{
+                            print("考试安排个人信息持久化错误")
+                        }//考试安排相关信息持久化
                     }
                     
                 } else if let error = error {
@@ -134,33 +146,46 @@ class TestArrangeViewController: UIViewController,
         }
     }
     
+    // MARK: - 跳转IDS登陆页面
     func jumpToIDSLoginPage()  {
         webView.load(URLRequest(url: URL(string: "http://jwzx.cqupt.edu.cn/tysfrz/index.php")!))
-    } //跳转IDS登陆页面
+    } //
     
+    // MARK: - 跳转考试安排页
     func jumpToExamArrangements()  {
         webView.load(URLRequest(url: URL(string: "http://jwzx.cqupt.edu.cn/student/ksap.php#stuKsTab-ks")!))
-        
-    } //跳转考试安排页
+    }
     
     @objc func presentLoginScreen() {
         let loginVC = IDSViewController()
         loginVC.loginCompletion = { [weak self] cookies in
             // 在闭包中处理接收到的 Cookies 数组
-            //               self?.navigationController?.popViewController(animated: true)
             self?.dismiss(animated: true, completion: nil)
             self?.showGrade(cookies: cookies)
         }
         present(loginVC, animated: true)
-        //        self.navigationController?.pushViewController(loginVC, animated: true)
     }
     
+    @objc func refreshPresentLoginScreen() {
+        let loginVC = IDSViewController()
+        loginVC.loginCompletion = { [weak self] cookies in
+            // 在闭包中处理接收到的 Cookies 数组
+            self?.dismiss(animated: true, completion: nil)
+            self?.showGrade(cookies: cookies)
+        }
+        present(loginVC, animated: true)
+        self.tableView!.mj_header?.endRefreshing()
+        self.tableView!.mj_footer?.endRefreshing()
+    }
+    
+    // MARK: - 展示成绩
     func showGrade(cookies:[HTTPCookie]) {
         for cookie in cookies {
             self.webView.configuration.websiteDataStore.httpCookieStore.setCookie(cookie)
         }
         self.jumpToExamArrangements()
     }
+    
     
     @objc func popController(){
         self.navigationController?.popViewController(animated: true)
@@ -218,7 +243,8 @@ class TestArrangeViewController: UIViewController,
         
         //避免tableView上面的tittleLabel和topbar的label文字重叠
         self.mainView.sendSubviewToBack(tableView)
-        
+        //添加mj_header实现上拉刷新
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refreshPresentLoginScreen))
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = self.view.backgroundColor
         tableView.delegate = self
@@ -298,10 +324,6 @@ class TestArrangeViewController: UIViewController,
         if cell == nil {
                 cell = TestCardTableViewCell(style: .default, reuseIdentifier: cellIdentifier)
         }
-            
-//            if let exam = examArrangeModel?.examArrangeData.data[indexPath.section].exams[indexPath.row] {
-//                cell?.configure(with: exam)
-//            }
         cell?.subjectLabel?.text = exams[indexPath.row].courseName
         cell?.classLabel?.text = exams[indexPath.row].examLocation
         cell?.timeLabel?.text = exams[indexPath.row].examTime
@@ -335,23 +357,18 @@ class TestArrangeViewController: UIViewController,
             
         let titleLabel = UILabel(frame: CGRect(x: 20, y: 10, width: tableView.frame.width - 40, height: 30))
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-//            if let examDate = examArrangeModel?.examArrangeData.data[section].date {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "yyyy-MM-dd"
-//                if let date = dateFormatter.date(from: examDate) {
-//                    dateFormatter.dateFormat = "yyyy年MM月dd日"
-//                    let formattedDate = dateFormatter.string(from: date)
-//                    titleLabel.text = formattedDate
-//                }
-//            }
         titleLabel.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#F0F0F2")!, alpha: 1)
         headerView.addSubview(titleLabel)
             
         return headerView
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
+    
     // MARK: - 根据开学日期、weeks和weekady计算出考试日期
-    func calculateDate(from startDate: Date, weeks: String, weekday: String) -> Date? {
+    private func calculateDate(from startDate: Date, weeks: String, weekday: String) -> Date? {
         guard let weeksInt = Int(weeks), let weekdayInt = Int(weekday) else {
             return nil
         }
@@ -374,7 +391,7 @@ class TestArrangeViewController: UIViewController,
     }
     
     // MARK: - 正则表达式从“**周”string中提取出周数
-    func extractNumberFromString(_ inputString: String) -> String? {
+    private func extractNumberFromString(_ inputString: String) -> String? {
         let regexPattern = "(\\d+)周" // 正则表达式匹配一个或多个数字后跟"周"
         let regex = try! NSRegularExpression(pattern: regexPattern, options: [])
         let matches = regex.matches(in: inputString, options: [], range: NSRange(location: 0, length: inputString.count))
@@ -387,7 +404,7 @@ class TestArrangeViewController: UIViewController,
     }
     
     // MARK: - 计算考试日期离现在还有多少天
-    func daysUntilDate(_ targetDate: Date) -> Int? {
+    private func daysUntilDate(_ targetDate: Date) -> Int? {
         let calendar = Calendar.current
         let currentDate = Date()
         
@@ -443,10 +460,36 @@ class TestArrangeViewController: UIViewController,
         return ""
     }
     
-    func getUserInfos (){
+    private func getUserInfos (){
         webView.load(URLRequest(url: URL(string: "http://jwzx.cqupt.edu.cn/user.php")!))
     }
-        
-        
+    
+    private func showUserInfos (){
+        bottomView.userNameLabel.text = self.userInfo?.name
+        bottomView.idLabel.text = self.userInfo?.studentNumber
+        bottomView.majorLabel.text = self.userInfo?.major
+    }
+    
+    // MARK: - 读取持久化的个人信息及考试安排
+    private func loadStoredData (){
+        if let storedUserInfo = UserDefaults.standard.data(forKey: "testUserInfo") {
+            do {
+                self.userInfo = try JSONDecoder().decode(TestUserInfoModel.self, from: storedUserInfo)
+                self.showUserInfos()
+            } catch {
+                print("本地没有储存考试用户信息")
+            }
+        }
+        if let storedTestArrangements = UserDefaults.standard.data(forKey: "testArrangements") {
+            do {
+                self.exams = try JSONDecoder().decode([ExamAM].self, from: storedTestArrangements)
+                self.getExamArrangeDataSucceed()
+                self.addTitleLabel()
+                self.scoreEnterButton.removeTarget(self, action: #selector(self.popController), for: .touchUpInside) //移除登录栏按钮事件，防止二次登录
+            } catch {
+                print("本地没有储存考试安排信息")
+            }
+        }
+    }
 }
 

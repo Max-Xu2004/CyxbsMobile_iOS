@@ -9,7 +9,7 @@
 import Foundation
 import SwiftSoup
 
-struct UserInfoModel {
+struct TestUserInfoModel: Codable {
     let studentNumber: String // 学号
     let name: String // 名字
     let classNum: String // 班级
@@ -20,7 +20,7 @@ struct UserInfoModel {
     let email: String // 电子邮件
     let phoneNumber: String // 电话号码
 
-    static func parseUserInfo(from htmlString: String) -> UserInfoModel? {
+    static func parseUserInfo(from htmlString: String) -> TestUserInfoModel? {
         guard let doc = try? SwiftSoup.parse(htmlString) else {
             return nil
         }
@@ -29,7 +29,7 @@ struct UserInfoModel {
             return try? doc.select("tr:contains(\(field)) td:eq(1)").first()?.text()
         }
 
-        return UserInfoModel(
+        return TestUserInfoModel(
             studentNumber: extractValue(for: "学号") ?? "",
             name: extractValue(for: "姓名") ?? "",
             classNum: extractValue(for: "班级") ?? "",

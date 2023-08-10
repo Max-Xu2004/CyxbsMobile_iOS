@@ -8,7 +8,7 @@
 import Foundation
 
 ///AM为Arrangements Model的缩写
-struct ExamAM{
+struct ExamAM: Codable {
     let studentID: String
     let name: String
     let examType: String

@@ -242,6 +242,13 @@
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
 		75534CCE2A88B44A00F3F5A3 /* UFieldActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */; };
+		75534CD82A89DDFE00F3F5A3 /* UFieldActivityTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */; };
+		75534CDA2A89DEB800F3F5A3 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */; };
+		75534CDC2A8A562F00F3F5A3 /* UFieldActivityMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */; };
+		75534CDE2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CDD2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift */; };
+		75534CE02A8C99FA00F3F5A3 /* UFieldActivityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CDF2A8C99F900F3F5A3 /* UFieldActivityCollectionViewController.swift */; };
+		75534CE22A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CE12A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift */; };
+		75534CE42A8CDA0600F3F5A3 /* UFieldActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CE32A8CDA0600F3F5A3 /* UFieldActivityModel.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
 		7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101ABF260613E800F2034C /* YYZTopicCell.m */; };
@@ -1055,6 +1062,13 @@
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
 		75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityViewController.swift; sourceTree = "<group>"; };
+		75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UFieldActivityTopView.swift; sourceTree = "<group>"; };
+		75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityMainView.swift; sourceTree = "<group>"; };
+		75534CDD2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivitySelectBar.swift; sourceTree = "<group>"; };
+		75534CDF2A8C99F900F3F5A3 /* UFieldActivityCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityCollectionViewController.swift; sourceTree = "<group>"; };
+		75534CE12A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityCollectionViewCell.swift; sourceTree = "<group>"; };
+		75534CE32A8CDA0600F3F5A3 /* UFieldActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityModel.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -3076,6 +3090,7 @@
 			isa = PBXGroup;
 			children = (
 				1A799561252B43E400603253 /* SwiftyClient.swift */,
+				75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -3819,6 +3834,7 @@
 			isa = PBXGroup;
 			children = (
 				75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */,
+				75534CDF2A8C99F900F3F5A3 /* UFieldActivityCollectionViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3826,6 +3842,10 @@
 		75534CD12A88B4C900F3F5A3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */,
+				75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */,
+				75534CDD2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift */,
+				75534CE12A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3833,6 +3853,7 @@
 		75534CD22A88B4D600F3F5A3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				75534CE32A8CDA0600F3F5A3 /* UFieldActivityModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5990,6 +6011,7 @@
 				AA7AB96B2873E5EA00BA6790 /* SegmentBarView.m in Sources */,
 				DB4064FB2466D889006CE5BC /* DLWeeklSelectView.m in Sources */,
 				646B1967282AA9420015DF28 /* BusGuideViewController.m in Sources */,
+				75534CDA2A89DEB800F3F5A3 /* UIColorExtension.swift in Sources */,
 				14B73F72281BED7B00D08ADD /* ActiveMessageCell.m in Sources */,
 				FE2C135027AEF629001CF7AF /* TodoTableViewCell.m in Sources */,
 				14D03A0B27FE69A800D6AE93 /* SSRTopBarBaseView.m in Sources */,
@@ -6033,6 +6055,7 @@
 				187DF4BE260310DD000BCDE9 /* FTEmptyView.m in Sources */,
 				14B73F81281BED7B00D08ADD /* MessagePresentController.m in Sources */,
 				AA4FA1FA25C2E2E5005139BA /* PraiseTableViewCell.m in Sources */,
+				75534CDC2A8A562F00F3F5A3 /* UFieldActivityMainView.swift in Sources */,
 				AA4FF36525879CD500C31286 /* MineSettingViewController.m in Sources */,
 				14B73F76281BED7B00D08ADD /* SystemMessageCell.m in Sources */,
 				AA0DDB53286C8B1900802324 /* MineMSSEnterBtn.m in Sources */,
@@ -6051,6 +6074,7 @@
 				AA0DDB69286C8B1A00802324 /* FansAndFollowingSegmentView.m in Sources */,
 				D0101D592433C885004337ED /* SDMaskController.m in Sources */,
 				1A5A5EF12361A82E00543BAE /* UserItemTool.m in Sources */,
+				75534CE02A8C99FA00F3F5A3 /* UFieldActivityCollectionViewController.swift in Sources */,
 				AA7ABABF2873EA5500BA6790 /* NewQANoDataView.m in Sources */,
 				14B73F8B2823577600D08ADD /* SSRButton.m in Sources */,
 				DB34EACF239BD4550052B65E /* WYCClassAndRemindDataModel.m in Sources */,
@@ -6099,6 +6123,7 @@
 				AA0DDB58286C8B1A00802324 /* UIScrollView+JHContentExtension.m in Sources */,
 				AA7ABAFB2873EA6D00BA6790 /* zhPopupController.m in Sources */,
 				AA0DDB82286C8B1A00802324 /* IDCardTableViewCell.m in Sources */,
+				75534CD82A89DDFE00F3F5A3 /* UFieldActivityTopView.swift in Sources */,
 				AA7AB9662873E5EA00BA6790 /* QASearchResultVC.m in Sources */,
 				DB4064F82466D889006CE5BC /* DLWeekButton.m in Sources */,
 				14B73F84281CCC3000D08ADD /* MessageDetailVC.m in Sources */,
@@ -6255,6 +6280,7 @@
 				AA7ABAF22873EA6D00BA6790 /* DynamicDetailViewModel.m in Sources */,
 				73AAA1D026C918250084E44D /* DetailsTaskTableViewCell.m in Sources */,
 				B0B1BA0229E6A2E300A1BB02 /* DiscoverViewController.m in Sources */,
+				75534CDE2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift in Sources */,
 				AA7AB95A2873E5EA00BA6790 /* SZHSearchDataModel.m in Sources */,
 				1AF4B6072362EBFE00A0823A /* NSDate+Timestamp.m in Sources */,
 				18CDF4C0257F8DBD006E8E5C /* sendCodeModel.m in Sources */,
@@ -6339,6 +6365,7 @@
 				AA0DDB54286C8B1900802324 /* MineSignView.m in Sources */,
 				DB34EB3D239BD4550052B65E /* ORWInputTextView.m in Sources */,
 				14FBBD41280505CC00D5B05D /* SSRTextCycleView.m in Sources */,
+				75534CE42A8CDA0600F3F5A3 /* UFieldActivityModel.swift in Sources */,
 				18CDF66F257F91BD006E8E5C /* FinderView.m in Sources */,
 				AA7ABA982873EA5400BA6790 /* PostItem.m in Sources */,
 				DB34EB23239BD4550052B65E /* TimeChooseViewController.m in Sources */,
@@ -6426,6 +6453,7 @@
 				B0B1BA0729E6B4FD00A1BB02 /* ElectricViewController.m in Sources */,
 				14B73F74281BED7B00D08ADD /* SystemMsgModel.m in Sources */,
 				AA7ABAC22873EA5500BA6790 /* PostArchiveTool.m in Sources */,
+				75534CE22A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift in Sources */,
 				AA7ABA282873EA4100BA6790 /* SZHCircleLabelView.m in Sources */,
 				B0B1B9FE29E69EB400A1BB02 /* PickerDormitoryModel.m in Sources */,
 				147842EE27F07A5A002359BA /* UIColor+Color.m in Sources */,

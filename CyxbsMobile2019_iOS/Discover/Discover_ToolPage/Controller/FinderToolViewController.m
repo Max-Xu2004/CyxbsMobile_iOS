@@ -14,6 +14,7 @@
 #import "WeDateViewController.h"
 #import "CQUPTMapViewController.h"
 #import "TODOMainViewController.h"
+#import "掌上重邮-Swift.h"
 
 @interface FinderToolViewController () <
     UIScrollViewDelegate
@@ -216,7 +217,8 @@
     FinderToolViewItem *item4 = [[FinderToolViewItem alloc]initWithIconView:@"校历" Title:@"校历" Detail:@"学期安排一目了然"];
     FinderToolViewItem *item5 = [[FinderToolViewItem alloc]initWithIconView:@"重邮地图" Title:@"重邮地图" Detail:@"校园地图，尽收重邮风光"];
     FinderToolViewItem *item6 = [[FinderToolViewItem alloc] initWithIconView:@"邮子清单" Title:@"邮子清单" Detail:@"邮子清单"];
-    FinderToolViewItem *item7 = [[FinderToolViewItem alloc]initWithIconView:@"更多功能" Title:@"更多功能" Detail:@"敬请期待"];
+    FinderToolViewItem *item7 = [[FinderToolViewItem alloc] initWithIconView:@"我的考试" Title:@"活动中心" Detail:@"校园动态了然于胸"];
+    FinderToolViewItem *item8 = [[FinderToolViewItem alloc]initWithIconView:@"更多功能" Title:@"更多功能" Detail:@"敬请期待"];
     
     [item1 addTarget:self action:@selector(chooseWeDate:) forControlEvents:UIControlEventTouchUpInside];
     [item2 addTarget:self action:@selector(chooseSchoolBus:) forControlEvents:UIControlEventTouchUpInside];
@@ -224,6 +226,7 @@
     [item4 addTarget:self action:@selector(chooseSchoolSchedule:) forControlEvents:UIControlEventTouchUpInside];
     [item5 addTarget:self action:@selector(chooseCQUPTMap:) forControlEvents:UIControlEventTouchUpInside];
     [item6 addTarget:self action:@selector(chooseToDo:) forControlEvents:UIControlEventTouchUpInside];
+    [item7 addTarget:self action:@selector(chooseActivity:) forControlEvents:UIControlEventTouchUpInside];
     
     NSMutableArray *itemsArray = [NSMutableArray array];
     [itemsArray addObject:item1];
@@ -233,6 +236,7 @@
     [itemsArray addObject:item5];
     [itemsArray addObject:item6];
     [itemsArray addObject:item7];
+    [itemsArray addObject:item8];
     
     self.toolViewItems = itemsArray;
     for (FinderToolViewItem*item in self.toolViewItems) {
@@ -344,6 +348,17 @@
         [sender toggleFavoriteStates];
     } else {
         TODOMainViewController *vc = [[TODOMainViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+///活动中心
+-(void)chooseActivity:(FinderToolViewItem *)sender{
+    if (sender.isChooingNow == YES) {
+        [sender toggleFavoriteStates];
+    } else {
+        UFieldActivityViewController *vc = [[UFieldActivityViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

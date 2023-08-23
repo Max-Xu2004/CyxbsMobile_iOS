@@ -13,33 +13,48 @@ class UFieldActivityCollectionViewCell: UICollectionViewCell {
     
     let coverImgView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.frame = CGRectMake(0, 0, 167, 145)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.frame = CGRectMake(12, 158, 82, 22)
+        label.textAlignment = .left
+        label.font = UIFont(name: PingFangSCBold, size: 16)
+        label.textColor = UIColor(hexString: "#15315B")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let activityTypeLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.frame = CGRectMake(12, 182, 48, 17)
+        label.textAlignment = .left
+        label.font = UIFont(name: PingFangSCMedium, size: 12)
+        label.textColor = UIColor(hexString: "#15315B", alpha: 0.4)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let startTimeLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.frame = CGRectMake(33, 207, 94, 17)
+        label.textAlignment = .left
+        label.font = UIFont(name: PingFangSCMedium, size: 12)
+        label.textColor = UIColor(hexString: "#15315B", alpha: 0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let clockImgView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.frame = CGRectMake(12, 208, 16, 16)
+        imgView.image = UIImage(named: "activityTime")
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        return imgView
     }()
     
     override init(frame: CGRect) {
@@ -49,30 +64,35 @@ class UFieldActivityCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(activityTypeLabel)
         contentView.addSubview(startTimeLabel)
-        
-        NSLayoutConstraint.activate([
-            coverImgView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            coverImgView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            coverImgView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            coverImgView.heightAnchor.constraint(equalToConstant: 100),
-            
-            titleLabel.topAnchor.constraint(equalTo: coverImgView.bottomAnchor, constant: 4),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            
-            activityTypeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            activityTypeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            activityTypeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            
-            startTimeLabel.topAnchor.constraint(equalTo: activityTypeLabel.bottomAnchor, constant: 4),
-            startTimeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            startTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            startTimeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-        ])
+        contentView.addSubview(clockImgView)
+        //设置阴影
+        layer.shadowColor = UIColor(red: 0.568, green: 0.603, blue: 0.921, alpha: 0.1).cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 1
+        layer.cornerRadius = 8
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+        layer.backgroundColor = UIColor.white.cgColor
+        //设置圆角
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 8
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // 在布局发生变化时更新阴影路径
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+
 }
 

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class UFieldActivityTopView: UIView{
+class UFieldActivityTopView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +24,7 @@ class UFieldActivityTopView: UIView{
         addSubview(backButton)
         addSubview(searchButton)
         addSubview(addActivityButton)
+        addSubview(activityHitButton)
         setPosition()
     }
     
@@ -35,7 +36,7 @@ class UFieldActivityTopView: UIView{
     lazy var titleLab: UILabel = {
         let label = UILabel()
         label.text = "活动布告栏"
-        label.font = UIFont(name: PingFangSCMedium, size: 22)
+        label.font = UIFont(name: PingFangSCBold, size: 22)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#15315B")!, alpha: 1)
         }
@@ -48,8 +49,15 @@ class UFieldActivityTopView: UIView{
     // 返回按钮
     lazy var backButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "EmptyClassBackButton"), for: .normal)
-        button.setImage(UIImage(named: "EmptyClassBackButton"), for: .highlighted)
+        button.setImage(UIImage(named: "activityBack"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    //管理员审核按钮
+    lazy var adminButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "admin"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
     //搜索按钮
@@ -71,6 +79,12 @@ class UFieldActivityTopView: UIView{
         button.setBackgroundImage(UIImage(named: "add"), for: .normal)
         return button
     }()
+    //排行榜按钮
+    lazy var activityHitButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "activityHit"), for: .normal)
+        return button
+    }()
     
     func setPosition() {
         // 返回按钮
@@ -82,13 +96,14 @@ class UFieldActivityTopView: UIView{
         }
         //返回按钮图片
         self.backButton.imageView?.snp.makeConstraints { make in
+            make.leading.equalTo(self.searchButton)
             make.width.equalTo(7)
             make.height.equalTo(16)
             make.centerY.equalTo(self.backButton)
         }
         // 标题栏
         self.titleLab.snp.makeConstraints { make in
-            make.left.equalTo(self.backButton.snp.right).offset(1)
+            make.left.equalToSuperview().offset(37)
             make.centerY.equalTo(self.backButton)
             make.width.equalTo(110)
             make.height.equalTo(31)
@@ -106,6 +121,23 @@ class UFieldActivityTopView: UIView{
             make.centerY.equalTo(self.searchButton)
             make.width.equalTo(28)
             make.height.equalTo(28)
+        }
+        //排行榜按钮
+        self.activityHitButton.snp.makeConstraints {make in
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(self.backButton)
+            make.width.equalTo(16)
+            make.height.equalTo(20.5)
+        }
+    }
+    
+    func adAdminButton() {
+        addSubview(adminButton)
+        self.adminButton.snp.makeConstraints {make in
+            make.right.equalToSuperview().offset(-51.98)
+            make.centerY.equalTo(self.backButton)
+            make.width.equalTo(20.02325)
+            make.height.equalTo(21)
         }
     }
     

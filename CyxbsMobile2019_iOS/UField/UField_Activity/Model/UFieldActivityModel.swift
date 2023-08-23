@@ -9,6 +9,7 @@
 import Foundation
 
 struct Activity: Codable {
+    
     let activityTitle: String
     let activityType: String
     let activityId: Int
@@ -22,7 +23,8 @@ struct Activity: Codable {
     let activityPlace: String
     let activityRegistrationType: String
     let activityCoverURL: String
-    let wantToWatch: Bool?
+    var wantToWatch: Bool?
+    let ended: Bool?
 
     private enum CodingKeys: String, CodingKey {
         case activityTitle = "activity_title"
@@ -39,6 +41,7 @@ struct Activity: Codable {
         case activityRegistrationType = "activity_registration_type"
         case activityCoverURL = "activity_cover_url"
         case wantToWatch = "want_to_watch"
+        case ended = "ended"
     }
 }
 

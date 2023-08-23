@@ -7,55 +7,87 @@
 //
 
 import UIKit
+import SDWebImage
+import Alamofire
 
 class UFieldActivityCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var collectionView: UICollectionView!
-    let activities = [
-        ("image1", "活动1", "文娱活动", "08:00 AM"),
-        ("image2", "活动2", "体育活动", "10:00 AM"),
-        ("image3", "活动3", "教育活动", "02:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-        ("image4", "活动4", "文娱活动", "05:00 PM"),
-    ]
+    var activities: [Activity] = []
+    var collectionViewCount: Int!
+    let refreshNum: Int = 10
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //将collectionView的加载放在viewWillAppear以保证在父控制器完成布局后再展示，获得正确的约束
+        // 创建一个UICollectionViewFlowLayout实例作为集合视图的布局
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        // 设置单元格之间的水平间距
+        layout.minimumInteritemSpacing = 9
+        // 设置单元格之间的垂直间距
+        layout.minimumLineSpacing = 9
+        // 计算每行的内边距，以保证单元格居中显示
+        let totalCellWidth = 167 * 2 + 9
+        let inset = (self.view.bounds.width - CGFloat(totalCellWidth)) / 2
+        layout.sectionInset = UIEdgeInsets(top: 10, left: inset, bottom: 10, right: inset)
+        // 使用上述布局创建一个UICollectionView实例，将其框架设置为与当前视图大小相同
+        collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
         collectionView.register(UFieldActivityCollectionViewCell.self, forCellWithReuseIdentifier: UFieldActivityCollectionViewCell.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
     }
-
+    
+    // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return activities.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UFieldActivityCollectionViewCell.reuseIdentifier, for: indexPath) as! UFieldActivityCollectionViewCell
-        let (imageName, title, activityType, startTime) = activities[indexPath.item]
-        cell.coverImgView.image = UIImage(named: imageName)
-        cell.titleLabel.text = title
-        cell.activityTypeLabel.text = activityType
-        cell.startTimeLabel.text = startTime
+        cell.titleLabel.text = activities[indexPath.item].activityTitle
+        cell.coverImgView.sd_setImage(with: URL(string: activities[indexPath.item].activityCoverURL))
+        cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activities[indexPath.item].activityStartAt)))
+        switch activities[indexPath.item].activityType {
+        case "culture": cell.activityTypeLabel.text = "文娱活动"
+        case "sports": cell.activityTypeLabel.text = "体育活动"
+        case "education": cell.activityTypeLabel.text = "教育活动"  
+        default: break
+        }
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.bounds.width - 30) / 2
-        return CGSize(width: cellWidth, height: 200)
+        return CGSize(width: 167, height: 237)
+    }
+    
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = UFieldActivityDetailViewController()
+        detailVC.activity = activities[indexPath.item]
+        detailVC.numOfIndexPath = indexPath.item
+        detailVC.delegate = self
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    struct DateConvert {
+        static let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "zh_CN")
+            formatter.dateFormat = "yyyy年M月d日"
+            return formatter
+        }()
+    }
+    
+}
+
+//为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
+extension UFieldActivityCollectionViewController: UFieldActivityDetailViewControllerDelegate {
+    func updateModel(indexPathNum: Int, wantToWatch: Bool) {
+        self.activities[indexPathNum].wantToWatch = wantToWatch
     }
 }
 

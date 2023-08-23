@@ -20,7 +20,6 @@ class UFieldActivitySelectBar: UIView {
         super.init(frame: frame)
         self.backgroundColor = .clear
         setupButtons()
-        setupRadioGroup()
         selectedCategory = "all" // 默认设置为 "all"
     }
 
@@ -28,7 +27,6 @@ class UFieldActivitySelectBar: UIView {
         super.init(coder: aDecoder)
         self.backgroundColor = .clear
         setupButtons()
-        setupRadioGroup()
         selectedCategory = "all" // 默认设置为 "all"
     }
 
@@ -39,34 +37,42 @@ class UFieldActivitySelectBar: UIView {
             let button = RadioButton()
             button.setTitle(title, for: .normal)
             button.tag = index // Set tag to identify the button
+            button.addTarget(self, action: #selector(handleRadioButtonTap(_:)), for: .touchUpInside)
             addSubview(button)
             buttons.append(button)
-            if index == 0 {
-                button.isSelected = true // 默认选中 "全部" 按钮
-            }
         }
-    }
-
-    private func setupRadioGroup() {
-        for button in buttons {
-            button.addTarget(self, action: #selector(handleRadioButtonTap(_:)), for: .touchUpInside)
-        }
+        buttons[0].isSelected = true
+        buttons[0].applyGradientBackground()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let buttonWidth: CGFloat = 75
-        let buttonHeight: CGFloat = 40
-        let spacing: CGFloat = (bounds.width - 4 * buttonWidth) / 5  // Total spacing divided by 5 to get equal spacing between buttons
+        var totalButtonWidth: CGFloat = 0
+        for button in buttons {
+            if let title = button.titleLabel?.text {
+                let titleWidth = title.size(withAttributes: [NSAttributedString.Key.font: button.titleLabel?.font as Any]).width
+                totalButtonWidth += titleWidth + 28
+            }
+        }
+
+        let spacing: CGFloat = (bounds.width - totalButtonWidth) / CGFloat(buttons.count + 1)
 
         var xOffset: CGFloat = spacing
 
         for button in buttons {
-            button.frame = CGRect(x: xOffset, y: (bounds.height - buttonHeight) / 2, width: buttonWidth, height: buttonHeight)
-            xOffset += buttonWidth + spacing
+            if let title = button.titleLabel?.text {
+                let titleWidth = title.size(withAttributes: [NSAttributedString.Key.font: button.titleLabel?.font as Any]).width
+                let buttonWidth = titleWidth + 28
+                let buttonHeight: CGFloat = 30
+                
+                button.frame = CGRect(x: xOffset, y: (bounds.height - buttonHeight), width: buttonWidth, height: buttonHeight)
+                xOffset += buttonWidth + spacing
+            }
         }
+        buttons[0].applyGradientBackground()
     }
+
 
     @objc private func handleRadioButtonTap(_ sender: RadioButton) {
         for button in buttons {
@@ -91,7 +97,12 @@ class UFieldActivitySelectBar: UIView {
 class RadioButton: UIButton {
     override var isSelected: Bool {
         didSet {
-            backgroundColor = isSelected ? .blue : .white
+            if (isSelected){
+                applyGradientBackground()
+            }
+            else{
+                applyNormalBackground()
+            }
         }
     }
 
@@ -106,14 +117,45 @@ class RadioButton: UIButton {
     }
 
     private func commonInit() {
-        setTitleColor(.black, for: .normal)
-        setTitleColor(.white, for: .selected)
-        titleLabel?.font = UIFont(name: PingFangSCMedium, size: 15)
-        // 设置圆角和描边
+        setTitleColor(UIColor(hexString: "#2A4E84", alpha: 0.5), for: .normal)
+        setTitleColor(UIColor(hexString: "#4F4AE9", alpha: 1), for: .selected)
+        backgroundColor = UIColor(hexString: "#5F7AA2", alpha: 0.05)
+        titleLabel?.font = UIFont(name: PingFangSCMedium, size: 14)
         layer.cornerRadius = 10 // 调整圆角的大小
-        layer.borderWidth = 0.5   // 描边的宽度
-        layer.borderColor = UIColor.gray.cgColor // 描边的颜色
-        backgroundColor = .white
     }
+    
+    func applyGradientBackground() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.cornerRadius = 10
+        
+        let startColor: UIColor
+        let endColor: UIColor
+        
+        startColor = UIColor(hexString: "#4841E2", alpha: 0.1)
+        endColor = UIColor(hexString: "#5D5DF7", alpha: 0.1)
+        
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+
+        if let oldGradientLayer = layer.sublayers?.first(where: { $0 is CAGradientLayer }) {
+            oldGradientLayer.removeFromSuperlayer()
+        }
+
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func applyNormalBackground() {
+        if let oldGradientLayer = layer.sublayers?.first(where: { $0 is CAGradientLayer }) {
+            oldGradientLayer.removeFromSuperlayer()
+        }
+    }
+    
 }
+
+
+
+
+
 

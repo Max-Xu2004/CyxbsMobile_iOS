@@ -252,7 +252,8 @@
 		75534CE42A8CDA0600F3F5A3 /* UFieldActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CE32A8CDA0600F3F5A3 /* UFieldActivityModel.swift */; };
 		75C1EEA42A93B04400034B96 /* UFieldActivityAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA32A93B04400034B96 /* UFieldActivityAddViewController.swift */; };
 		75C1EEA62A93CC9200034B96 /* UFieldActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA52A93CC9200034B96 /* UFieldActivityDetailViewController.swift */; };
-		75C1EEA82A96051000034B96 /* UFieldActivityProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA72A96051000034B96 /* UFieldActivityProgressView.swift */; };
+		75C1EEAC2A97454400034B96 /* UFieldActivityHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEAB2A97454400034B96 /* UFieldActivityHUD.swift */; };
+		75C1EEAE2A976AE400034B96 /* UFieldActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */; };
 		75E1F5B02A9305CE00510F1A /* AdminModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E1F5AF2A9305CE00510F1A /* AdminModel.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
@@ -1077,7 +1078,8 @@
 		75534CE32A8CDA0600F3F5A3 /* UFieldActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityModel.swift; sourceTree = "<group>"; };
 		75C1EEA32A93B04400034B96 /* UFieldActivityAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityAddViewController.swift; sourceTree = "<group>"; };
 		75C1EEA52A93CC9200034B96 /* UFieldActivityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityDetailViewController.swift; sourceTree = "<group>"; };
-		75C1EEA72A96051000034B96 /* UFieldActivityProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityProgressView.swift; sourceTree = "<group>"; };
+		75C1EEAB2A97454400034B96 /* UFieldActivityHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityHUD.swift; sourceTree = "<group>"; };
+		75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityDetailView.swift; sourceTree = "<group>"; };
 		75E1F5AF2A9305CE00510F1A /* AdminModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminModel.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
@@ -3833,6 +3835,7 @@
 		75534CCF2A88B46E00F3F5A3 /* UField_Activity */ = {
 			isa = PBXGroup;
 			children = (
+				75C1EEAA2A97450500034B96 /* Tools */,
 				75534CE52A91BD6D00F3F5A3 /* NetWork */,
 				75534CD22A88B4D600F3F5A3 /* Model */,
 				75534CD12A88B4C900F3F5A3 /* View */,
@@ -3856,10 +3859,10 @@
 			isa = PBXGroup;
 			children = (
 				75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */,
-				75C1EEA72A96051000034B96 /* UFieldActivityProgressView.swift */,
 				75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */,
 				75534CDD2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift */,
 				75534CE12A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift */,
+				75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3879,6 +3882,14 @@
 				7535538C2A91C938002FFB34 /* RequestTool.swift */,
 			);
 			path = NetWork;
+			sourceTree = "<group>";
+		};
+		75C1EEAA2A97450500034B96 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				75C1EEAB2A97454400034B96 /* UFieldActivityHUD.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		7A64BFF22892826F007CCB1E /* Source */ = {
@@ -6038,6 +6049,7 @@
 				14B73F72281BED7B00D08ADD /* ActiveMessageCell.m in Sources */,
 				FE2C135027AEF629001CF7AF /* TodoTableViewCell.m in Sources */,
 				14D03A0B27FE69A800D6AE93 /* SSRTopBarBaseView.m in Sources */,
+				75C1EEAC2A97454400034B96 /* UFieldActivityHUD.swift in Sources */,
 				18CDF66E257F91BD006E8E5C /* EnterButton.m in Sources */,
 				18CDF4C4257F8DBD006E8E5C /* SetQuestionView.m in Sources */,
 				AA0DDB7C286C8B1A00802324 /* PMPIDCardTableViewCell.m in Sources */,
@@ -6048,7 +6060,6 @@
 				73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */,
 				AA7ABAA02873EA5400BA6790 /* ReportModel.m in Sources */,
 				AA7AB95D2873E5EA00BA6790 /* SZHHotSearchView.m in Sources */,
-				75C1EEA82A96051000034B96 /* UFieldActivityProgressView.swift in Sources */,
 				187DF4BB260310DD000BCDE9 /* UIScrollView+Empty.m in Sources */,
 				DB34EB2D239BD4550052B65E /* DetailRemindTableViewCell.m in Sources */,
 				646B199D28313CDB0015DF28 /* StationView.m in Sources */,
@@ -6531,6 +6542,7 @@
 				AA7ABAA82873EA5500BA6790 /* NewQASelectorView.m in Sources */,
 				AA536DFC258C544800F69E73 /* IgnoreTableViewCell.m in Sources */,
 				AA0DDB6A286C8B1A00802324 /* PMPFansAndFollowingViewController.m in Sources */,
+				75C1EEAE2A976AE400034B96 /* UFieldActivityDetailView.swift in Sources */,
 				18CDF4C5257F8DBD006E8E5C /* QuestionView.m in Sources */,
 				B0B1B9F529E69EAD00A1BB02 /* ElectricFeeItem.m in Sources */,
 				AAAA1D9024FE39F500DB9A81 /* NextLessonFinder.m in Sources */,

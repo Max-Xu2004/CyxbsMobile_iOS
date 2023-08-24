@@ -9,7 +9,10 @@
 import UIKit
 
 class UFieldActivityCollectionViewCell: UICollectionViewCell {
+    
     static let reuseIdentifier = "ImageCell"
+    // 标记 Cell 是否是新显示的的
+    var isNewlyLayout: Bool = true
     
     let coverImgView: UIImageView = {
         let imageView = UIImageView()
@@ -81,6 +84,15 @@ class UFieldActivityCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        if isNewlyLayout {
+            // 添加渐入动画效果，仅对新加载的 Cell 生效
+            // 初始时设置 Cell 的透明度为 0
+            self.alpha = 0.0
+            isNewlyLayout = false
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.alpha = 1.0
+        }
         // 在布局发生变化时更新阴影路径
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
     }
@@ -95,4 +107,7 @@ class UFieldActivityCollectionViewCell: UICollectionViewCell {
     }
 
 }
+
+
+
 

@@ -20,6 +20,7 @@ class UFieldActivityDetailViewController: UIViewController {
     var numOfIndexPath: Int!
     weak var delegate: UFieldActivityDetailViewControllerDelegate?
     var countdownTimer: Timer?
+    var detialView: UFieldActivityDetailView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,7 @@ class UFieldActivityDetailViewController: UIViewController {
         setPosition()
         startCountdownTimer()
         self.wantToWatchButton.isEnabled = !(self.activity.wantToWatch ?? true)
+        addDetailView()
     }
     
     
@@ -331,19 +333,37 @@ class UFieldActivityDetailViewController: UIViewController {
                                       method: .put,
                                       headers: nil,
                                       parameters: nil) { responseData in
-            print(responseData)
+            if let dataDict = responseData as? [String: Any],
+               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+               let wantToWatchResponseData = try? JSONDecoder().decode(wantToWatchResponse.self, from: jsonData) {
+                print(wantToWatchResponseData)
+                if (wantToWatchResponseData.status == 10000) {
+                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: "添加成功",
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: self.view,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 20.5,
+                                                                yOffset: -100)
+                } else {
+                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: wantToWatchResponseData.info,
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: self.view,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 20.5,
+                                                                yOffset: -100)
+                }
+            }
         } failure: { responseData in
             print(responseData)
         }
-
-        let customView = UFieldActivityProgressView(frame: CGRectMake(0, 0, 138, 36))
-        customView.textLabel.text = "添加成功"
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.color = .clear
-        hud?.mode = .customView
-        hud?.customView = customView
-        hud?.yOffset = -180
-        hud?.hide(true, afterDelay: 2)
     }
     
     // MARK: - 开始计时器以及倒计时更新
@@ -426,6 +446,23 @@ class UFieldActivityDetailViewController: UIViewController {
         customView.backgroundColor = UIColor(hexString: "#ECEEF2")
         customView.layer.cornerRadius = 4
         return customView
+    }
+    
+    func addDetailView() {
+        detialView = UFieldActivityDetailView()
+        view.addSubview(detialView)
+        detialView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(271)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    func reinitializeDetailView() {
+        detialView.removeFromSuperview()
+        detialView = nil
+        addDetailView()
     }
 }
 

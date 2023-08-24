@@ -62,5 +62,10 @@ struct SearchActivityResponse: Codable {
     let data: [Activity]
 }
 
+struct wantToWatchResponse: Codable {
+    let status: Int
+    let info: String
+}
+
 
 

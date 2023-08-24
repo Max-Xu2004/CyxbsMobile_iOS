@@ -9,11 +9,12 @@
 import UIKit
 import SDWebImage
 import Alamofire
+import MJRefresh
 
 class UFieldActivityCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var collectionView: UICollectionView!
     var activities: [Activity] = []
-    var collectionViewCount: Int!
+    var collectionViewCount: Int = 0
     let refreshNum: Int = 10
     
 
@@ -41,9 +42,12 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
         view.addSubview(collectionView)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+    }
+    
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return activities.count
+        return collectionViewCount
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -82,6 +86,38 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
         }()
     }
     
+    func addMJFooter() {
+        collectionView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(refreshCollectionView))
+    }
+    
+    @objc func refreshCollectionView() {
+        self.collectionViewCount = self.collectionViewCount + self.refreshNum
+        if(self.collectionViewCount > self.activities.count){
+            self.collectionViewCount = self.activities.count
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                // 要延迟执行的代码
+                if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+                    self.collectionView.mj_footer?.isHidden = true
+                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: "暂无更多内容",
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: window,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 20.5,
+                                                                yOffset: -200)
+                }
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                // 要延迟执行的代码
+                self.collectionView.mj_footer?.endRefreshing()
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 //为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
@@ -90,4 +126,6 @@ extension UFieldActivityCollectionViewController: UFieldActivityDetailViewContro
         self.activities[indexPathNum].wantToWatch = wantToWatch
     }
 }
+
+
 

@@ -37,10 +37,6 @@ class ActivityClient: NSObject {
         if let token = UserItemTool.defaultItem().token {
             requestHeaders["Authorization"] = "Bearer \(token)"
         }
-        
-        print(requestHeaders)
-        
-            
         AF.request(url, method: method, parameters: parameters ?? nil, encoding: JSONEncoding.default, headers: HTTPHeaders(requestHeaders)).responseJSON { (response) in
             
             switch response.result {

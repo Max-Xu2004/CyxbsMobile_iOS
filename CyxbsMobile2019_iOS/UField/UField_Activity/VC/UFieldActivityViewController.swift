@@ -11,6 +11,7 @@ import UIKit
 class UFieldActivityViewController: UIViewController {
     
     var requestURL: String!
+    var collectionViewVC: UFieldActivityCollectionViewController!
     
     override func viewDidLoad() {
         if #available(iOS 11.0, *) {
@@ -21,9 +22,7 @@ class UFieldActivityViewController: UIViewController {
         }
         addTopView()
         view.addSubview(selectBar)
-        addChild(collectionViewVC)
-        view.addSubview(collectionViewVC.view)
-        collectionViewVC.didMove(toParent: self)
+        addcollectionViewVC()
         requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/"
         requestActivity()
         isAdmin()
@@ -43,12 +42,6 @@ class UFieldActivityViewController: UIViewController {
         })
         return selectBar
     }()
-    //collectionView活动显示，两列
-    lazy var collectionViewVC: UFieldActivityCollectionViewController = {
-        let vc = UFieldActivityCollectionViewController()
-        vc.view.frame = CGRectMake(0, topView.bounds.height + selectBar.height+8, view.bounds.width, view.bounds.height - topView.height - selectBar.height - 8)
-        return vc
-    }()
     
     
     
@@ -58,28 +51,28 @@ class UFieldActivityViewController: UIViewController {
         case 0:
             print("全部活动")
             // 处理 "全部" 按钮点击事件
-            self.collectionViewVC.activities = []
+            reinitializeCollectionViewVC()
             requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/"
             requestActivity()
             break
         case 1:
             print("文娱活动")
             // 处理 "文娱活动" 按钮点击事件
-            self.collectionViewVC.activities = []
+            reinitializeCollectionViewVC()
             requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/?activity_type=culture"
             requestActivity()
             break
         case 2:
             print("体育活动")
             // 处理 "体育活动" 按钮点击事件
-            self.collectionViewVC.activities = []
+            reinitializeCollectionViewVC()
             requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/?activity_type=sports"
             requestActivity()
             break
         case 3:
             print("教育活动")
             // 处理 "教育活动" 按钮点击事件
-            self.collectionViewVC.activities = []
+            reinitializeCollectionViewVC()
             requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/?activity_type=education"
             requestActivity()
             break
@@ -112,6 +105,24 @@ class UFieldActivityViewController: UIViewController {
 
         // 将阴影图层插入到顶部视图的图层中，使阴影位于底部
         topView.layer.insertSublayer(shadowLayer, at: 0)
+    }
+    
+    func addcollectionViewVC() {
+        //collectionView活动显示，两列
+        collectionViewVC = UFieldActivityCollectionViewController()
+        collectionViewVC.view.frame = CGRectMake(0, topView.bounds.height + selectBar.height+8, view.bounds.width, view.bounds.height - topView.height - selectBar.height - 8)
+        addChild(collectionViewVC)
+        view.addSubview(collectionViewVC.view)
+        collectionViewVC.didMove(toParent: self)
+    }
+    
+    func reinitializeCollectionViewVC() {
+        // 移除原有 collectionViewVC
+        collectionViewVC?.view.removeFromSuperview()
+        collectionViewVC?.removeFromParent()
+        collectionViewVC = nil
+        // 创建新的 collectionViewVC
+        addcollectionViewVC()
     }
     
     func isAdmin() {
@@ -153,12 +164,28 @@ class UFieldActivityViewController: UIViewController {
                     self.collectionViewVC.collectionViewCount = self.collectionViewVC.refreshNum
                 }
                 self.collectionViewVC.collectionView.reloadData()
+                if (self.collectionViewVC.collectionViewCount != 0) {
+                    self.collectionViewVC.addMJFooter()
+                } else {
+                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: "暂无更多内容",
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: self.view,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 20.5,
+                                                                yOffset: -200)
+                }
             } else {
                 print("Invalid response data")
             }
         }
     }
 }
+
+
 
 
 

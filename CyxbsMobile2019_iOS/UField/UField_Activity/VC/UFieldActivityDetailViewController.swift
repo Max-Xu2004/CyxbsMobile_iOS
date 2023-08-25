@@ -20,7 +20,7 @@ class UFieldActivityDetailViewController: UIViewController {
     var numOfIndexPath: Int!
     weak var delegate: UFieldActivityDetailViewControllerDelegate?
     var countdownTimer: Timer?
-    var detialView: UFieldActivityDetailView!
+    var detailView: UFieldActivityDetailView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -376,8 +376,13 @@ class UFieldActivityDetailViewController: UIViewController {
     
     @objc func updateCountdownLabel() {
         let currentTimeStamp = Date().timeIntervalSince1970
-        let timeRemaining = max(0, TimeInterval(activity.activityStartAt) - currentTimeStamp)
-        
+        var timeRemaining: Double
+        if (TimeInterval(activity.activityStartAt) - currentTimeStamp >= 0) {
+            timeRemaining = max(0, TimeInterval(activity.activityStartAt) - currentTimeStamp)
+        } else {
+            timeRemaining = max(0, TimeInterval(activity.activityEndAt) - currentTimeStamp)
+            distanceStartTimeLabel.text = "距离结束还有"
+        }
         let days = Int(timeRemaining) / 86400
         let hours = (Int(timeRemaining) % 86400) / 3600
         let minutes = (Int(timeRemaining) % 3600) / 60
@@ -391,7 +396,7 @@ class UFieldActivityDetailViewController: UIViewController {
             // 倒计时结束，停止定时器
             countdownTimer?.invalidate()
             countdownTimer = nil
-            distanceStartTimeLabel.text = "活动已开始"
+            setEndedView()
         }
     }
     
@@ -448,21 +453,66 @@ class UFieldActivityDetailViewController: UIViewController {
         return customView
     }
     
+    // MARK: - 详情页的初始化和重载
     func addDetailView() {
-        detialView = UFieldActivityDetailView()
-        view.addSubview(detialView)
-        detialView.snp.makeConstraints { make in
+        detailView = UFieldActivityDetailView()
+        view.addSubview(detailView)
+        detailView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(271)
             make.bottom.equalToSuperview()
         }
+        detailView.commonInit()
+        detailView.organizerLabel.text = activity.activityOrganizer
+        detailView.creatorLabel.text = activity.activityCreator
+        detailView.registrationLabel.text = activity.activityRegistrationType
+        detailView.placeLabel.text = activity.activityPlace
+        detailView.startTimeLabel.text = formatTimestamp(timestamp: activity.activityStartAt)
+        detailView.endTimeLabel.text = formatTimestamp(timestamp: activity.activityEndAt)
     }
     
     func reinitializeDetailView() {
-        detialView.removeFromSuperview()
-        detialView = nil
+        detailView.removeFromSuperview()
+        detailView = nil
         addDetailView()
+    }
+    
+    // MARK: - 倒计时结束修改子视图样式
+    func setEndedView() {
+        backGroundView1.removeFromSuperview()
+        backGroundView2.removeFromSuperview()
+        backGroundView3.removeFromSuperview()
+        backGroundView4.removeFromSuperview()
+        distanceStartTimeLabel.removeFromSuperview()
+        dayLabel.removeFromSuperview()
+        hourLabel.removeFromSuperview()
+        minuteLabel.removeFromSuperview()
+        secondLabel.removeFromSuperview()
+        dayNumLabel.removeFromSuperview()
+        hourNumLabel.removeFromSuperview()
+        minuteNumLabel.removeFromSuperview()
+        secondNumLabel.removeFromSuperview()
+        let endLabel = UILabel()
+        endLabel.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        endLabel.font = UIFont(name: PingFangSCMedium, size: 16)
+        endLabel.text = "活动已结束"
+        endLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+179)
+            make.width.equalTo(80)
+            make.height.equalTo(22)
+        }
+        view.addSubview(endLabel)
+    }
+    
+    // MARK: - 时间戳转换为显示的字符串
+    func formatTimestamp(timestamp: Int) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年M月d日HH点mm分"
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
     }
 }
 

@@ -11,7 +11,6 @@ import UIKit
 class UFieldActivityDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +26,62 @@ class UFieldActivityDetailView: UIView {
         addSubview(placeView)
         addSubview(informationView)
         addSubview(detailView)
+        addSubview(organizerLabel)
+        addSubview(creatorLabel)
+        addSubview(registrationLabel)
+        addSubview(placeLabel)
+        addSubview(startTimeView)
+        addSubview(endTimeView)
+        addSubview(startTimeLabel)
+        addSubview(endTimeLabel)
+        addSubview(placeImg)
+        setPosition()
+    }
+    
+    // MARK: - 设置子视图位置
+    func setPosition() {
+        organizerLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(24)
+            make.height.equalTo(22)
+        }
+        
+        creatorLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(65)
+            make.height.equalTo(22)
+        }
+        
+        registrationLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(106)
+            make.height.equalTo(22)
+        }
+        
+        placeLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(147)
+            make.height.equalTo(22)
+        }
+        
+        startTimeLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-14)
+            make.top.equalToSuperview().offset(231)
+            make.height.equalTo(20)
+        }
+        
+        endTimeLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-14)
+            make.top.equalToSuperview().offset(255)
+            make.height.equalTo(20)
+        }
+        
+        placeImg.snp.makeConstraints { make in
+            make.right.equalTo(placeLabel.snp.left).offset(-7)
+            make.top.equalToSuperview().offset(149)
+            make.width.equalTo(16)
+            make.height.equalTo(18)
+        }
     }
     
     lazy var organizerView: UILabel = {
@@ -82,5 +137,78 @@ class UFieldActivityDetailView: UIView {
         label.text = "活动介绍"
         return label
     }()
+    
+    lazy var organizerLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        label.font = UIFont(name: PingFangSCMedium, size: 16)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var creatorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        label.font = UIFont(name: PingFangSCMedium, size: 16)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var registrationLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        label.font = UIFont(name: PingFangSCMedium, size: 16)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var placeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.29, green: 0.267, blue: 0.894, alpha: 0.7)
+        label.font = UIFont(name: PingFangSCMedium, size: 16)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var startTimeView: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 16, y: 231, width: 56, height: 20)
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
+        label.font = UIFont(name: PingFangSCMedium, size: 14)
+        label.text = "开始时间"
+        return label
+    }()
+    
+    lazy var endTimeView: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 16, y: 255, width: 56, height: 20)
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
+        label.font = UIFont(name: PingFangSCMedium, size: 14)
+        label.text = "结束时间"
+        return label
+    }()
+    
+    lazy var startTimeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        label.font = UIFont(name: "PingFangSC-Medium", size: 14)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var endTimeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        label.font = UIFont(name: "PingFangSC-Medium", size: 14)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var placeImg: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "定位")
+        return imageView
+    }()
+    
 }
 

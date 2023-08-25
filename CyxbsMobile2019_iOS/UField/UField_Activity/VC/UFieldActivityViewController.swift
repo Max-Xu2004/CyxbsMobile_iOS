@@ -181,6 +181,17 @@ class UFieldActivityViewController: UIViewController {
             } else {
                 print("Invalid response data")
             }
+        } failure: { error in
+            UFieldActivityHUD.shared.addProgressHUDView(width: 179,
+                                                        height: 36,
+                                                        text: "服务君似乎打盹了呢",
+                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                        textColor: .white,
+                                                        delay: 2,
+                                                        view: self.view,
+                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                        cornerRadius: 20.5,
+                                                        yOffset: -200)
         }
     }
 }

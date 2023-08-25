@@ -50,11 +50,7 @@ class ActivityClient: NSObject {
                     completion(nil)
                     print(error)
                     break
-                    
             }
-            
         }
-        
     }
-
 }

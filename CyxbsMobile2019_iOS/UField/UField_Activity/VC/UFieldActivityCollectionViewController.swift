@@ -91,9 +91,17 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
     }
     
     @objc func refreshCollectionView() {
-        self.collectionViewCount = self.collectionViewCount + self.refreshNum
-        if(self.collectionViewCount > self.activities.count){
-            self.collectionViewCount = self.activities.count
+        if self.collectionViewCount != self.activities.count {
+            self.collectionViewCount = self.collectionViewCount + self.refreshNum
+            if self.collectionViewCount > self.activities.count {
+                self.collectionViewCount = self.activities.count
+            }
+            //延迟加载新的cell
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.collectionView.mj_footer?.endRefreshing()
+                self.collectionView.reloadData()
+            }
+        } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 // 要延迟执行的代码
                 if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
@@ -109,12 +117,6 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
                                                                 cornerRadius: 20.5,
                                                                 yOffset: -200)
                 }
-            }
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                // 要延迟执行的代码
-                self.collectionView.mj_footer?.endRefreshing()
-                self.collectionView.reloadData()
             }
         }
     }

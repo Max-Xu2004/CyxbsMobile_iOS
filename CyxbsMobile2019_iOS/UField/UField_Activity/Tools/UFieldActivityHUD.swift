@@ -13,6 +13,7 @@ class UFieldActivityHUD: NSObject {
     static let shared = UFieldActivityHUD()
     private var hud: MBProgressHUD?
     private var tapGesture: UITapGestureRecognizer?
+    private var swipeGesture: UISwipeGestureRecognizer?
     
     func addProgressHUDView(width: CGFloat, height: CGFloat, text: String, font: UIFont, textColor: UIColor, delay: CGFloat?, view: UIView, backGroundColor: UIColor, cornerRadius: CGFloat, yOffset: Float) {
         let customView = UIView(frame: CGRectMake(0, 0, width, height))
@@ -35,11 +36,17 @@ class UFieldActivityHUD: NSObject {
         hud?.yOffset = yOffset
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tapGesture!)
+        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(swipeGesture!)
         hud?.hide(true, afterDelay: delay ?? 2)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             if let tapGesture = self.tapGesture {
                 tapGesture.view?.removeGestureRecognizer(tapGesture)
                 self.tapGesture = nil
+            }
+            if let swipeGesture = self.swipeGesture {
+                swipeGesture.view?.removeGestureRecognizer(swipeGesture)
+                self.swipeGesture = nil
             }
         }
     }
@@ -51,6 +58,10 @@ class UFieldActivityHUD: NSObject {
         if let tapGesture = self.tapGesture {
             tapGesture.view?.removeGestureRecognizer(tapGesture)
             self.tapGesture = nil
+        }
+        if let swipeGesture = self.swipeGesture {
+            swipeGesture.view?.removeGestureRecognizer(swipeGesture)
+            self.swipeGesture = nil
         }
     }
 

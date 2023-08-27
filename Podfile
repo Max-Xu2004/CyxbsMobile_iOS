@@ -50,6 +50,7 @@ target 'CyxbsMobile2019_iOS' do
   pod 'RxSwift', '~> 5.1.1'
   pod 'RxCocoa', '~> 5.1.1'
   pod 'SnapKit'
+  pod 'TOCropViewController'  #图片选择并裁剪使用
 
     post_install do |installer|
     installer.pods_project.build_configurations.each do |config|

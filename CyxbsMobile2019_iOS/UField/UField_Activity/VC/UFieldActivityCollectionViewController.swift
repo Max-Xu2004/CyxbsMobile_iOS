@@ -20,9 +20,6 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         //将collectionView的加载放在viewWillAppear以保证在父控制器完成布局后再展示，获得正确的约束
         // 创建一个UICollectionViewFlowLayout实例作为集合视图的布局
         let layout = UICollectionViewFlowLayout()
@@ -39,7 +36,13 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
         collectionView.register(UFieldActivityCollectionViewCell.self, forCellWithReuseIdentifier: UFieldActivityCollectionViewCell.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         view.addSubview(collectionView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.frame = self.view.bounds
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +90,11 @@ class UFieldActivityCollectionViewController: UIViewController, UICollectionView
     }
     
     func addMJFooter() {
-        collectionView.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(refreshCollectionView))
+        let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(refreshCollectionView))
+        footer.setTitle("", for: .idle)
+        footer.setTitle("正在加载...", for: .refreshing)
+        footer.setTitle("没有更多数据了", for: .noMoreData)
+        collectionView.mj_footer = footer
     }
     
     @objc func refreshCollectionView() {

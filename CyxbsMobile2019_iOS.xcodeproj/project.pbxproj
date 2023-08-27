@@ -242,6 +242,7 @@
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
 		7535538D2A91C938002FFB34 /* RequestTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535538C2A91C938002FFB34 /* RequestTool.swift */; };
+		754E8DA82A9B4BC300355DE3 /* UFieldActivityTypePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E8DA72A9B4BC200355DE3 /* UFieldActivityTypePickerVC.swift */; };
 		75534CCE2A88B44A00F3F5A3 /* UFieldActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */; };
 		75534CD82A89DDFE00F3F5A3 /* UFieldActivityTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */; };
 		75534CDA2A89DEB800F3F5A3 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */; };
@@ -254,6 +255,7 @@
 		75C1EEA62A93CC9200034B96 /* UFieldActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA52A93CC9200034B96 /* UFieldActivityDetailViewController.swift */; };
 		75C1EEAC2A97454400034B96 /* UFieldActivityHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEAB2A97454400034B96 /* UFieldActivityHUD.swift */; };
 		75C1EEAE2A976AE400034B96 /* UFieldActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */; };
+		75C1EEB42A9A5EF800034B96 /* UFieldActivityAddScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEB32A9A5EF800034B96 /* UFieldActivityAddScrollView.swift */; };
 		75E1F5B02A9305CE00510F1A /* AdminModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E1F5AF2A9305CE00510F1A /* AdminModel.swift */; };
 		7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB7260613E800F2034C /* YYZTopicGroupVC.m */; };
 		7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F101AB8260613E800F2034C /* YYZTopicDetailVC.m */; };
@@ -1068,6 +1070,7 @@
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
 		7535538C2A91C938002FFB34 /* RequestTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTool.swift; sourceTree = "<group>"; };
+		754E8DA72A9B4BC200355DE3 /* UFieldActivityTypePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityTypePickerVC.swift; sourceTree = "<group>"; };
 		75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityViewController.swift; sourceTree = "<group>"; };
 		75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UFieldActivityTopView.swift; sourceTree = "<group>"; };
 		75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -1080,6 +1083,7 @@
 		75C1EEA52A93CC9200034B96 /* UFieldActivityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityDetailViewController.swift; sourceTree = "<group>"; };
 		75C1EEAB2A97454400034B96 /* UFieldActivityHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityHUD.swift; sourceTree = "<group>"; };
 		75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityDetailView.swift; sourceTree = "<group>"; };
+		75C1EEB32A9A5EF800034B96 /* UFieldActivityAddScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityAddScrollView.swift; sourceTree = "<group>"; };
 		75E1F5AF2A9305CE00510F1A /* AdminModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminModel.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
@@ -3851,6 +3855,7 @@
 				75534CDF2A8C99F900F3F5A3 /* UFieldActivityCollectionViewController.swift */,
 				75C1EEA52A93CC9200034B96 /* UFieldActivityDetailViewController.swift */,
 				75C1EEA32A93B04400034B96 /* UFieldActivityAddViewController.swift */,
+				754E8DA72A9B4BC200355DE3 /* UFieldActivityTypePickerVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3863,6 +3868,7 @@
 				75534CDD2A8A56D100F3F5A3 /* UFieldActivitySelectBar.swift */,
 				75534CE12A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift */,
 				75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */,
+				75C1EEB32A9A5EF800034B96 /* UFieldActivityAddScrollView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6044,6 +6050,7 @@
 				14B73F6E281BED7B00D08ADD /* MessageSettingCell.m in Sources */,
 				AA7AB96B2873E5EA00BA6790 /* SegmentBarView.m in Sources */,
 				DB4064FB2466D889006CE5BC /* DLWeeklSelectView.m in Sources */,
+				754E8DA82A9B4BC300355DE3 /* UFieldActivityTypePickerVC.swift in Sources */,
 				646B1967282AA9420015DF28 /* BusGuideViewController.m in Sources */,
 				75534CDA2A89DEB800F3F5A3 /* UIColorExtension.swift in Sources */,
 				14B73F72281BED7B00D08ADD /* ActiveMessageCell.m in Sources */,
@@ -6542,6 +6549,7 @@
 				AA7ABAA82873EA5500BA6790 /* NewQASelectorView.m in Sources */,
 				AA536DFC258C544800F69E73 /* IgnoreTableViewCell.m in Sources */,
 				AA0DDB6A286C8B1A00802324 /* PMPFansAndFollowingViewController.m in Sources */,
+				75C1EEB42A9A5EF800034B96 /* UFieldActivityAddScrollView.swift in Sources */,
 				75C1EEAE2A976AE400034B96 /* UFieldActivityDetailView.swift in Sources */,
 				18CDF4C5257F8DBD006E8E5C /* QuestionView.m in Sources */,
 				B0B1B9F529E69EAD00A1BB02 /* ElectricFeeItem.m in Sources */,
@@ -6758,7 +6766,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = 727CVV9PLJ;
+				DEVELOPMENT_TEAM = Q739MKHL97;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CyxbsMobile2019_iOS/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -6817,7 +6825,7 @@
 				CODE_SIGN_ENTITLEMENTS = "CyxbsMobile2019_iOS/掌上重邮.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = 727CVV9PLJ;
+				DEVELOPMENT_TEAM = Q739MKHL97;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CyxbsMobile2019_iOS/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (

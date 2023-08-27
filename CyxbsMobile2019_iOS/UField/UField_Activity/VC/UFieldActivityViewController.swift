@@ -32,6 +32,7 @@ class UFieldActivityViewController: UIViewController {
     lazy var topView: UFieldActivityTopView = {
         let topView = UFieldActivityTopView(frame: CGRectMake(0, 0, view.bounds.width, 109+UIApplication.shared.statusBarFrame.height))
         topView.backButton.addTarget(self, action: #selector(popController), for: .touchUpInside)
+        topView.addActivityButton.addTarget(self, action: #selector(pushAddVC), for: .touchUpInside)
         return topView
     }()
     //活动类型选择bar
@@ -193,6 +194,11 @@ class UFieldActivityViewController: UIViewController {
                                                         cornerRadius: 20.5,
                                                         yOffset: -200)
         }
+    }
+    
+    @objc func pushAddVC() {
+        let addVC = UFieldActivityAddViewController()
+        self.navigationController?.pushViewController(addVC, animated: true)
     }
 }
 

@@ -35,6 +35,7 @@ class UFieldActivityDetailView: UIView {
         addSubview(startTimeLabel)
         addSubview(endTimeLabel)
         addSubview(placeImg)
+        addSubview(detailLabel)
         setPosition()
     }
     
@@ -81,6 +82,12 @@ class UFieldActivityDetailView: UIView {
             make.top.equalToSuperview().offset(149)
             make.width.equalTo(16)
             make.height.equalTo(18)
+        }
+        
+        detailLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.top.equalToSuperview().offset(335)
         }
     }
     
@@ -208,6 +215,15 @@ class UFieldActivityDetailView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "定位")
         return imageView
+    }()
+    
+    lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.4)
+        label.font = UIFont(name: "PingFangSC-Medium", size: 14)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
     }()
     
 }

@@ -470,6 +470,7 @@ class UFieldActivityDetailViewController: UIViewController {
         detailView.placeLabel.text = activity.activityPlace
         detailView.startTimeLabel.text = formatTimestamp(timestamp: activity.activityStartAt)
         detailView.endTimeLabel.text = formatTimestamp(timestamp: activity.activityEndAt)
+        detailView.detailLabel.text = activity.activityDetail
     }
     
     func reinitializeDetailView() {

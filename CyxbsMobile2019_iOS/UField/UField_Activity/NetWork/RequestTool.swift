@@ -19,7 +19,7 @@ class ActivityClient: NSObject {
         
     }
     
-    func request(_ url: URL,
+    func request(url: String,
                  method: HTTPMethod,
                  headers: [String: String]?,
                  parameters: Parameters?,
@@ -27,6 +27,7 @@ class ActivityClient: NSObject {
                  failure: ((Error) -> Void)? = nil) {
         
         var requestHeaders: [String: String]
+        var requestURL: URL!
         
         if headers != nil {
             requestHeaders = headers!
@@ -34,10 +35,16 @@ class ActivityClient: NSObject {
             requestHeaders = [String: String]()
         }
         
+        if let baseURL = UserDefaults.standard.object(forKey: "baseURL") {
+            requestURL = URL(string: baseURL as! String + url)
+        } else {
+            requestURL = URL(string:"https://be-prod.redrock.cqupt.edu.cn/" + url)
+        }
+        
         if let token = UserItemTool.defaultItem().token {
             requestHeaders["Authorization"] = "Bearer \(token)"
         }
-        AF.request(url, method: method, parameters: parameters ?? nil, encoding: JSONEncoding.default, headers: HTTPHeaders(requestHeaders)).responseJSON { (response) in
+        AF.request(requestURL, method: method, parameters: parameters ?? nil, encoding: URLEncoding.queryString, headers: HTTPHeaders(requestHeaders)).responseJSON { (response) in
             
             switch response.result {
     

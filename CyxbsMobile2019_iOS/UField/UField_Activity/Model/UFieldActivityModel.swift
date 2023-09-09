@@ -25,6 +25,7 @@ struct Activity: Codable {
     let activityCoverURL: String
     var wantToWatch: Bool?
     let ended: Bool?
+    let state: String
 
     private enum CodingKeys: String, CodingKey {
         case activityTitle = "activity_title"
@@ -42,6 +43,7 @@ struct Activity: Codable {
         case activityCoverURL = "activity_cover_url"
         case wantToWatch = "want_to_watch"
         case ended = "ended"
+        case state = "activity_state"
     }
 }
 

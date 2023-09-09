@@ -328,8 +328,7 @@ class UFieldActivityDetailViewController: UIViewController {
     //想看按钮被点击
     @objc func wantToWatchButtonTapped() {
         self.wantToWatchButton.isEnabled = false
-        delegate?.updateModel(indexPathNum: numOfIndexPath, wantToWatch: true)
-        ActivityClient.shared.request(URL(string: "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/action/watch/?activity_id=\(activity.activityId)")!,
+        ActivityClient.shared.request(url:"magipoke-ufield/activity/action/watch/?activity_id=\(activity.activityId)",
                                       method: .put,
                                       headers: nil,
                                       parameters: nil) { responseData in
@@ -348,6 +347,7 @@ class UFieldActivityDetailViewController: UIViewController {
                                                                 backGroundColor: UIColor(hexString: "#2a4e84"),
                                                                 cornerRadius: 20.5,
                                                                 yOffset: -100)
+                    self.delegate?.updateModel(indexPathNum: self.numOfIndexPath, wantToWatch: true)
                 } else {
                     UFieldActivityHUD.shared.addProgressHUDView(width: 138,
                                                                 height: 36,

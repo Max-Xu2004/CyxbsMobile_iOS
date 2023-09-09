@@ -14,6 +14,7 @@ class UFieldActivityViewController: UIViewController {
     var collectionViewVC: UFieldActivityCollectionViewController!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         if #available(iOS 11.0, *) {
             view.backgroundColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#FFFFFF")!, darkColor: UIColor(hexString: "#FFFFFF")!, alpha: 1)
         }
@@ -23,7 +24,7 @@ class UFieldActivityViewController: UIViewController {
         addTopView()
         view.addSubview(selectBar)
         addcollectionViewVC()
-        requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/"
+        requestURL = "magipoke-ufield/activity/list/all/"
         requestActivity()
         isAdmin()
         
@@ -33,6 +34,7 @@ class UFieldActivityViewController: UIViewController {
         let topView = UFieldActivityTopView(frame: CGRectMake(0, 0, view.bounds.width, 109+UIApplication.shared.statusBarFrame.height))
         topView.backButton.addTarget(self, action: #selector(popController), for: .touchUpInside)
         topView.addActivityButton.addTarget(self, action: #selector(pushAddVC), for: .touchUpInside)
+        topView.activityHitButton.addTarget(self, action: #selector(pushHitVC), for: .touchUpInside)
         return topView
     }()
     //活动类型选择bar
@@ -53,28 +55,28 @@ class UFieldActivityViewController: UIViewController {
             print("全部活动")
             // 处理 "全部" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/"
+            requestURL = "magipoke-ufield/activity/list/all/"
             requestActivity()
             break
         case 1:
             print("文娱活动")
             // 处理 "文娱活动" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/?activity_type=culture"
+            requestURL = "magipoke-ufield/activity/list/all/?activity_type=culture"
             requestActivity()
             break
         case 2:
             print("体育活动")
             // 处理 "体育活动" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/?activity_type=sports"
+            requestURL = "magipoke-ufield/activity/list/all/?activity_type=sports"
             requestActivity()
             break
         case 3:
             print("教育活动")
             // 处理 "教育活动" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield/activity/list/all/?activity_type=education"
+            requestURL = "magipoke-ufield/activity/list/all/?activity_type=education"
             requestActivity()
             break
         default:
@@ -127,7 +129,7 @@ class UFieldActivityViewController: UIViewController {
     }
     
     func isAdmin() {
-        ActivityClient.shared.request(URL(string: "https://be-dev.redrock.cqupt.edu.cn/magipoke-ufield//isadmin/")!,
+        ActivityClient.shared.request(url:"magipoke-ufield//isadmin/",
                                       method: .get,
                                       headers: nil,
                                       parameters: nil) { responseData in
@@ -144,11 +146,10 @@ class UFieldActivityViewController: UIViewController {
     }
     
     func requestActivity() {
-        ActivityClient.shared.request(URL(string: requestURL)!,
+        ActivityClient.shared.request(url:requestURL,
                                       method: .get,
                                       headers: nil,
                                       parameters: nil) { responseData in
-            print(responseData as Any)
             if let dataDict = responseData as? [String: Any],
                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
                let allActivityResponseData = try? JSONDecoder().decode(AllActivityResponse.self, from: jsonData) {
@@ -199,6 +200,11 @@ class UFieldActivityViewController: UIViewController {
     @objc func pushAddVC() {
         let addVC = UFieldActivityAddViewController()
         self.navigationController?.pushViewController(addVC, animated: true)
+    }
+    
+    @objc func pushHitVC() {
+        let hitVC = UFieldActivityHitVC()
+        self.navigationController?.pushViewController(hitVC, animated: true)
     }
 }
 

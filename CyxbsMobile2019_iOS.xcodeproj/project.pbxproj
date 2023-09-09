@@ -243,6 +243,10 @@
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
 		7535538D2A91C938002FFB34 /* RequestTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535538C2A91C938002FFB34 /* RequestTool.swift */; };
 		754E8DA82A9B4BC300355DE3 /* UFieldActivityTypePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E8DA72A9B4BC200355DE3 /* UFieldActivityTypePickerVC.swift */; };
+		754E8DE32A9DE81F00355DE3 /* UFieldActivityDatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E8DE22A9DE81F00355DE3 /* UFieldActivityDatePickerVC.swift */; };
+		754E8DE72AA4E0DE00355DE3 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E8DE62AA4E0DE00355DE3 /* GradientButton.swift */; };
+		754E8DEB2AA4E40600355DE3 /* UFieldActivityHitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E8DEA2AA4E40600355DE3 /* UFieldActivityHitVC.swift */; };
+		754E8DED2AA86C9700355DE3 /* UFieldActivityHitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754E8DEC2AA86C9700355DE3 /* UFieldActivityHitTableViewCell.swift */; };
 		75534CCE2A88B44A00F3F5A3 /* UFieldActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */; };
 		75534CD82A89DDFE00F3F5A3 /* UFieldActivityTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */; };
 		75534CDA2A89DEB800F3F5A3 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */; };
@@ -1071,6 +1075,10 @@
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
 		7535538C2A91C938002FFB34 /* RequestTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTool.swift; sourceTree = "<group>"; };
 		754E8DA72A9B4BC200355DE3 /* UFieldActivityTypePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityTypePickerVC.swift; sourceTree = "<group>"; };
+		754E8DE22A9DE81F00355DE3 /* UFieldActivityDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityDatePickerVC.swift; sourceTree = "<group>"; };
+		754E8DE62AA4E0DE00355DE3 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		754E8DEA2AA4E40600355DE3 /* UFieldActivityHitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityHitVC.swift; sourceTree = "<group>"; };
+		754E8DEC2AA86C9700355DE3 /* UFieldActivityHitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityHitTableViewCell.swift; sourceTree = "<group>"; };
 		75534CCD2A88B44A00F3F5A3 /* UFieldActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityViewController.swift; sourceTree = "<group>"; };
 		75534CD72A89DDFE00F3F5A3 /* UFieldActivityTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UFieldActivityTopView.swift; sourceTree = "<group>"; };
 		75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -3856,6 +3864,8 @@
 				75C1EEA52A93CC9200034B96 /* UFieldActivityDetailViewController.swift */,
 				75C1EEA32A93B04400034B96 /* UFieldActivityAddViewController.swift */,
 				754E8DA72A9B4BC200355DE3 /* UFieldActivityTypePickerVC.swift */,
+				754E8DE22A9DE81F00355DE3 /* UFieldActivityDatePickerVC.swift */,
+				754E8DEA2AA4E40600355DE3 /* UFieldActivityHitVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3869,6 +3879,8 @@
 				75534CE12A8CCBBF00F3F5A3 /* UFieldActivityCollectionViewCell.swift */,
 				75C1EEAD2A976AE400034B96 /* UFieldActivityDetailView.swift */,
 				75C1EEB32A9A5EF800034B96 /* UFieldActivityAddScrollView.swift */,
+				754E8DEC2AA86C9700355DE3 /* UFieldActivityHitTableViewCell.swift */,
+				754E8DE62AA4E0DE00355DE3 /* GradientButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6108,6 +6120,7 @@
 				7F101AC5260613E800F2034C /* YYZTopicCell.m in Sources */,
 				FE0D60442801702B00319A9E /* SchoolBusData.m in Sources */,
 				14B73F7F281BED7B00D08ADD /* DiscoverMineMessageVC.m in Sources */,
+				754E8DEB2AA4E40600355DE3 /* UFieldActivityHitVC.swift in Sources */,
 				AA49098924F3BF5A007CB3BC /* TransitionManager.m in Sources */,
 				DB34EB28239BD4550052B65E /* DetailLessonController.m in Sources */,
 				AA7ABAAD2873EA5500BA6790 /* FunctionBtn.m in Sources */,
@@ -6212,6 +6225,7 @@
 				4931630B26CD7B6800140412 /* GoodsCollectionViewCell.m in Sources */,
 				DB4065032466D889006CE5BC /* DLReminderView.m in Sources */,
 				DB4064F72466D889006CE5BC /* DLReminderSetDetailVC.m in Sources */,
+				754E8DE72AA4E0DE00355DE3 /* GradientButton.swift in Sources */,
 				AA9ABE9024EB63BF00D16BE0 /* ClassDetailViewShower.m in Sources */,
 				18CDF694257F91BD006E8E5C /* CQUPTMapSearchItem.m in Sources */,
 				AAC7CA3B25F89C9D00E6B5D5 /* MainPageModel.m in Sources */,
@@ -6232,6 +6246,7 @@
 				AAE87797286B304F0091656B /* PrivacyTipView.swift in Sources */,
 				DB34EB25239BD4550052B65E /* DetailViewController.m in Sources */,
 				18CDF4BE257F8DBD006E8E5C /* questionItem.m in Sources */,
+				754E8DE32A9DE81F00355DE3 /* UFieldActivityDatePickerVC.swift in Sources */,
 				AA0DDB63286C8B1A00802324 /* IDDataManager.m in Sources */,
 				18CDF69C257F91BD006E8E5C /* CQUPTMapViewController.m in Sources */,
 				AA7ABA962873EA5400BA6790 /* NewQAMainVC.m in Sources */,
@@ -6396,6 +6411,7 @@
 				73AAA1D226C918250084E44D /* SegmentView.m in Sources */,
 				B0F08FF928A24F9000986EB6 /* IdsBinding.m in Sources */,
 				7311328B26CCEC2400EF88C1 /* BottomView.m in Sources */,
+				754E8DED2AA86C9700355DE3 /* UFieldActivityHitTableViewCell.swift in Sources */,
 				1ADFA1AA23841CB700E97365 /* EditMyInfoPercentDrivenController.m in Sources */,
 				AA4B0FB324D3E09B00221B5A /* TopBarScrollView.m in Sources */,
 				AA7AB95B2873E5EA00BA6790 /* SearchEndNoResultCV.m in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SDWebImage
 
-class UFieldActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var hitActivities: [Activity] = []
     var contentView: UIView!
@@ -47,7 +47,7 @@ class UFieldActivityHitVC: UIViewController, UITableViewDataSource, UITableViewD
     //排行榜tableView
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRectMake(0, 26, UIScreen.main.bounds.width, UIScreen.main.bounds.height-210))
-        tableView.register(UFieldActivityHitTableViewCell.self, forCellReuseIdentifier: "hitCell")
+        tableView.register(ActivityHitTableViewCell.self, forCellReuseIdentifier: "hitCell")
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -117,9 +117,10 @@ class UFieldActivityHitVC: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
     }
+    
     // UITableViewDataSource方法
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "hitCell", for: indexPath) as! UFieldActivityHitTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "hitCell", for: indexPath) as! ActivityHitTableViewCell
         cell.coverImgView.sd_setImage(with: URL(string: hitActivities[indexPath.item].activityCoverURL))
         cell.titleLabel.text = hitActivities[indexPath.item].activityTitle
         cell.rankingLabel.text = "\(indexPath.item + 1)"
@@ -132,5 +133,22 @@ class UFieldActivityHitVC: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return hitActivities.count
+    }
+    
+    // UITableViewDelegate方法
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = ActivityDetailVC()
+        detailVC.activity = hitActivities[indexPath.row]
+        detailVC.numOfIndexPath = indexPath.row
+        detailVC.delegate = self
+        self.navigationController?.pushViewController(detailVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
+extension ActivityHitVC: ActivityDetailVCDelegate {
+    func updateModel(indexPathNum: Int, wantToWatch: Bool) {
+        self.hitActivities[indexPathNum].wantToWatch = wantToWatch
     }
 }

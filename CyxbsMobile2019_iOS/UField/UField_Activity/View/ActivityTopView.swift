@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 
-class UFieldActivityTopView: UIView {
+class ActivityTopView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

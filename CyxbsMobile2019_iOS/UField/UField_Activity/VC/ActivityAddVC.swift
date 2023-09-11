@@ -9,12 +9,12 @@
 import UIKit
 import TOCropViewController
 
-class UFieldActivityAddViewController: UIViewController,
+class ActivityAddVC: UIViewController,
                                         UIImagePickerControllerDelegate,
                                         UINavigationControllerDelegate,
                                        TOCropViewControllerDelegate,
-                                        UFieldActivityTypePickerDelegate,
-                                       UFieldActivityDatePickerDelegate {
+                                        ActivityTypePickerDelegate,
+                                       ActivityDatePickerDelegate {
     
     
     var activity_type: String?
@@ -40,8 +40,8 @@ class UFieldActivityAddViewController: UIViewController,
         return button
     }()
     
-    lazy var scrollView: UFieldActivityAddScrollView = {
-        let scrollView = UFieldActivityAddScrollView()
+    lazy var scrollView: ActivityAddScrollView = {
+        let scrollView = ActivityAddScrollView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showImagePickerAlert))
         scrollView.coverImgView.addGestureRecognizer(tapGesture)
         scrollView.typeButton.addTarget(self, action: #selector(showTypePicker), for: .touchUpInside)
@@ -165,13 +165,13 @@ class UFieldActivityAddViewController: UIViewController,
     }
     
     @objc func showTypePicker() {
-        let pickerVC = UFieldActivityTypePickerVC()
+        let pickerVC = ActivityTypePickerVC()
         pickerVC.delegate = self
         pickerVC.modalPresentationStyle = .overCurrentContext
         present(pickerVC, animated: false)
     }
     
-    // MARK: - UFieldActivityTypePickerDelegate
+    // MARK: - ActivityTypePickerDelegate
     func didSelectActivityType(_ type: String) {
         print("Selected activity type: \(type)")
         // Assign the selected activity type to the variable
@@ -193,7 +193,7 @@ class UFieldActivityAddViewController: UIViewController,
     }
     
     @objc func setStartTime() {
-        let dateVC = UFieldActivityDatePickerVC()
+        let dateVC = ActivityDatePickerVC()
         if let minDate = self.startTime {
             dateVC.minDate = minDate
         }
@@ -204,7 +204,7 @@ class UFieldActivityAddViewController: UIViewController,
     }
     
     @objc func setEndTime() {
-        let dateVC = UFieldActivityDatePickerVC()
+        let dateVC = ActivityDatePickerVC()
         if let minDate = self.startTime {
             dateVC.minDate = minDate
         }

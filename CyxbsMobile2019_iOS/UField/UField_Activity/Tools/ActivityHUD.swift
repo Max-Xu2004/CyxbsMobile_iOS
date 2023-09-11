@@ -9,15 +9,15 @@
 import UIKit
 import Alamofire
 
-class UFieldActivityHUD: NSObject {
-    static let shared = UFieldActivityHUD()
+class ActivityHUD: NSObject {
+    static let shared = ActivityHUD()
     private var hud: MBProgressHUD?
     private var tapGesture: UITapGestureRecognizer?
     private var swipeGesture: UISwipeGestureRecognizer?
     
     func addProgressHUDView(width: CGFloat, height: CGFloat, text: String, font: UIFont, textColor: UIColor, delay: CGFloat?, view: UIView, backGroundColor: UIColor, cornerRadius: CGFloat, yOffset: Float) {
         let customView = UIView(frame: CGRectMake(0, 0, width, height))
-        customView.backgroundColor = backGroundColor
+        customView.layer.backgroundColor = backGroundColor.cgColor
         customView.layer.cornerRadius = cornerRadius
         let label = UILabel()
         label.textAlignment = .center

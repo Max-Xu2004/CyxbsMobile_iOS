@@ -358,7 +358,7 @@
     if (sender.isChooingNow == YES) {
         [sender toggleFavoriteStates];
     } else {
-        UFieldActivityViewController *vc = [[UFieldActivityViewController alloc] init];
+        ActivityMainViewController *vc = [[ActivityMainViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

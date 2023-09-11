@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UFieldActivityCollectionViewCell: UICollectionViewCell {
+class ActivityCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "ImageCell"
     // 标记 Cell 是否是新显示的的

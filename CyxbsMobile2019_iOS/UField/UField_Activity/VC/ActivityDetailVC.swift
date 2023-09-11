@@ -10,17 +10,17 @@ import UIKit
 import MBProgressHUD
 import Alamofire
 
-protocol UFieldActivityDetailViewControllerDelegate: AnyObject {
+protocol ActivityDetailVCDelegate: AnyObject {
     func updateModel(indexPathNum: Int, wantToWatch: Bool)
 }
 
-class UFieldActivityDetailViewController: UIViewController {
+class ActivityDetailVC: UIViewController {
     
     var activity: Activity!
     var numOfIndexPath: Int!
-    weak var delegate: UFieldActivityDetailViewControllerDelegate?
+    weak var delegate: ActivityDetailVCDelegate?
     var countdownTimer: Timer?
-    var detailView: UFieldActivityDetailView!
+    var detailView: ActivityDetailView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class UFieldActivityDetailViewController: UIViewController {
             view.backgroundColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#F8F9FC")!, darkColor: UIColor(hexString: "#F8F9FC")!, alpha: 1)
         }
         else {
-            view.backgroundColor = UIColor(hexString: "##F8F9FC")
+            view.backgroundColor = UIColor(hexString: "#F8F9FC")
         }
         view.addSubview(backButton)
         view.addSubview(coverImgView)
@@ -327,7 +327,6 @@ class UFieldActivityDetailViewController: UIViewController {
     
     //想看按钮被点击
     @objc func wantToWatchButtonTapped() {
-        self.wantToWatchButton.isEnabled = false
         ActivityClient.shared.request(url:"magipoke-ufield/activity/action/watch/?activity_id=\(activity.activityId)",
                                       method: .put,
                                       headers: nil,
@@ -337,7 +336,8 @@ class UFieldActivityDetailViewController: UIViewController {
                let wantToWatchResponseData = try? JSONDecoder().decode(wantToWatchResponse.self, from: jsonData) {
                 print(wantToWatchResponseData)
                 if (wantToWatchResponseData.status == 10000) {
-                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                    self.wantToWatchButton.isEnabled = false
+                    ActivityHUD.shared.addProgressHUDView(width: 138,
                                                                 height: 36,
                                                                 text: "添加成功",
                                                                 font: UIFont(name: PingFangSCMedium, size: 13)!,
@@ -345,11 +345,11 @@ class UFieldActivityDetailViewController: UIViewController {
                                                                 delay: 2,
                                                                 view: self.view,
                                                                 backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                cornerRadius: 20.5,
+                                                                cornerRadius: 18,
                                                                 yOffset: -100)
                     self.delegate?.updateModel(indexPathNum: self.numOfIndexPath, wantToWatch: true)
                 } else {
-                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                    ActivityHUD.shared.addProgressHUDView(width: 138,
                                                                 height: 36,
                                                                 text: wantToWatchResponseData.info,
                                                                 font: UIFont(name: PingFangSCMedium, size: 13)!,
@@ -357,7 +357,7 @@ class UFieldActivityDetailViewController: UIViewController {
                                                                 delay: 2,
                                                                 view: self.view,
                                                                 backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                cornerRadius: 20.5,
+                                                                cornerRadius: 18,
                                                                 yOffset: -100)
                 }
             }
@@ -455,7 +455,7 @@ class UFieldActivityDetailViewController: UIViewController {
     
     // MARK: - 详情页的初始化和重载
     func addDetailView() {
-        detailView = UFieldActivityDetailView()
+        detailView = ActivityDetailView()
         view.addSubview(detailView)
         detailView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
@@ -498,13 +498,13 @@ class UFieldActivityDetailViewController: UIViewController {
         endLabel.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
         endLabel.font = UIFont(name: PingFangSCMedium, size: 16)
         endLabel.text = "活动已结束"
+        view.addSubview(endLabel)
         endLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+179)
             make.width.equalTo(80)
             make.height.equalTo(22)
         }
-        view.addSubview(endLabel)
     }
     
     // MARK: - 时间戳转换为显示的字符串

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol UFieldActivityDatePickerDelegate: AnyObject {
+protocol ActivityDatePickerDelegate: AnyObject {
     func didSelectStartTime(date: Date)
     func didSelectEndTime(date: Date)
 }
@@ -18,9 +18,9 @@ enum TimeSelection {
     case endTime
 }
 
-class UFieldActivityDatePickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ActivityDatePickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    weak var delegate: UFieldActivityDatePickerDelegate?
+    weak var delegate: ActivityDatePickerDelegate?
     
     var timeSelection: TimeSelection = .startTime // 默认为开始时间
     

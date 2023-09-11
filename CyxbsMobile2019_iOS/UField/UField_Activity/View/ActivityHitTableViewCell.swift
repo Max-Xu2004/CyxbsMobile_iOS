@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UFieldActivityHitTableViewCell: UITableViewCell {
+class ActivityHitTableViewCell: UITableViewCell {
     lazy var coverImgView: UIImageView = {
         let imageView = UIImageView(frame: CGRectMake(59, 17, 42, 42))
         imageView.layer.cornerRadius = 8

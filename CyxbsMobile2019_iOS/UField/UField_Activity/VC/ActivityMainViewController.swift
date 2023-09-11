@@ -8,10 +8,10 @@
 
 import UIKit
 
-class UFieldActivityViewController: UIViewController {
+class ActivityMainViewController: UIViewController {
     
     var requestURL: String!
-    var collectionViewVC: UFieldActivityCollectionViewController!
+    var collectionViewVC: ActivityCollectionVC!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,16 +30,17 @@ class UFieldActivityViewController: UIViewController {
         
     }
     //顶部视图
-    lazy var topView: UFieldActivityTopView = {
-        let topView = UFieldActivityTopView(frame: CGRectMake(0, 0, view.bounds.width, 109+UIApplication.shared.statusBarFrame.height))
+    lazy var topView: ActivityTopView = {
+        let topView = ActivityTopView(frame: CGRectMake(0, 0, view.bounds.width, 109+UIApplication.shared.statusBarFrame.height))
         topView.backButton.addTarget(self, action: #selector(popController), for: .touchUpInside)
+        topView.searchButton.addTarget(self, action: #selector(pushSearchVC), for: .touchUpInside)
         topView.addActivityButton.addTarget(self, action: #selector(pushAddVC), for: .touchUpInside)
         topView.activityHitButton.addTarget(self, action: #selector(pushHitVC), for: .touchUpInside)
         return topView
     }()
     //活动类型选择bar
-    lazy var selectBar: UFieldActivitySelectBar = {
-        let selectBar = UFieldActivitySelectBar(frame: CGRectMake(0, topView.bounds.height, view.bounds.width, 51))
+    lazy var selectBar: ActivitySelectBar = {
+        let selectBar = ActivitySelectBar(frame: CGRectMake(0, topView.bounds.height, view.bounds.width, 51))
         selectBar.buttons.forEach({ button in
             button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         })
@@ -112,7 +113,7 @@ class UFieldActivityViewController: UIViewController {
     
     func addcollectionViewVC() {
         //collectionView活动显示，两列
-        collectionViewVC = UFieldActivityCollectionViewController()
+        collectionViewVC = ActivityCollectionVC()
         collectionViewVC.view.frame = CGRectMake(0, topView.bounds.height + selectBar.height+8, view.bounds.width, view.bounds.height - topView.height - selectBar.height - 8)
         addChild(collectionViewVC)
         view.addSubview(collectionViewVC.view)
@@ -169,7 +170,7 @@ class UFieldActivityViewController: UIViewController {
                 if (self.collectionViewVC.collectionViewCount != 0) {
                     self.collectionViewVC.addMJFooter()
                 } else {
-                    UFieldActivityHUD.shared.addProgressHUDView(width: 138,
+                    ActivityHUD.shared.addProgressHUDView(width: 138,
                                                                 height: 36,
                                                                 text: "暂无更多内容",
                                                                 font: UIFont(name: PingFangSCMedium, size: 13)!,
@@ -182,9 +183,10 @@ class UFieldActivityViewController: UIViewController {
                 }
             } else {
                 print("Invalid response data")
+                print(responseData)
             }
         } failure: { error in
-            UFieldActivityHUD.shared.addProgressHUDView(width: 179,
+            ActivityHUD.shared.addProgressHUDView(width: 179,
                                                         height: 36,
                                                         text: "服务君似乎打盹了呢",
                                                         font: UIFont(name: PingFangSCMedium, size: 13)!,
@@ -192,19 +194,24 @@ class UFieldActivityViewController: UIViewController {
                                                         delay: 2,
                                                         view: self.view,
                                                         backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                        cornerRadius: 20.5,
+                                                        cornerRadius: 18,
                                                         yOffset: -200)
         }
     }
     
     @objc func pushAddVC() {
-        let addVC = UFieldActivityAddViewController()
+        let addVC = ActivityAddVC()
         self.navigationController?.pushViewController(addVC, animated: true)
     }
     
     @objc func pushHitVC() {
-        let hitVC = UFieldActivityHitVC()
+        let hitVC = ActivityHitVC()
         self.navigationController?.pushViewController(hitVC, animated: true)
+    }
+    
+    @objc func pushSearchVC() {
+        let searchVC = ActivitySearchVC()
+        self.navigationController?.pushViewController(searchVC, animated: true)
     }
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class UFieldActivityAddScrollView: UIScrollView {
+class ActivityAddScrollView: UIScrollView {
     // MARK: - 懒加载
     lazy var coverImgView: UIImageView = {
         let imageView = UIImageView()

@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol UFieldActivityTypePickerDelegate: AnyObject {
+protocol ActivityTypePickerDelegate: AnyObject {
     func didSelectActivityType(_ type: String)
 }
 
-class UFieldActivityTypePickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ActivityTypePickerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    weak var delegate: UFieldActivityTypePickerDelegate?
+    weak var delegate: ActivityTypePickerDelegate?
     
     let activityTypes = ["文娱活动", "体育活动", "教育活动"]
     

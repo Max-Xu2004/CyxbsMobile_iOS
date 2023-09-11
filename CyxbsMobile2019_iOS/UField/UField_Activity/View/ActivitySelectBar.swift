@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UFieldActivitySelectBar: UIView {
+class ActivitySelectBar: UIView {
     var buttons: [RadioButton] = []
     var selectedCategory: String = "all" {
         didSet {

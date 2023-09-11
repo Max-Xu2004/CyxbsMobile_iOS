@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UFieldActivityDetailView: UIView {
+class ActivityDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

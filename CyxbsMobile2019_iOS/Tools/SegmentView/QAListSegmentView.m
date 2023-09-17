@@ -18,18 +18,9 @@
 //滑动标签栏
 @property (nonatomic, strong) NSMutableArray <UIButton *> *titleBtnArray;
 @property (nonatomic, strong) UIScrollView *titleView;
-@property (nonatomic) CGFloat titleBtnWidth;
-@property (nonatomic) CGFloat titleHeight;  //标签栏高度
-@property (nonatomic, strong) UIColor *selectedTitleColor;  //标签选中时的字体颜色
-@property (nonatomic, strong) UIColor *titleColor;  //标签字体颜色
-@property (nonatomic, strong) UIFont *titleFont;    //标签字体属性
-@property (nonatomic, strong) UIFont *selectedTitleFont;    //标签字体属性
-@property (nonatomic, strong) UIColor *titleBackgroundColor;    //标签背景颜色
 
 @property (nonatomic, strong) UIView *sliderLinePart1;  //标题下小滑块第一部分
 //@property (nonatomic, strong) UIView *sliderLinePart2;  //标题下小滑块第二部分
-@property (nonatomic) CGFloat sliderWidth;  //标题下小滑块宽
-@property (nonatomic) CGFloat sliderHeight;  //标题下小滑块高
 @property (nonatomic) CGFloat currentX;
 
 
@@ -94,9 +85,8 @@
         
         if (i == 0) {
             //创建滑块
-            _sliderWidth = _titleBtnWidth * 0.3;
+            _sliderWidth = [titleBtn.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: self.selectedTitleFont}].width;
             _sliderHeight = _titleHeight * 0.08;
-            
             _sliderLinePart1 = [[UIView alloc] initWithFrame:CGRectMake((_titleBtnWidth - _sliderWidth) / 2.0 , _titleHeight - _sliderHeight, _sliderWidth, _sliderHeight)];
             _sliderLinePart1.layer.cornerRadius = 2.0;
             UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"分页滑条"]];
@@ -110,6 +100,7 @@
     
     
     [_titleBtnArray firstObject].selected = YES;
+    [_titleBtnArray firstObject].titleLabel.font = _selectedTitleFont;
     _titleView.backgroundColor = _titleBackgroundColor;
     [self addSubview:_titleView];
     
@@ -155,8 +146,10 @@
     
     if (currentIndex != _currentIndex) {
         _titleBtnArray[_currentIndex].selected = NO;
+        _titleBtnArray[_currentIndex].titleLabel.font = _titleFont;
         _currentIndex = currentIndex;
         _titleBtnArray[_currentIndex].selected = YES;
+        _titleBtnArray[_currentIndex].titleLabel.font = _selectedTitleFont;
 //
 //        CAKeyframeAnimation *scale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
 //        NSArray *shapes = @[@1.1, @1.2, @1.2, @1.2, @1.1, @1];
@@ -190,5 +183,17 @@
     _sliderLinePart1.frame = CGRectMake(_currentIndex * _titleBtnWidth + (_titleBtnWidth - _sliderWidth) / 2.0, _titleHeight - _sliderHeight, _sliderWidth, _sliderHeight);
 //    _sliderLinePart2.frame = CGRectMake(_currentIndex * _titleBtnWidth + (_titleBtnWidth - _sliderWidth) / 2.0, _titleHeight - _sliderHeight, _sliderWidth, _sliderHeight);
 }
+
+//如果需要使用自定义的颜色和字体，在设置完成后，需要调用该方法更新控件的相关属性
+- (void)updateUI {
+    // 更新UI的逻辑，例如设置标题颜色、字体等
+    for (UIButton *button in self.titleBtnArray) {
+        [button setTitleColor:self.titleColor forState:UIControlStateNormal];
+        [button setTitleColor:self.selectedTitleColor forState:UIControlStateSelected];
+        button.titleLabel.font = self.titleFont;
+    }
+    self.titleView.backgroundColor = self.titleBackgroundColor;
+}
+
 
 @end

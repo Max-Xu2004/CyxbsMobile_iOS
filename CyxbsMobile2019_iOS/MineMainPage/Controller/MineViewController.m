@@ -30,6 +30,8 @@
 
 //获取用户关注的人和粉丝的个人信息
 #define fansAndFollowsInfo @"/magipoke-loop/user/fansAndFollowsInfo"
+// swift (将Swift中的类暴露给OC)
+#import "掌上重邮-Swift.h"
 
 
 @interface MineViewController ()<
@@ -61,6 +63,9 @@
 
 /// 意见与反馈入口按钮
 @property(nonatomic, strong)MineMSSEnterBtn *suggesstionBtn;
+
+/// 活动中心按钮
+@property(nonatomic, strong)MineMSSEnterBtn *activityCenterBtn;
 
 /// 签到相关的一块 view
 @property(nonatomic, strong)MineSignView *signView;
@@ -99,6 +104,7 @@
     [self addMsgCenterBtn];
     [self addStampCenterBtn];
     [self addSuggesstionBtn];
+    [self addActivityCenterBtn];
     [self addTableView];
     [self addSignView];
     
@@ -290,6 +296,21 @@
     [btn addTarget:self action:@selector(suggesstionBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)addActivityCenterBtn {
+    MineMSSEnterBtn *btn = [[MineMSSEnterBtn alloc] init];
+    self.suggesstionBtn = btn;
+    [self.backBoardView addSubview:btn];
+    
+    [btn.iconImgView setImage:[UIImage imageNamed:@"活动中心"]];
+    [btn.nameLabel setText:@"活动中心"];
+    
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.backBoardView).offset(0.13333333*SCREEN_WIDTH);
+        make.top.equalTo(self.backBoardView).offset(0.39543186*SCREEN_WIDTH);
+    }];
+    
+    [btn addTarget:self action:@selector(activityCenterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
 - (void)addSignView {
     MineSignView *view = [[MineSignView alloc] init];
     self.signView = view;
@@ -297,7 +318,7 @@
     
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backBoardView).offset(0.04266666667*SCREEN_WIDTH);
-        make.top.equalTo(self.backBoardView).offset(0.1773399015*SCREEN_HEIGHT);
+        make.top.equalTo(self.backBoardView).offset(0.33497537*SCREEN_HEIGHT);
     }];
     
     [view.signBtn addTarget:self action:@selector(signBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -319,7 +340,7 @@
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.backBoardView);
-        make.top.equalTo(self.backBoardView).offset(0.3091133005*SCREEN_HEIGHT);
+        make.top.equalTo(self.backBoardView).offset(0.46674877*SCREEN_HEIGHT);
         
     }];
 }
@@ -416,6 +437,13 @@
     FeedBackMainPageViewController *fvc = [[FeedBackMainPageViewController alloc]init];
       fvc.hidesBottomBarWhenPushed = YES;
       [self.navigationController pushViewController:fvc animated:YES];
+}
+
+/// 点击活动中心按钮后调用
+- (void)activityCenterBtnClicked {
+    ActivityCenterVC *avc = [[ActivityCenterVC alloc]init];
+    avc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:avc animated:YES];
 }
 
 /// 点击签到按钮后调用

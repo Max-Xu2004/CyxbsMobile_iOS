@@ -251,11 +251,17 @@
 		75534CCE2A88B44A00F3F5A3 /* ActivityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CCD2A88B44A00F3F5A3 /* ActivityMainViewController.swift */; };
 		75534CD82A89DDFE00F3F5A3 /* ActivityTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD72A89DDFE00F3F5A3 /* ActivityTopView.swift */; };
 		75534CDA2A89DEB800F3F5A3 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */; };
-		75534CDC2A8A562F00F3F5A3 /* UFieldActivityMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */; };
 		75534CDE2A8A56D100F3F5A3 /* ActivitySelectBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CDD2A8A56D100F3F5A3 /* ActivitySelectBar.swift */; };
 		75534CE02A8C99FA00F3F5A3 /* ActivityCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CDF2A8C99F900F3F5A3 /* ActivityCollectionVC.swift */; };
 		75534CE22A8CCBBF00F3F5A3 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CE12A8CCBBF00F3F5A3 /* ActivityCollectionViewCell.swift */; };
 		75534CE42A8CDA0600F3F5A3 /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75534CE32A8CDA0600F3F5A3 /* ActivityModel.swift */; };
+		755388502AB003D900DD3123 /* ActivitySearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553884F2AB003D800DD3123 /* ActivitySearchTableViewCell.swift */; };
+		755388522AB3F29300DD3123 /* TextLimitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755388512AB3F29300DD3123 /* TextLimitManager.swift */; };
+		755388572AB5D1D500DD3123 /* ActivityCenterTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755388562AB5D1D500DD3123 /* ActivityCenterTopView.swift */; };
+		755388592AB5D81C00DD3123 /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755388582AB5D81C00DD3123 /* ActivityCenterVC.swift */; };
+		7553885B2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553885A2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift */; };
+		7553885E2AB6E05400DD3123 /* QAListSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553885C2AB6E05400DD3123 /* QAListSegmentView.m */; };
+		755388602AB6EE9400DD3123 /* ActivityMineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553885F2AB6EE9400DD3123 /* ActivityMineTableViewCell.swift */; };
 		75C1EEA42A93B04400034B96 /* ActivityAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA32A93B04400034B96 /* ActivityAddVC.swift */; };
 		75C1EEA62A93CC9200034B96 /* ActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA52A93CC9200034B96 /* ActivityDetailVC.swift */; };
 		75C1EEAC2A97454400034B96 /* ActivityHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEAB2A97454400034B96 /* ActivityHUD.swift */; };
@@ -564,7 +570,6 @@
 		FE0D60452801702B00319A9E /* SchoolBusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FE0D603C2801702B00319A9E /* SchoolBusVC.m */; };
 		FE0D60462801702B00319A9E /* SchoolBusBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE0D60402801702B00319A9E /* SchoolBusBottomView.m */; };
 		FE0D60472801702B00319A9E /* SchoolBusMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE0D60412801702B00319A9E /* SchoolBusMapView.m */; };
-		FE11E82027E8712B00C4B90B /* QAListSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE11E81D27E8712A00C4B90B /* QAListSegmentView.m */; };
 		FE2C134E27AEF629001CF7AF /* TODOMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2C131727AEF629001CF7AF /* TODOMainViewController.m */; };
 		FE2C134F27AEF629001CF7AF /* ToDoDetaileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2C131827AEF629001CF7AF /* ToDoDetaileViewController.m */; };
 		FE2C135027AEF629001CF7AF /* TodoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE2C131B27AEF629001CF7AF /* TodoTableViewCell.m */; };
@@ -1084,11 +1089,18 @@
 		75534CCD2A88B44A00F3F5A3 /* ActivityMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMainViewController.swift; sourceTree = "<group>"; };
 		75534CD72A89DDFE00F3F5A3 /* ActivityTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTopView.swift; sourceTree = "<group>"; };
 		75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFieldActivityMainView.swift; sourceTree = "<group>"; };
 		75534CDD2A8A56D100F3F5A3 /* ActivitySelectBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySelectBar.swift; sourceTree = "<group>"; };
 		75534CDF2A8C99F900F3F5A3 /* ActivityCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionVC.swift; sourceTree = "<group>"; };
 		75534CE12A8CCBBF00F3F5A3 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
 		75534CE32A8CDA0600F3F5A3 /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		7553884F2AB003D800DD3123 /* ActivitySearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySearchTableViewCell.swift; sourceTree = "<group>"; };
+		755388512AB3F29300DD3123 /* TextLimitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLimitManager.swift; sourceTree = "<group>"; };
+		755388562AB5D1D500DD3123 /* ActivityCenterTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterTopView.swift; sourceTree = "<group>"; };
+		755388582AB5D81C00DD3123 /* ActivityCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCenterVC.swift; sourceTree = "<group>"; };
+		7553885A2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCenterTableViewVC.swift; sourceTree = "<group>"; };
+		7553885C2AB6E05400DD3123 /* QAListSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAListSegmentView.m; sourceTree = "<group>"; };
+		7553885D2AB6E05400DD3123 /* QAListSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAListSegmentView.h; sourceTree = "<group>"; };
+		7553885F2AB6EE9400DD3123 /* ActivityMineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMineTableViewCell.swift; sourceTree = "<group>"; };
 		75C1EEA32A93B04400034B96 /* ActivityAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAddVC.swift; sourceTree = "<group>"; };
 		75C1EEA52A93CC9200034B96 /* ActivityDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailVC.swift; sourceTree = "<group>"; };
 		75C1EEAB2A97454400034B96 /* ActivityHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHUD.swift; sourceTree = "<group>"; };
@@ -1716,8 +1728,6 @@
 		FE0D60402801702B00319A9E /* SchoolBusBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolBusBottomView.m; sourceTree = "<group>"; };
 		FE0D60412801702B00319A9E /* SchoolBusMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolBusMapView.m; sourceTree = "<group>"; };
 		FE0D60422801702B00319A9E /* SchoolBusBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolBusBottomView.h; sourceTree = "<group>"; };
-		FE11E81D27E8712A00C4B90B /* QAListSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAListSegmentView.m; sourceTree = "<group>"; };
-		FE11E81E27E8712A00C4B90B /* QAListSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAListSegmentView.h; sourceTree = "<group>"; };
 		FE2C131627AEF629001CF7AF /* ToDoDetaileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToDoDetaileViewController.h; sourceTree = "<group>"; };
 		FE2C131727AEF629001CF7AF /* TODOMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TODOMainViewController.m; sourceTree = "<group>"; };
 		FE2C131827AEF629001CF7AF /* ToDoDetaileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToDoDetaileViewController.m; sourceTree = "<group>"; };
@@ -2972,6 +2982,7 @@
 		1A14132A235F523B0001417E /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				755388532AB5A4E100DD3123 /* ActivityCenter */,
 				7AA4C46A288F809D00E204C8 /* Source */,
 				1A344BB123E96AB80014A3B4 /* About */,
 				AAE3306325E3658D00324750 /* ArticleRemarkPraise */,
@@ -3033,8 +3044,8 @@
 		1A141360235F524B0001417E /* SegmentView */ = {
 			isa = PBXGroup;
 			children = (
-				FE11E81E27E8712A00C4B90B /* QAListSegmentView.h */,
-				FE11E81D27E8712A00C4B90B /* QAListSegmentView.m */,
+				7553885D2AB6E05400DD3123 /* QAListSegmentView.h */,
+				7553885C2AB6E05400DD3123 /* QAListSegmentView.m */,
 				1A141363235F524B0001417E /* SYCSegmentViewButton.h */,
 				1A141361235F524B0001417E /* SYCSegmentViewButton.m */,
 				1A141364235F524B0001417E /* SYCSegmentView.h */,
@@ -3147,7 +3158,7 @@
 		1A9B7669235F50A600725937 /* CyxbsMobile2019_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				75534CCC2A88B41600F3F5A3 /* UField */,
+				75534CCC2A88B41600F3F5A3 /* Center */,
 				18CDF4D4257F91BC006E8E5C /* Discover */,
 				1817F00C2594D5C500FE1304 /* NewQA */,
 				DB34EA28239BD4540052B65E /* ClassSchedule */,
@@ -3838,15 +3849,15 @@
 			path = "GenericClass  ";
 			sourceTree = "<group>";
 		};
-		75534CCC2A88B41600F3F5A3 /* UField */ = {
+		75534CCC2A88B41600F3F5A3 /* Center */ = {
 			isa = PBXGroup;
 			children = (
-				75534CCF2A88B46E00F3F5A3 /* UField_Activity */,
+				75534CCF2A88B46E00F3F5A3 /* Activity */,
 			);
-			path = UField;
+			path = Center;
 			sourceTree = "<group>";
 		};
-		75534CCF2A88B46E00F3F5A3 /* UField_Activity */ = {
+		75534CCF2A88B46E00F3F5A3 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
 				75C1EEAA2A97450500034B96 /* Tools */,
@@ -3855,7 +3866,7 @@
 				75534CD12A88B4C900F3F5A3 /* View */,
 				75534CD02A88B4B300F3F5A3 /* VC */,
 			);
-			path = UField_Activity;
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		75534CD02A88B4B300F3F5A3 /* VC */ = {
@@ -3877,12 +3888,12 @@
 			isa = PBXGroup;
 			children = (
 				75534CD72A89DDFE00F3F5A3 /* ActivityTopView.swift */,
-				75534CDB2A8A562F00F3F5A3 /* UFieldActivityMainView.swift */,
 				75534CDD2A8A56D100F3F5A3 /* ActivitySelectBar.swift */,
 				75534CE12A8CCBBF00F3F5A3 /* ActivityCollectionViewCell.swift */,
 				75C1EEAD2A976AE400034B96 /* ActivityDetailView.swift */,
 				75C1EEB32A9A5EF800034B96 /* ActivityAddScrollView.swift */,
 				754E8DEC2AA86C9700355DE3 /* ActivityHitTableViewCell.swift */,
+				7553884F2AB003D800DD3123 /* ActivitySearchTableViewCell.swift */,
 				754E8DE62AA4E0DE00355DE3 /* GradientButton.swift */,
 			);
 			path = View;
@@ -3905,10 +3916,38 @@
 			path = NetWork;
 			sourceTree = "<group>";
 		};
+		755388532AB5A4E100DD3123 /* ActivityCenter */ = {
+			isa = PBXGroup;
+			children = (
+				755388552AB5D1C400DD3123 /* View */,
+				755388542AB5A51000DD3123 /* VC */,
+			);
+			path = ActivityCenter;
+			sourceTree = "<group>";
+		};
+		755388542AB5A51000DD3123 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				755388582AB5D81C00DD3123 /* ActivityCenterVC.swift */,
+				7553885A2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		755388552AB5D1C400DD3123 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				755388562AB5D1D500DD3123 /* ActivityCenterTopView.swift */,
+				7553885F2AB6EE9400DD3123 /* ActivityMineTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		75C1EEAA2A97450500034B96 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
 				75C1EEAB2A97454400034B96 /* ActivityHUD.swift */,
+				755388512AB3F29300DD3123 /* TextLimitManager.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -6113,7 +6152,6 @@
 				187DF4BE260310DD000BCDE9 /* FTEmptyView.m in Sources */,
 				14B73F81281BED7B00D08ADD /* MessagePresentController.m in Sources */,
 				AA4FA1FA25C2E2E5005139BA /* PraiseTableViewCell.m in Sources */,
-				75534CDC2A8A562F00F3F5A3 /* UFieldActivityMainView.swift in Sources */,
 				AA4FF36525879CD500C31286 /* MineSettingViewController.m in Sources */,
 				14B73F76281BED7B00D08ADD /* SystemMessageCell.m in Sources */,
 				AA0DDB53286C8B1900802324 /* MineMSSEnterBtn.m in Sources */,
@@ -6141,13 +6179,13 @@
 				14B73F73281BED7B00D08ADD /* ActiveMessageVC.m in Sources */,
 				AA7ABAA12873EA5400BA6790 /* PostH5Item.m in Sources */,
 				1404747D27F46F0D00307209 /* DiscoverADController.m in Sources */,
-				FE11E82027E8712B00C4B90B /* QAListSegmentView.m in Sources */,
 				AA4CD5EF25EE7B7F002D9394 /* ArticleModel.m in Sources */,
 				B51C500E28A5FFC00011465E /* LoginVC.m in Sources */,
 				AA0DDB80286C8B1A00802324 /* PMPEditingButton.m in Sources */,
 				FE2C135327AEF629001CF7AF /* ToDoTableView.m in Sources */,
 				735BC55026D3C6EB00F22678 /* FeedBackDetailsRequestDataModel.m in Sources */,
 				AA7ABAFE2873EA6D00BA6790 /* DynamicDetailTopBarView.m in Sources */,
+				755388522AB3F29300DD3123 /* TextLimitManager.swift in Sources */,
 				AA7ABA9F2873EA5400BA6790 /* HotSearchModel.m in Sources */,
 				FE2C136527AEF629001CF7AF /* TodoDateTool.m in Sources */,
 				AA289B1524F29F7600FDF70C /* ClassSchedulPresentingAnimater.m in Sources */,
@@ -6163,6 +6201,7 @@
 				AAE3304725E2A0D800324750 /* ArticleViewController.m in Sources */,
 				D0101D6A24352092004337ED /* UITextView+Placeholder.m in Sources */,
 				AA7ABAF82873EA6D00BA6790 /* DKSKeyboardView.m in Sources */,
+				755388502AB003D900DD3123 /* ActivitySearchTableViewCell.swift in Sources */,
 				14B73F80281BED7B00D08ADD /* MessagePresentView.m in Sources */,
 				DB34EACD239BD4550052B65E /* WYCClassBookViewController.m in Sources */,
 				AA7ABAAB2873EA5500BA6790 /* MGDClickParams.m in Sources */,
@@ -6204,11 +6243,14 @@
 				DB4064F92466D889006CE5BC /* DLTimeSelectView.m in Sources */,
 				AAE3309925E4E5CD00324750 /* DeleteArticleTipView.m in Sources */,
 				AA7ABA9C2873EA5400BA6790 /* NewCountModel.m in Sources */,
+				755388602AB6EE9400DD3123 /* ActivityMineTableViewCell.swift in Sources */,
 				AA7ABAB72873EA5500BA6790 /* ReportView.m in Sources */,
 				18CDF4CA257F8DBD006E8E5C /* SelfSafeView.m in Sources */,
 				735BC54A26D3BF6400F22678 /* FeedBackReplyModel.m in Sources */,
 				1A14136F235F524B0001417E /* UserDefaultTool.m in Sources */,
+				755388592AB5D81C00DD3123 /* ActivityCenterVC.swift in Sources */,
 				1A141366235F524B0001417E /* AESCipher.m in Sources */,
+				7553885E2AB6E05400DD3123 /* QAListSegmentView.m in Sources */,
 				4931631026CD7B6800140412 /* StampCenterTopView.m in Sources */,
 				FE2C135C27AEF629001CF7AF /* DiscoverTodoView.m in Sources */,
 				AA3F82E624EA4A8900B65042 /* LeftBar.m in Sources */,
@@ -6252,6 +6294,7 @@
 				754E8DE32A9DE81F00355DE3 /* ActivityDatePickerVC.swift in Sources */,
 				AA0DDB63286C8B1A00802324 /* IDDataManager.m in Sources */,
 				18CDF69C257F91BD006E8E5C /* CQUPTMapViewController.m in Sources */,
+				7553885B2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift in Sources */,
 				AA7ABA962873EA5400BA6790 /* NewQAMainVC.m in Sources */,
 				FE2C135627AEF629001CF7AF /* ToDoDetailRepeatView.m in Sources */,
 				D0101F61243587A1004337ED /* GKLoadingView.m in Sources */,
@@ -6487,6 +6530,7 @@
 				491DAE5726E207C600693AAA /* CommonQuestionData.m in Sources */,
 				1A141365235F524B0001417E /* UIFont+AdaptiveFont.m in Sources */,
 				AAE3305325E2A41900324750 /* ArticleTableViewCell.m in Sources */,
+				755388572AB5D1D500DD3123 /* ActivityCenterTopView.swift in Sources */,
 				1A344BB723E96AD80014A3B4 /* MineAboutController.m in Sources */,
 				18CDF691257F91BD006E8E5C /* CQUPTMapStarPlaceItem.m in Sources */,
 				AA0DDB72286C8B1A00802324 /* PMPPickerView.m in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import JXPagingView
+import JXSegmentedView
 
 class ActivityCenterVC: UIViewController {
     
@@ -16,25 +16,49 @@ class ActivityCenterVC: UIViewController {
     var reviewingActivities: [Activity] = []
     var wantToWatchActivities: [Activity] = []
     var tableViewControllers: [ActivityCenterTableViewVC] = []
+    var segmentedDataSource: JXSegmentedTitleDataSource!
+    var segmentedView: JXSegmentedView!
+    var listContainerView: JXSegmentedListContainerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addVCs()
-        let segmentView = QAListSegmentView(frame: CGRectMake(0, UIApplication.shared.statusBarFrame.height+45, self.view.width, view.height - 60), controllers: tableViewControllers)!
-        segmentView.titleFont = UIFont(name: PingFangSCMedium, size: 18)
-        segmentView.titleColor = UIColor(red: 0.078, green: 0.173, blue: 0.322, alpha: 0.4)
-        segmentView.selectedTitleFont = UIFont(name: PingFangSCMedium, size: 18)
-        segmentView.selectedTitleColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 1)
-        segmentView.updateUI()
         addTopView()
-        view.addSubview(segmentView)
-        segmentView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+45)
-            make.bottom.equalToSuperview()
+        segmentedView = JXSegmentedView()
+        segmentedDataSource = JXSegmentedTitleDataSource()
+        segmentedDataSource.titles = ["我想看","已参与","已发布","待审核"]
+        segmentedDataSource.titleNormalFont = UIFont(name: PingFangSCMedium, size: 18)!
+        segmentedDataSource.titleNormalColor = UIColor(red: 0.078, green: 0.173, blue: 0.322, alpha: 0.4)
+        segmentedDataSource.titleSelectedColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 1)
+        segmentedDataSource.isTitleColorGradientEnabled = true
+        segmentedView.delegate = self
+        segmentedView.dataSource = segmentedDataSource
+        //3、配置指示器
+        let indicator = JXSegmentedIndicatorImageView()
+        indicator.indicatorWidth = 66
+        indicator.verticalOffset = -8
+        indicator.image = UIImage(named: "选中效果2")
+        indicator.indicatorColor = .blue
+        segmentedView.indicators = [indicator]
+        view.addSubview(segmentedView)
+        listContainerView = JXSegmentedListContainerView(dataSource: self)
+        view.addSubview(listContainerView)
+        segmentedView.listContainer = listContainerView
+        
+        //布局子控件,
+        segmentedView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.height.equalTo(50)
+            make.top.equalTo(47+UIApplication.shared.statusBarFrame.height)
         }
+        listContainerView.snp.makeConstraints { (make) in
+            //可以滑动的容器,在tab的下面,宽度屏幕宽,底部在安全区的最下边
+            make.top.equalTo(segmentedView.snp.bottom).offset(10)
+            make.width.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
         requestActivity()
     }
     
@@ -140,6 +164,33 @@ class ActivityCenterVC: UIViewController {
     
     @objc func popController() {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension ActivityCenterVC: JXSegmentedListContainerViewDataSource {
+    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
+        return 4
+    }
+    
+    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
+        return tableViewControllers[index]
+    }
+}
+
+extension ActivityCenterVC: JXSegmentedViewDelegate {
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        if (tableViewControllers[index].activities.count == 0) {
+            ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                        height: 36,
+                                                        text: "暂无更多内容",
+                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                        textColor: .white,
+                                                        delay: 2,
+                                                        view: self.view,
+                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                        cornerRadius: 18,
+                                                  yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+        }
     }
 }
 

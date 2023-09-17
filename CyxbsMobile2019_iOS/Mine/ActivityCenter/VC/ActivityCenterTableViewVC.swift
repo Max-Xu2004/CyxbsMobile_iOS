@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class ActivityCenterTableViewVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -22,21 +23,6 @@ class ActivityCenterTableViewVC: UIViewController, UITableViewDataSource, UITabl
             make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if activities.count == 0 {
-            ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                        height: 36,
-                                                        text: "暂无更多内容",
-                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                        textColor: .white,
-                                                        delay: 2,
-                                                        view: self.view,
-                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                        cornerRadius: 18,
-                                                  yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
         }
     }
     
@@ -95,5 +81,11 @@ class ActivityCenterTableViewVC: UIViewController, UITableViewDataSource, UITabl
 extension ActivityCenterTableViewVC: ActivityDetailVCDelegate {
     func updateModel(indexPathNum: Int, wantToWatch: Bool) {
         self.activities[indexPathNum].wantToWatch = wantToWatch
+    }
+}
+
+extension ActivityCenterTableViewVC: JXSegmentedListContainerViewListDelegate {
+    func listView() -> UIView {
+        return view
     }
 }

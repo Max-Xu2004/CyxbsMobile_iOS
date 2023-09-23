@@ -29,6 +29,7 @@ class ActivityCenterTableViewVC: UIViewController, UITableViewDataSource, UITabl
     //活动展示tableView
     lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         tableView.register(ActivityMineTableViewCell.self, forCellReuseIdentifier: "mineCell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -41,7 +42,6 @@ class ActivityCenterTableViewVC: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mineCell", for: indexPath) as! ActivityMineTableViewCell
         cell.coverImgView.sd_setImage(with: URL(string: activities[indexPath.item].activityCoverURL))
-//        cell.titleLabel.text = activities[indexPath.item].activityTitle
         cell.titleLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.paragraphStyle: titleParagraphStyle])
         cell.detailLabel.text = activities[indexPath.item].activityDetail
         cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activities[indexPath.item].activityStartAt)))
@@ -83,7 +83,7 @@ extension ActivityCenterTableViewVC: ActivityDetailVCDelegate {
         self.activities[indexPathNum].wantToWatch = wantToWatch
     }
 }
-
+// MARK: - JXSegmentedListContainerViewListDelegate，返回containerView展示的视图
 extension ActivityCenterTableViewVC: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
         return view

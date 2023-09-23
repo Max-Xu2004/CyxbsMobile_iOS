@@ -55,7 +55,7 @@ class ActivityMineTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(red: 0.973, green: 0.976, blue: 0.988, alpha: 1)
         contentView.addSubview(coverImgView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(detailLabel)

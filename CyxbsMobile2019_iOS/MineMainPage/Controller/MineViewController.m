@@ -311,6 +311,7 @@
     
     [btn addTarget:self action:@selector(activityCenterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
+
 - (void)addSignView {
     MineSignView *view = [[MineSignView alloc] init];
     self.signView = view;

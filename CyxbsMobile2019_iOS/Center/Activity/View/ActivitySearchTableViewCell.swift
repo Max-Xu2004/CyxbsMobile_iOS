@@ -1,5 +1,5 @@
 //
-//  ActivityDefaultTableViewCell.swift
+//  ActivitySearchTableViewCell.swift
 //  CyxbsMobile2019_iOS
 //
 //  Created by 许晋嘉 on 2023/9/12.
@@ -80,17 +80,17 @@ class ActivitySearchTableViewCell: UITableViewCell {
     
     func setPosition() {
         //titleLabel位置设定
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 134).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 134).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19).isActive = true
         titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 113).isActive = true
         titleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 40).isActive = true
         //detailLabel位置设置
-        detailLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 134).isActive = true
+        detailLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 134).isActive = true
         detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -2).isActive = true
         detailLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 176).isActive = true
         detailLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 40).isActive = true
         //statusImgView位置
-        statusImgView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8).isActive = true
+        statusImgView.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
         statusImgView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21).isActive = true
     }
 }

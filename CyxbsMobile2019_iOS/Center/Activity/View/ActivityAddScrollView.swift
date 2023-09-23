@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 class ActivityAddScrollView: UIScrollView {
+    
+    var textFields: [UITextField] = []
+    
     // MARK: - 懒加载
     lazy var coverImgView: UIImageView = {
         let imageView = UIImageView()
@@ -127,7 +130,7 @@ class ActivityAddScrollView: UIScrollView {
         let label = UILabel()
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
-        label.attributedText = NSMutableAttributedString(string: "创始人联系方式", attributes: [NSAttributedString.Key.kern: 0.48])
+        label.attributedText = NSMutableAttributedString(string: "创建人联系方式", attributes: [NSAttributedString.Key.kern: 0.48])
         return label
     }()
     
@@ -184,7 +187,7 @@ class ActivityAddScrollView: UIScrollView {
         return textField
     }()
     
-    lazy var contaTextfield: UITextField = {
+    lazy var contactTextfield: UITextField = {
         let textField = UITextField()
         textField.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 1)
         textField.backgroundColor = UIColor(red: 0.946, green: 0.954, blue: 0.962, alpha: 1)
@@ -202,11 +205,14 @@ class ActivityAddScrollView: UIScrollView {
     
     lazy var detailTextView: UITextView = {
         let textView = UITextView()
-        let attributedPlaceholder = NSMutableAttributedString(string: "关于活动的简介")
+        let attributedPlaceholder = NSMutableAttributedString(string: "关于活动的简介(不超过100个字）")
 
         // 设置字体
         if let customFont = UIFont(name: "PingFangSC-Medium", size: 14) {
-            attributedPlaceholder.addAttribute(.font, value: customFont, range: NSRange(location: 0, length: attributedPlaceholder.length))
+            attributedPlaceholder.addAttribute(.font, value: customFont, range: NSRange(location: 0, length: 7))
+        }
+        if let customFont = UIFont(name: "PingFangSC-Medium", size: 12) {
+            attributedPlaceholder.addAttribute(.font, value: customFont, range: NSRange(location: 7, length: 10))
         }
         // 设置颜色
         let customColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.4)
@@ -349,7 +355,7 @@ class ActivityAddScrollView: UIScrollView {
             make.width.equalTo(UIScreen.main.bounds.width - 110)
         }
         
-        self.contaTextfield.snp.makeConstraints { make in
+        self.contactTextfield.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(441)
             make.left.equalTo(contactLabel.snp.right).offset(12)
             make.height.equalTo(35)
@@ -374,6 +380,7 @@ class ActivityAddScrollView: UIScrollView {
         addSubview(coverImgView)
         addSubview(titleLabel)
         addSubview(titleTextfield)
+        textFields.append(titleTextfield)
         addSubview(typeLabel)
         addSubview(typeButton)
         addSubview(startTimeView)
@@ -387,9 +394,13 @@ class ActivityAddScrollView: UIScrollView {
         addSubview(contactLabel)
         addSubview(detailLabel)
         addSubview(placeTextfield)
+        textFields.append(placeTextfield)
         addSubview(registrationTextfield)
+        textFields.append(registrationTextfield)
         addSubview(organizerTextfield)
-        addSubview(contaTextfield)
+        textFields.append(organizerTextfield)
+        addSubview(contactTextfield)
+        textFields.append(contactTextfield)
         addSubview(detailTextView)
         setupUI()
     }

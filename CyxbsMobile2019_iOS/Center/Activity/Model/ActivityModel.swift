@@ -25,7 +25,8 @@ struct Activity: Codable {
     let activityCoverURL: String
     var wantToWatch: Bool?
     let ended: Bool?
-    let state: String
+    let state: String?
+    let phone: String?
 
     private enum CodingKeys: String, CodingKey {
         case activityTitle = "activity_title"
@@ -44,6 +45,7 @@ struct Activity: Codable {
         case wantToWatch = "want_to_watch"
         case ended = "ended"
         case state = "activity_state"
+        case phone = "phone"
     }
 }
 
@@ -64,7 +66,7 @@ struct SearchActivityResponse: Codable {
     let data: [Activity]
 }
 
-struct wantToWatchResponse: Codable {
+struct standardResponse: Codable {
     let status: Int
     let info: String
 }

@@ -8,19 +8,21 @@
 
 import UIKit
 import TOCropViewController
+import Alamofire
 
 class ActivityAddVC: UIViewController,
-                                        UIImagePickerControllerDelegate,
-                                        UINavigationControllerDelegate,
-                                       TOCropViewControllerDelegate,
-                                        ActivityTypePickerDelegate,
-                                       ActivityDatePickerDelegate {
+                     UIImagePickerControllerDelegate,
+                     UINavigationControllerDelegate,
+                     TOCropViewControllerDelegate,
+                     ActivityTypePickerDelegate,
+                     ActivityDatePickerDelegate {
     
     
-    var activity_type: String?
-    var startTime: Date?
-    var endTime: Date?
+    var activityType: String?
+    var startTime: Date = Date()
+    var endTime: Date = Date()
     let textLimitManager = TextLimitManager.shared
+    var isSetImage: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,10 @@ class ActivityAddVC: UIViewController,
         view.addSubview(scrollView)
         view.addSubview(confirmButton)
         setPosition()
+        for textfield in scrollView.textFields {
+            textfield.delegate = self
+        }
+        scrollView.detailTextView.delegate = self
     }
     
     // MARK: - 懒加载
@@ -49,20 +55,22 @@ class ActivityAddVC: UIViewController,
         let startTimeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(setStartTime))
         scrollView.startTimeLabel.addGestureRecognizer(startTimeLabelTapGesture)
         scrollView.startTimeLabel.isUserInteractionEnabled = true
+        scrollView.startTimeLabel.text = formatDateToCustomString(date: startTime)
         let endTimeLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(setEndTime))
         scrollView.endTimeLabel.addGestureRecognizer(endTimeLabelTapGesture)
         scrollView.endTimeLabel.isUserInteractionEnabled = true
+        scrollView.endTimeLabel.text = formatDateToCustomString(date: endTime)
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: 696)
         textLimitManager.setupLimitForTextField(scrollView.titleTextfield, maxLength: 12)
         textLimitManager.setupLimitForTextField(scrollView.placeTextfield, maxLength: 10)
         textLimitManager.setupLimitForTextField(scrollView.registrationTextfield, maxLength: 15)
         textLimitManager.setupLimitForTextField(scrollView.organizerTextfield, maxLength: 10)
-        textLimitManager.setupLimitForTextField(scrollView.contaTextfield, maxLength: 11)
+        textLimitManager.setupLimitForTextField(scrollView.contactTextfield, maxLength: 11)
         textLimitManager.setupLimitForTextView(scrollView.detailTextView, maxLength: 100)
         return scrollView
     }()
     
-    lazy var confirmButton: UIButton = {
+    lazy var confirmButton: GradientButton = {
         let button = GradientButton()
         button.frame = CGRectMake((UIScreen.main.bounds.width - 315)/2, UIScreen.main.bounds.height - 86, 315, 51)
         button.setTitle("创建活动", for: .normal)
@@ -70,8 +78,99 @@ class ActivityAddVC: UIViewController,
         button.titleLabel?.font = UIFont(name: PingFangSCBold, size: 18)
         button.layer.cornerRadius = 25.5
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        button.removeGradientBackground()
+        button.backgroundColor = UIColor(red: 0.765, green: 0.831, blue: 0.933, alpha: 1)
+        button.isEnabled = false
         return button
     }()
+    
+    @objc func confirmButtonTapped() {
+        self.confirmButton.isEnabled = false // 防止重复点击
+        if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty {
+            print("有空的")
+        } else {
+            if let type = activityType {
+                let parameters: [String: Any] = [
+                    "activity_title": scrollView.titleTextfield.text!,
+                    "activity_type": type,
+                    "activity_start_at": dateToTimestamp(date: startTime),
+                    "activity_end_at": dateToTimestamp(date: endTime),
+                    "activity_place": scrollView.placeTextfield.text!,
+                    "activity_registration_type": scrollView.registrationTextfield.text!,
+                    "activity_organizer": scrollView.organizerTextfield.text!,
+                    "creator_phone": scrollView.contactTextfield.text!,
+                    "activity_detail": scrollView.detailTextView.text!
+                ]
+                print(parameters)
+                if isSetImage {
+                    // 获取UIImageView中的图像
+                    let imageData = CompressImages.shared.compressPNGImage(image: scrollView.coverImgView.image!, targetFileSizeInMB: 5)
+
+                    // 设置文件名和MIME类型
+                    let fileName = "image.png"
+                    let mimeType = "image/png"
+
+                    // 发起上传请求
+                    ActivityClient.shared.upload(url: "magipoke-ufield/activity/publish/",
+                                                 method: .post,
+                                                 headers: nil,
+                                                 parameters: parameters,
+                                                 fileData: imageData,
+                                                 withName: "activity_cover_file",
+                                                 fileName: fileName,
+                                                 mimeType: mimeType) { response in
+                        if let dataDict = response as? [String: Any],
+                           let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+                           let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                            print(wantToWatchResponseData)
+                        }
+                    } failure: { error in
+                        print(error)
+                        ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                    height: 36,
+                                                                    text: "服务君似乎打盹了呢",
+                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                    textColor: .white,
+                                                                    delay: 2,
+                                                                    view: self.view,
+                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                    cornerRadius: 18,
+                                                                    yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+                    }
+                } else {
+                    ActivityClient.shared.upload(url: "magipoke-ufield/activity/publish/",
+                                                 method: .post,
+                                                 headers: nil,
+                                                 parameters: parameters,
+                                                 fileData: nil,
+                                                 withName: nil,
+                                                 fileName: nil,
+                                                 mimeType: nil) { response in
+                        if let dataDict = response as? [String: Any],
+                           let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+                           let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                            print(wantToWatchResponseData)
+                        }
+                    } failure: { error in
+                        print(error)
+                        ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                    height: 36,
+                                                                    text: "服务君似乎打盹了呢",
+                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                    textColor: .white,
+                                                                    delay: 2,
+                                                                    view: self.view,
+                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                    cornerRadius: 18,
+                                                                    yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+                    }
+                }
+            }
+            else { print("未选择活动类型")}
+        }
+        self.confirmButton.isEnabled = true
+    }
     
     // MARK: - 设置子控件位置
     func setPosition() {
@@ -159,6 +258,7 @@ class ActivityAddVC: UIViewController,
     func cropViewController(_ cropViewController: TOCropViewController, didCropTo image: UIImage, with cropRect: CGRect, angle: Int) {
         cropViewController.dismiss(animated: true, completion: nil)
         scrollView.coverImgView.image = image
+        isSetImage = true
     }
     
     // MARK: - 展示TOCropViewController裁剪图片
@@ -175,7 +275,7 @@ class ActivityAddVC: UIViewController,
     @objc func showTypePicker() {
         let pickerVC = ActivityTypePickerVC()
         pickerVC.delegate = self
-        switch activity_type {
+        switch activityType {
         case "culture":
             pickerVC.activityType = .culture
         case "sports":
@@ -193,8 +293,9 @@ class ActivityAddVC: UIViewController,
     func didSelectActivityType(_ type: String) {
         print("Selected activity type: \(type)")
         // Assign the selected activity type to the variable
-        activity_type = mapToActivityType(type)
+        activityType = mapToActivityType(type)
         scrollView.typeButton.setTitle(type, for: .normal)
+        shouldConfirmButtonEnabled()
     }
     
     func mapToActivityType(_ type: String) -> String {
@@ -212,9 +313,7 @@ class ActivityAddVC: UIViewController,
     
     @objc func setStartTime() {
         let dateVC = ActivityDatePickerVC()
-        if let minDate = self.startTime {
-            dateVC.minDate = minDate
-        }
+        dateVC.minDate = startTime
         dateVC.modalPresentationStyle = .overCurrentContext
         dateVC.timeSelection = .startTime
         dateVC.delegate = self
@@ -223,12 +322,7 @@ class ActivityAddVC: UIViewController,
     
     @objc func setEndTime() {
         let dateVC = ActivityDatePickerVC()
-        if let minDate = self.startTime {
-            dateVC.minDate = minDate
-        }
-        if let minDate = self.endTime {
-            dateVC.minDate = minDate
-        }
+        dateVC.minDate = endTime
         dateVC.modalPresentationStyle = .overCurrentContext
         dateVC.timeSelection = .endTime
         dateVC.delegate = self
@@ -237,12 +331,12 @@ class ActivityAddVC: UIViewController,
     
     func didSelectStartTime(date: Date) {
         startTime = date
-        scrollView.startTimeLabel.text = formatDateToCustomString(date: date)
+        scrollView.startTimeLabel.text = formatDateToCustomString(date: startTime)
     }
     
     func didSelectEndTime(date: Date) {
         endTime = date
-        scrollView.endTimeLabel.text = formatDateToCustomString(date: date)
+        scrollView.endTimeLabel.text = formatDateToCustomString(date: endTime)
     }
     
     // 使用中文环境
@@ -252,6 +346,48 @@ class ActivityAddVC: UIViewController,
         dateFormatter.dateFormat = "yyyy年M月d日H点m分"
         return dateFormatter.string(from: date)
     }
+    
+    //同时判断多个UITextfield是否为空
+    func areTextFieldsEmpty(textFields: [UITextField]) -> Bool {
+        for textField in textFields {
+            if let text = textField.text, !text.isEmpty {
+                // TextField 不为空
+            } else {
+                // TextField 为空
+                return true
+            }
+        }
+        // 所有 TextField 都不为空
+        return false
+    }
+    
+    //将Date对象对应的时间转换为时间戳
+    func dateToTimestamp(date: Date) -> Int {
+        return Int(date.timeIntervalSince1970)
+    }
+
+    func shouldConfirmButtonEnabled() {
+        if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty || activityType == nil {
+            confirmButton.isEnabled = false
+            confirmButton.removeGradientBackground()
+        } else {
+            confirmButton.isEnabled = true
+            confirmButton.setupGradient()
+        }
+    }
 }
+
+extension ActivityAddVC: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        shouldConfirmButtonEnabled()
+    }
+}
+
+extension ActivityAddVC: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        shouldConfirmButtonEnabled()
+    }
+}
+
 
 

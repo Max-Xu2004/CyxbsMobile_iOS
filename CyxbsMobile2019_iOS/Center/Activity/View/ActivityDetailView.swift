@@ -9,6 +9,10 @@
 import UIKit
 
 class ActivityDetailView: UIView {
+    
+    var informationViews: [UILabel] = []
+    var informationLabels: [UILabel] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -68,12 +72,14 @@ class ActivityDetailView: UIView {
         startTimeLabel.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-14)
             make.top.equalToSuperview().offset(231)
+            make.width.equalTo(162)
             make.height.equalTo(20)
         }
         
         endTimeLabel.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-14)
             make.top.equalToSuperview().offset(255)
+            make.width.equalTo(162)
             make.height.equalTo(20)
         }
         
@@ -97,6 +103,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.text = "主办方"
+        informationViews.append(label)
         return label
     }()
     
@@ -106,6 +113,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.text = "创建者"
+        informationViews.append(label)
         return label
     }()
     
@@ -115,6 +123,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.text = "报名方式"
+        informationViews.append(label)
         return label
     }()
     
@@ -124,6 +133,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.text = "活动地点"
+        informationViews.append(label)
         return label
     }()
     
@@ -150,6 +160,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.textAlignment = .right
+        informationLabels.append(label)
         return label
     }()
     
@@ -158,6 +169,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.textAlignment = .right
+        informationLabels.append(label)
         return label
     }()
     
@@ -166,6 +178,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.textAlignment = .right
+        informationLabels.append(label)
         return label
     }()
     
@@ -183,6 +196,7 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 14)
         label.text = "开始时间"
+        informationViews.append(label)
         return label
     }()
     
@@ -192,22 +206,23 @@ class ActivityDetailView: UIView {
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 14)
         label.text = "结束时间"
+        informationViews.append(label)
         return label
     }()
     
-    lazy var startTimeLabel: UILabel = {
-        let label = UILabel()
+    lazy var startTimeLabel: JustifiedLabel = {
+        let label = JustifiedLabel()
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
         label.font = UIFont(name: "PingFangSC-Medium", size: 14)
-        label.textAlignment = .right
+        informationLabels.append(label)
         return label
     }()
     
-    lazy var endTimeLabel: UILabel = {
-        let label = UILabel()
+    lazy var endTimeLabel: JustifiedLabel = {
+        let label = JustifiedLabel()
         label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
         label.font = UIFont(name: "PingFangSC-Medium", size: 14)
-        label.textAlignment = .right
+        informationLabels.append(label)
         return label
     }()
     

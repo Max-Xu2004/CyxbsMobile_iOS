@@ -48,10 +48,10 @@ class ActivityDetailVC: UIViewController {
         backGroundView2.addSubview(hourNumLabel)
         backGroundView3.addSubview(minuteNumLabel)
         backGroundView4.addSubview(secondNumLabel)
+        addDetailView()
         setPosition()
         startCountdownTimer()
         self.wantToWatchButton.isEnabled = !(self.activity.wantToWatch ?? true)
-        addDetailView()
     }
     
     
@@ -76,11 +76,7 @@ class ActivityDetailVC: UIViewController {
     lazy var statusImgView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
-        if (activity.ended ?? true){
-            imgView.image = UIImage(named: "activityEnded")
-        } else{
-            imgView.image = UIImage(named: "activityOngoing")
-        }
+        imgView.image = UIImage(named: "activityOngoing")
         return imgView
     }()
     
@@ -333,7 +329,7 @@ class ActivityDetailVC: UIViewController {
                                       parameters: nil) { responseData in
             if let dataDict = responseData as? [String: Any],
                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let wantToWatchResponseData = try? JSONDecoder().decode(wantToWatchResponse.self, from: jsonData) {
+               let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
                 print(wantToWatchResponseData)
                 if (wantToWatchResponseData.status == 10000) {
                     self.wantToWatchButton.isEnabled = false
@@ -505,6 +501,18 @@ class ActivityDetailVC: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(22)
         }
+        for label in detailView.informationViews {
+            label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
+        }
+        for label in detailView.informationLabels {
+            label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
+        }
+        detailView.placeLabel.textColor = UIColor(red: 0.29, green: 0.267, blue: 0.894, alpha: 0.6)
+        detailView.placeImg.alpha = 0.4
+        statusImgView.image = UIImage(named: "activityEnded")
+        detailView.detailLabel . textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
+        detailView.informationView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
+        detailView.detailView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
     }
     
     // MARK: - 时间戳转换为显示的字符串

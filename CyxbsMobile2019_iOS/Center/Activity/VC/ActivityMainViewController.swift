@@ -36,6 +36,7 @@ class ActivityMainViewController: UIViewController {
         topView.searchButton.addTarget(self, action: #selector(pushSearchVC), for: .touchUpInside)
         topView.addActivityButton.addTarget(self, action: #selector(pushAddVC), for: .touchUpInside)
         topView.activityHitButton.addTarget(self, action: #selector(pushHitVC), for: .touchUpInside)
+        topView.adminButton.addTarget(self, action: #selector(pushAdminVC), for: .touchUpInside)
         return topView
     }()
     //活动类型选择bar
@@ -208,6 +209,11 @@ class ActivityMainViewController: UIViewController {
     @objc func pushSearchVC() {
         let searchVC = ActivitySearchVC()
         self.navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
+    @objc func pushAdminVC() {
+        let adminVC = ActivityAdminManageVC()
+        self.navigationController?.pushViewController(adminVC, animated: true)
     }
 }
 

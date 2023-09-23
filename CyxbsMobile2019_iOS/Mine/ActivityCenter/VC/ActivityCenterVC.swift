@@ -22,9 +22,10 @@ class ActivityCenterVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 0.973, green: 0.976, blue: 0.988, alpha: 1)
         addVCs()
         addTopView()
+        //初始化segmentedView
         segmentedView = JXSegmentedView()
         segmentedDataSource = JXSegmentedTitleDataSource()
         segmentedDataSource.titles = ["我想看","已参与","已发布","待审核"]
@@ -34,10 +35,10 @@ class ActivityCenterVC: UIViewController {
         segmentedDataSource.isTitleColorGradientEnabled = true
         segmentedView.delegate = self
         segmentedView.dataSource = segmentedDataSource
-        //3、配置指示器
+        //配置指示器
         let indicator = JXSegmentedIndicatorImageView()
         indicator.indicatorWidth = 66
-        indicator.verticalOffset = -8
+        indicator.verticalOffset = -5
         indicator.image = UIImage(named: "选中效果2")
         indicator.indicatorColor = .blue
         segmentedView.indicators = [indicator]
@@ -45,12 +46,11 @@ class ActivityCenterVC: UIViewController {
         listContainerView = JXSegmentedListContainerView(dataSource: self)
         view.addSubview(listContainerView)
         segmentedView.listContainer = listContainerView
-        
-        //布局子控件,
+        //布局子控件
         segmentedView.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalTo(50)
-            make.top.equalTo(47+UIApplication.shared.statusBarFrame.height)
+            make.top.equalTo(46+UIApplication.shared.statusBarFrame.height)
         }
         listContainerView.snp.makeConstraints { (make) in
             //可以滑动的容器,在tab的下面,宽度屏幕宽,底部在安全区的最下边
@@ -88,7 +88,6 @@ class ActivityCenterVC: UIViewController {
                 self.tableViewControllers[3].activities = self.reviewingActivities
                 //所有子vc的tableView重新载入数据
                 for ActivityCenterTableViewVC in self.tableViewControllers {
-                    print(ActivityCenterTableViewVC.activities.count)
                     ActivityCenterTableViewVC.tableView.reloadData()
                 }
 //                print(self.wantToWatchActivities.count)
@@ -115,6 +114,7 @@ class ActivityCenterVC: UIViewController {
     lazy var topView: ActivityCenterTopView = {
         let topView = ActivityCenterTopView(frame: CGRectMake(0, 0, view.bounds.width, 92+UIApplication.shared.statusBarFrame.height))
         topView.backButton.addTarget(self, action: #selector(popController), for: .touchUpInside)
+        topView.titleLab.text = "活动中心"
         return topView
     }()
     

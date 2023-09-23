@@ -262,6 +262,12 @@
 		7553885B2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553885A2AB5EC7400DD3123 /* ActivityCenterTableViewVC.swift */; };
 		7553885E2AB6E05400DD3123 /* QAListSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553885C2AB6E05400DD3123 /* QAListSegmentView.m */; };
 		755388602AB6EE9400DD3123 /* ActivityMineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553885F2AB6EE9400DD3123 /* ActivityMineTableViewCell.swift */; };
+		755B2E592ABDA55F00A2E12F /* TitleContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755B2E582ABDA55F00A2E12F /* TitleContentView.swift */; };
+		755B2E5B2ABDC55B00A2E12F /* CompressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755B2E5A2ABDC55B00A2E12F /* CompressImages.swift */; };
+		7561C03A2ABAE00F00FA906E /* ActivityAdminManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561C0392ABAE00F00FA906E /* ActivityAdminManageVC.swift */; };
+		75B795BD2ABC7FD70045E2CC /* ActivityAdminReviewingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B795BC2ABC7FD70045E2CC /* ActivityAdminReviewingVC.swift */; };
+		75B795BF2ABD7A450045E2CC /* JustifiedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B795BE2ABD7A450045E2CC /* JustifiedLabel.swift */; };
+		75BE062C2AB9897E00C4BFDA /* ActivityReviewingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BE062B2AB9897E00C4BFDA /* ActivityReviewingTableViewCell.swift */; };
 		75C1EEA42A93B04400034B96 /* ActivityAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA32A93B04400034B96 /* ActivityAddVC.swift */; };
 		75C1EEA62A93CC9200034B96 /* ActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEA52A93CC9200034B96 /* ActivityDetailVC.swift */; };
 		75C1EEAC2A97454400034B96 /* ActivityHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1EEAB2A97454400034B96 /* ActivityHUD.swift */; };
@@ -1101,6 +1107,12 @@
 		7553885C2AB6E05400DD3123 /* QAListSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAListSegmentView.m; sourceTree = "<group>"; };
 		7553885D2AB6E05400DD3123 /* QAListSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAListSegmentView.h; sourceTree = "<group>"; };
 		7553885F2AB6EE9400DD3123 /* ActivityMineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityMineTableViewCell.swift; sourceTree = "<group>"; };
+		755B2E582ABDA55F00A2E12F /* TitleContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleContentView.swift; sourceTree = "<group>"; };
+		755B2E5A2ABDC55B00A2E12F /* CompressImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressImages.swift; sourceTree = "<group>"; };
+		7561C0392ABAE00F00FA906E /* ActivityAdminManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAdminManageVC.swift; sourceTree = "<group>"; };
+		75B795BC2ABC7FD70045E2CC /* ActivityAdminReviewingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAdminReviewingVC.swift; sourceTree = "<group>"; };
+		75B795BE2ABD7A450045E2CC /* JustifiedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustifiedLabel.swift; sourceTree = "<group>"; };
+		75BE062B2AB9897E00C4BFDA /* ActivityReviewingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityReviewingTableViewCell.swift; sourceTree = "<group>"; };
 		75C1EEA32A93B04400034B96 /* ActivityAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAddVC.swift; sourceTree = "<group>"; };
 		75C1EEA52A93CC9200034B96 /* ActivityDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailVC.swift; sourceTree = "<group>"; };
 		75C1EEAB2A97454400034B96 /* ActivityHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHUD.swift; sourceTree = "<group>"; };
@@ -3128,6 +3140,7 @@
 			children = (
 				1A799561252B43E400603253 /* SwiftyClient.swift */,
 				75534CD92A89DEB800F3F5A3 /* UIColorExtension.swift */,
+				755B2E5A2ABDC55B00A2E12F /* CompressImages.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -3880,6 +3893,8 @@
 				754E8DE22A9DE81F00355DE3 /* ActivityDatePickerVC.swift */,
 				752AEB5F2AAED13C0047803D /* ActivityHitVC.swift */,
 				754E8E2C2AAC46DB00355DE3 /* ActivitySearchVC.swift */,
+				7561C0392ABAE00F00FA906E /* ActivityAdminManageVC.swift */,
+				75B795BB2ABC731C0045E2CC /* ActivityAdminManageVCs */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3894,7 +3909,10 @@
 				75C1EEB32A9A5EF800034B96 /* ActivityAddScrollView.swift */,
 				754E8DEC2AA86C9700355DE3 /* ActivityHitTableViewCell.swift */,
 				7553884F2AB003D800DD3123 /* ActivitySearchTableViewCell.swift */,
+				75BE062B2AB9897E00C4BFDA /* ActivityReviewingTableViewCell.swift */,
 				754E8DE62AA4E0DE00355DE3 /* GradientButton.swift */,
+				75B795BE2ABD7A450045E2CC /* JustifiedLabel.swift */,
+				755B2E582ABDA55F00A2E12F /* TitleContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3941,6 +3959,14 @@
 				7553885F2AB6EE9400DD3123 /* ActivityMineTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		75B795BB2ABC731C0045E2CC /* ActivityAdminManageVCs */ = {
+			isa = PBXGroup;
+			children = (
+				75B795BC2ABC7FD70045E2CC /* ActivityAdminReviewingVC.swift */,
+			);
+			path = ActivityAdminManageVCs;
 			sourceTree = "<group>";
 		};
 		75C1EEAA2A97450500034B96 /* Tools */ = {
@@ -6139,6 +6165,7 @@
 				1A2CEA8F250667C200A0EE0F /* ClassDetailModel.m in Sources */,
 				4975628A26D5975F004499E6 /* FeedBackView.m in Sources */,
 				1A30F3AD23D33F1300FBBD83 /* CheckInModel.m in Sources */,
+				75B795BD2ABC7FD70045E2CC /* ActivityAdminReviewingVC.swift in Sources */,
 				DB34EB31239BD4550052B65E /* RemindMatter.m in Sources */,
 				AA7AB9692873E5EA00BA6790 /* QASearchResultRootView.m in Sources */,
 				DB34EB34239BD4550052B65E /* LessonButton.m in Sources */,
@@ -6260,6 +6287,7 @@
 				18CDF69E257F91BD006E8E5C /* CQUPTMapBeforeSearchCell.m in Sources */,
 				1A1691F82430DEE70076EDC7 /* ClassScheduleTabBarView.m in Sources */,
 				18CDF6A5257F91BD006E8E5C /* CQUPTMapDetailView.m in Sources */,
+				755B2E592ABDA55F00A2E12F /* TitleContentView.swift in Sources */,
 				1A141321235F521C0001417E /* BaseViewController.m in Sources */,
 				7F101AC2260613E800F2034C /* YYZTopicGroupVC.m in Sources */,
 				1451EA53282A09B800A5BB55 /* UserPublishModel.m in Sources */,
@@ -6419,6 +6447,7 @@
 				DB4064FA2466D889006CE5BC /* DLTextFiled.m in Sources */,
 				AA0DDB5F286C8B1A00802324 /* IDMsgDisplayView.m in Sources */,
 				147842EA27F0758F002359BA /* UIView+Frame.m in Sources */,
+				75BE062C2AB9897E00C4BFDA /* ActivityReviewingTableViewCell.swift in Sources */,
 				18CDF67E257F91BD006E8E5C /* HistoryView.m in Sources */,
 				7F101AC3260613E800F2034C /* YYZTopicDetailVC.m in Sources */,
 				14B73F77281BED7B00D08ADD /* SystemMessageView.m in Sources */,
@@ -6550,6 +6579,7 @@
 				18CDF4BC257F8DBD006E8E5C /* selfSafeViewController.m in Sources */,
 				18CDF698257F91BD006E8E5C /* CQUPTMapHotPlaceButton.m in Sources */,
 				AA7AB9642873E5EA00BA6790 /* SearchEndModel.m in Sources */,
+				755B2E5B2ABDC55B00A2E12F /* CompressImages.swift in Sources */,
 				75534CCE2A88B44A00F3F5A3 /* ActivityMainViewController.swift in Sources */,
 				187DF4BD260310DD000BCDE9 /* LYEmptyView.m in Sources */,
 				7FBF39F6257B79F30077494E /* ByWordViewController.m in Sources */,
@@ -6573,6 +6603,7 @@
 				AA536DDA258C3F7C00F69E73 /* TopBarBasicViewController.m in Sources */,
 				73AAA1CC26C918250084E44D /* DetailsGoodsModel.m in Sources */,
 				AA4CD61025EF7E0F002D9394 /* NothingStateView.m in Sources */,
+				7561C03A2ABAE00F00FA906E /* ActivityAdminManageVC.swift in Sources */,
 				DB4065002466D889006CE5BC /* DLHistodyButton.m in Sources */,
 				AA0DDB51286C8B1900802324 /* MineViewController.m in Sources */,
 				18CDF4BF257F8DBD006E8E5C /* questionAndAnswerModel.m in Sources */,
@@ -6597,6 +6628,7 @@
 				AA7AB96A2873E5EA00BA6790 /* QASegementBarBtn.m in Sources */,
 				1A141368235F524B0001417E /* HttpClient.m in Sources */,
 				646B19A02833983E0015DF28 /* NextStationBtn.m in Sources */,
+				75B795BF2ABD7A450045E2CC /* JustifiedLabel.swift in Sources */,
 				AA0DDB55286C8B1900802324 /* MineTableViewCell.m in Sources */,
 				AA7AB9682873E5EA00BA6790 /* QAVerticalScrollView.m in Sources */,
 				AAE3305925E2A42B00324750 /* RemarkTableViewCell.m in Sources */,

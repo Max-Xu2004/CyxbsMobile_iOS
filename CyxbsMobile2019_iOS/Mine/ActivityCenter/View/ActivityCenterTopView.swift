@@ -32,7 +32,6 @@ class ActivityCenterTopView: UIView {
     //标题
     lazy var titleLab: UILabel = {
         let label = UILabel()
-        label.text = "活动中心"
         label.font = UIFont(name: PingFangSCBold, size: 22)
         if #available(iOS 11.0, *) {
             label.textColor = UIColor.dm_color(withLightColor: UIColor(hexString: "#15315B")!, darkColor: UIColor(hexString: "#15315B")!, alpha: 1)

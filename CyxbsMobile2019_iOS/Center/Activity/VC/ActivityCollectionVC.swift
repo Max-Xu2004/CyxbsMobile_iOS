@@ -128,7 +128,7 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
                                                                 view: window,
                                                                 backGroundColor: UIColor(hexString: "#2a4e84"),
                                                                 cornerRadius: 18,
-                                                                yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
                 }
             }
         }

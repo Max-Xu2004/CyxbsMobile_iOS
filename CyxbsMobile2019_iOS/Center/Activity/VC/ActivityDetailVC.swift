@@ -54,6 +54,14 @@ class ActivityDetailVC: UIViewController {
         self.wantToWatchButton.isEnabled = !(self.activity.wantToWatch ?? true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        switch activity.state {
+        case "ended": setStatusView(statusText: "活动已结束")
+        case "rejected": setStatusView(statusText: "活动未通过审核")
+        default: break
+        }
+    }
+    
     
     // MARK: - 懒加载
     lazy var backButton: UIButton = {
@@ -392,7 +400,7 @@ class ActivityDetailVC: UIViewController {
             // 倒计时结束，停止定时器
             countdownTimer?.invalidate()
             countdownTimer = nil
-            setEndedView()
+            setStatusView(statusText: "活动已结束")
         }
     }
     
@@ -476,7 +484,8 @@ class ActivityDetailVC: UIViewController {
     }
     
     // MARK: - 倒计时结束修改子视图样式
-    func setEndedView() {
+    func setStatusView(statusText: String) {
+        countdownTimer = nil
         backGroundView1.removeFromSuperview()
         backGroundView2.removeFromSuperview()
         backGroundView3.removeFromSuperview()
@@ -490,12 +499,12 @@ class ActivityDetailVC: UIViewController {
         hourNumLabel.removeFromSuperview()
         minuteNumLabel.removeFromSuperview()
         secondNumLabel.removeFromSuperview()
-        let endLabel = UILabel()
-        endLabel.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
-        endLabel.font = UIFont(name: PingFangSCMedium, size: 16)
-        endLabel.text = "活动已结束"
-        view.addSubview(endLabel)
-        endLabel.snp.makeConstraints { make in
+        let statusLabel = UILabel()
+        statusLabel.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        statusLabel.font = UIFont(name: PingFangSCMedium, size: 16)
+        statusLabel.text = statusText
+        view.addSubview(statusLabel)
+        statusLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+179)
             make.width.equalTo(80)
@@ -513,6 +522,7 @@ class ActivityDetailVC: UIViewController {
         detailView.detailLabel . textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
         detailView.informationView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
         detailView.detailView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
+        wantToWatchButton.removeFromSuperview()
     }
     
     // MARK: - 时间戳转换为显示的字符串

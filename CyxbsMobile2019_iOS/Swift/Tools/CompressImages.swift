@@ -17,46 +17,32 @@ class CompressImages: NSObject {
         
     }
     
-    func compressPNGImage(image: UIImage, targetFileSizeInMB: CGFloat) -> Data? {
-        guard let cgImage = image.cgImage else {
+    func compressImage(image: UIImage, maxSizeInBytes: Int) -> Data? {
+        var compressionQuality: CGFloat = 0.5  // 初始压缩质量
+        
+        guard var imageData = image.jpegData(compressionQuality: compressionQuality) else {
             return nil
         }
-
-        // 将目标文件大小从 MB 转换为字节
-        let targetFileSize = Int(targetFileSizeInMB * 1024 * 1024)
-
-        var compressionQuality: CGFloat = 1.0
-        let maxCompressionQuality: CGFloat = 0.1
-
-        while compressionQuality > maxCompressionQuality {
-            guard let imageData = NSMutableData() as CFMutableData? else {
-                return nil
-            }
-
-            guard let destination = CGImageDestinationCreateWithData(imageData, kUTTypePNG, 1, nil) else {
-                return nil
-            }
-
-            let options: NSDictionary = [
-                kCGImageDestinationLossyCompressionQuality: compressionQuality
-            ]
-
-            CGImageDestinationAddImage(destination, cgImage, options)
-            CGImageDestinationFinalize(destination)
-
-            if let data = imageData as Data? {
-                if data.count <= targetFileSize {
-                    return data
-                }
-            }
-
+        
+        // 循环调整压缩质量，直到满足最大文件大小为止
+        while imageData.count > maxSizeInBytes && compressionQuality > 0 {
             compressionQuality -= 0.1
+            guard let newImageData = image.jpegData(compressionQuality: compressionQuality) else {
+                return nil
+            }
+            imageData = newImageData
         }
-
-        return nil
+        
+        // 将 JPEG 数据转换为 PNG 数据
+        if let pngData = UIImage(data: imageData)?.pngData() {
+            return pngData
+        } else {
+            return nil
+        }
     }
-    
 }
+
+
 
 
 

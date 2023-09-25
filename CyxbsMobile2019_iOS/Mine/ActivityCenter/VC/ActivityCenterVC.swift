@@ -131,7 +131,7 @@ class ActivityCenterVC: UIViewController {
         shadowLayer.fillColor = UIColor.white.cgColor
 
         // 设置阴影属性
-        shadowLayer.shadowColor = UIColor.gray.cgColor
+        shadowLayer.shadowColor = UIColor(red: 0.176, green: 0.325, blue: 0.553, alpha: 0.03).cgColor
         shadowLayer.shadowOpacity = 0.1
         shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
         shadowLayer.shadowRadius = 4

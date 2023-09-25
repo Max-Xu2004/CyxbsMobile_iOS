@@ -15,7 +15,7 @@ class ActivityHUD: NSObject {
     private var tapGesture: UITapGestureRecognizer?
     private var swipeGesture: UISwipeGestureRecognizer?
     
-    func addProgressHUDView(width: CGFloat, height: CGFloat, text: String, font: UIFont, textColor: UIColor, delay: CGFloat?, view: UIView, backGroundColor: UIColor, cornerRadius: CGFloat, yOffset: Float) {
+    func addProgressHUDView(width: CGFloat, height: CGFloat, text: String, font: UIFont, textColor: UIColor, delay: CGFloat?, view: UIView, backGroundColor: UIColor, cornerRadius: CGFloat, yOffset: Float, completion: ((Any?) -> Void)? = nil) {
         let customView = UIView(frame: CGRectMake(0, 0, width, height))
         customView.layer.backgroundColor = backGroundColor.cgColor
         customView.layer.cornerRadius = cornerRadius
@@ -39,7 +39,7 @@ class ActivityHUD: NSObject {
         swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(swipeGesture!)
         hud?.hide(true, afterDelay: delay ?? 2)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + (delay ?? 2)) {
             if let tapGesture = self.tapGesture {
                 tapGesture.view?.removeGestureRecognizer(tapGesture)
                 self.tapGesture = nil
@@ -48,6 +48,7 @@ class ActivityHUD: NSObject {
                 swipeGesture.view?.removeGestureRecognizer(swipeGesture)
                 self.swipeGesture = nil
             }
+            completion?(nil)
         }
     }
     

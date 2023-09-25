@@ -176,7 +176,7 @@ class ActivityMainViewController: UIViewController {
                                                                 view: self.view,
                                                                 backGroundColor: UIColor(hexString: "#2a4e84"),
                                                                 cornerRadius: 18,
-                                                          yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
                 }
             } else {
                 print("Invalid response data")
@@ -192,7 +192,7 @@ class ActivityMainViewController: UIViewController {
                                                         view: self.view,
                                                         backGroundColor: UIColor(hexString: "#2a4e84"),
                                                         cornerRadius: 18,
-                                                        yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
         }
     }
     

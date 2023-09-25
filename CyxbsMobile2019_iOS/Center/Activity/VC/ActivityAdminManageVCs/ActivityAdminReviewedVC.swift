@@ -1,15 +1,15 @@
 //
-//  ActivityAdminReviewingVC.swift
+//  ActivityAdminReviewedVC.swift
 //  CyxbsMobile2019_iOS
 //
-//  Created by 许晋嘉 on 2023/9/21.
+//  Created by 许晋嘉 on 2023/9/23.
 //  Copyright © 2023 Redrock. All rights reserved.
 //
 
 import UIKit
 import JXSegmentedView
 
-class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ActivityAdminReviewedVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var activities: [Activity] = []
     var titleParagraphStyle = NSMutableParagraphStyle()
@@ -31,7 +31,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
-        tableView.register(ActivityReviewingTableViewCell.self, forCellReuseIdentifier: "reviewingCell")
+        tableView.register(ActivityReviewedTableViewCell.self, forCellReuseIdentifier: "reviewedCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -41,7 +41,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
     
     // UITableViewDataSource方法
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewingCell", for: indexPath) as! ActivityReviewingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewedCell", for: indexPath) as! ActivityReviewedTableViewCell
         cell.titleLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.paragraphStyle: titleParagraphStyle])
         cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activities[indexPath.item].activityStartAt)))
         switch activities[indexPath.item].activityType {
@@ -50,14 +50,12 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
         case "education": cell.typeView.contentLabel.text = "教育活动"
         default: break
         }
-        cell.creatorView.contentLabel.text = activities[indexPath.item].activityCreator
         cell.phoneView.contentLabel.text = activities[indexPath.item].phone
-        cell.activityId = activities[indexPath.item].activityId
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 202
+        return 131
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,6 +67,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
         print("点击了cell")
         let detailVC = ActivityDetailVC()
         detailVC.activity = activities[indexPath.row]
+        detailVC.wantToWatchButton.removeFromSuperview()
         detailVC.numOfIndexPath = indexPath.row
         self.navigationController?.pushViewController(detailVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -85,7 +84,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
     
     func requestReviewingActivities() {
         activities = []
-        ActivityClient.shared.request(url: "magipoke-ufield/activity/list/tobe-examine/",
+        ActivityClient.shared.request(url: "magipoke-ufield/activity/list/examined/",
                                       method: .get,
                                       headers: nil,
                                       parameters: nil) { responseData in
@@ -96,11 +95,8 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
                 for activity in reviewingActivityResponseData.data {
                     self.activities.append(activity)
                 }
-                print("待审核活动数量\(self.activities.count)")
+                print("已审核活动数量\(self.activities.count)")
                 self.tableView.reloadData()
-                if self.activities.count == 0 {
-                    
-                }
             } else {
                 print("Invalid response data")
                 print(responseData)
@@ -109,7 +105,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
     }
 }
 // MARK: - JXSegmentedListContainerViewListDelegate，返回containerView展示的视图
-extension ActivityAdminReviewingVC: JXSegmentedListContainerViewListDelegate {
+extension ActivityAdminReviewedVC: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
         return view
     }

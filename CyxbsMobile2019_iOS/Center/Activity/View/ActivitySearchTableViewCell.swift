@@ -19,7 +19,7 @@ class ActivitySearchTableViewCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 1)
         label.font = UIFont(name: PingFangSCMedium, size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -82,15 +82,15 @@ class ActivitySearchTableViewCell: UITableViewCell {
         //titleLabel位置设定
         titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 134).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19).isActive = true
-        titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 113).isActive = true
-        titleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 40).isActive = true
+        titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 162).isActive = true
+        titleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 19).isActive = true
         //detailLabel位置设置
         detailLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 134).isActive = true
-        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -2).isActive = true
+        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
         detailLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 176).isActive = true
         detailLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 40).isActive = true
         //statusImgView位置
-        statusImgView.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 8).isActive = true
+        statusImgView.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 4).isActive = true
         statusImgView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21).isActive = true
     }
 }

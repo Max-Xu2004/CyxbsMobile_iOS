@@ -8,17 +8,27 @@
 
 import UIKit
 
-class TextLimitManager {
-    static let shared = TextLimitManager()
+class TextManager {
+    static let shared = TextManager()
 
     private init() {}
+    
+    //计算文本在使用某字体时的宽度
+    func calculateTextWidth(text: String, font: UIFont) -> CGFloat {
+        let attributes = [NSAttributedString.Key.font: font]
+        let attributedText = NSAttributedString(string: text, attributes: attributes)
+        let textSize = attributedText.size()
+        return textSize.width
+    }
 
+    //限制textfield输入字数
     func setupLimitForTextField(_ textField: UITextField, maxLength: Int) {
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: nil) { [weak self] (notification) in
             self?.textFieldDidChange(notification, textField: textField, maxLength: maxLength)
         }
     }
 
+    //限制textview输入字数
     func setupLimitForTextView(_ textView: UITextView, maxLength: Int) {
         NotificationCenter.default.addObserver(forName: UITextView.textDidChangeNotification, object: textView, queue: nil) { [weak self] (notification) in
             self?.textViewDidChange(notification, textView: textView, maxLength: maxLength)

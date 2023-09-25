@@ -9,6 +9,7 @@
 import UIKit
 import TOCropViewController
 import Alamofire
+import libminipng
 
 class ActivityAddVC: UIViewController,
                      UIImagePickerControllerDelegate,
@@ -17,11 +18,11 @@ class ActivityAddVC: UIViewController,
                      ActivityTypePickerDelegate,
                      ActivityDatePickerDelegate {
     
-    
+    var imageData: Data?
     var activityType: String?
     var startTime: Date = Date()
     var endTime: Date = Date()
-    let textLimitManager = TextLimitManager.shared
+    let textLimitManager = TextManager.shared
     var isSetImage: Bool = false
     
     override func viewDidLoad() {
@@ -87,87 +88,110 @@ class ActivityAddVC: UIViewController,
     
     @objc func confirmButtonTapped() {
         self.confirmButton.isEnabled = false // 防止重复点击
-        if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty {
-            print("有空的")
-        } else {
-            if let type = activityType {
-                let parameters: [String: Any] = [
-                    "activity_title": scrollView.titleTextfield.text!,
-                    "activity_type": type,
-                    "activity_start_at": dateToTimestamp(date: startTime),
-                    "activity_end_at": dateToTimestamp(date: endTime),
-                    "activity_place": scrollView.placeTextfield.text!,
-                    "activity_registration_type": scrollView.registrationTextfield.text!,
-                    "activity_organizer": scrollView.organizerTextfield.text!,
-                    "creator_phone": scrollView.contactTextfield.text!,
-                    "activity_detail": scrollView.detailTextView.text!
-                ]
-                print(parameters)
-                if isSetImage {
-                    // 获取UIImageView中的图像
-                    let imageData = CompressImages.shared.compressPNGImage(image: scrollView.coverImgView.image!, targetFileSizeInMB: 5)
+        if timeIntervalToNow(from: endTime) > 0 {
+            if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty {
+                print("有空的")
+            } else {
+                if let type = activityType {
+                    let parameters: [String: Any] = [
+                        "activity_title": scrollView.titleTextfield.text!,
+                        "activity_type": type,
+                        "activity_start_at": dateToTimestamp(date: startTime),
+                        "activity_end_at": dateToTimestamp(date: endTime),
+                        "activity_place": scrollView.placeTextfield.text!,
+                        "activity_registration_type": scrollView.registrationTextfield.text!,
+                        "activity_organizer": scrollView.organizerTextfield.text!,
+                        "creator_phone": scrollView.contactTextfield.text!,
+                        "activity_detail": scrollView.detailTextView.text!
+                    ]
+                    print(parameters)
+                    if isSetImage {
+                        // 设置文件名和MIME类型
+                        let fileName = "image.png"
+                        let mimeType = "image/png"
 
-                    // 设置文件名和MIME类型
-                    let fileName = "image.png"
-                    let mimeType = "image/png"
-
-                    // 发起上传请求
-                    ActivityClient.shared.upload(url: "magipoke-ufield/activity/publish/",
-                                                 method: .post,
-                                                 headers: nil,
-                                                 parameters: parameters,
-                                                 fileData: imageData,
-                                                 withName: "activity_cover_file",
-                                                 fileName: fileName,
-                                                 mimeType: mimeType) { response in
-                        if let dataDict = response as? [String: Any],
-                           let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-                           let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
-                            print(wantToWatchResponseData)
+                        // 发起上传请求
+                        ActivityClient.shared.upload(url: "magipoke-ufield/activity/publish/",
+                                                     method: .post,
+                                                     headers: nil,
+                                                     parameters: parameters,
+                                                     fileData: imageData!,
+                                                     withName: "activity_cover_file",
+                                                     fileName: fileName,
+                                                     mimeType: mimeType) { response in
+                            if let dataDict = response as? [String: Any],
+                               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+                               let uploadResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                                print(uploadResponseData)
+                                if uploadResponseData.status == 10000 {
+                                    ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                                height: 36,
+                                                                                text: "活动发布成功",
+                                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                                textColor: .white,
+                                                                                delay: 2,
+                                                                                view: self.view,
+                                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                                cornerRadius: 18,
+                                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90) { _ in
+                                        self.popController()
+                                    }
+                                }
+                            }
+                        } failure: { error in
+                            print(error)
+                            ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                        height: 36,
+                                                                        text: "服务君似乎打盹了呢",
+                                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                        textColor: .white,
+                                                                        delay: 2,
+                                                                        view: self.view,
+                                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                        cornerRadius: 18,
+                                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
                         }
-                    } failure: { error in
-                        print(error)
-                        ActivityHUD.shared.addProgressHUDView(width: 179,
-                                                                    height: 36,
-                                                                    text: "服务君似乎打盹了呢",
-                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                    textColor: .white,
-                                                                    delay: 2,
-                                                                    view: self.view,
-                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                    cornerRadius: 18,
-                                                                    yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
-                    }
-                } else {
-                    ActivityClient.shared.upload(url: "magipoke-ufield/activity/publish/",
-                                                 method: .post,
-                                                 headers: nil,
-                                                 parameters: parameters,
-                                                 fileData: nil,
-                                                 withName: nil,
-                                                 fileName: nil,
-                                                 mimeType: nil) { response in
-                        if let dataDict = response as? [String: Any],
-                           let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-                           let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
-                            print(wantToWatchResponseData)
+                    } else {
+                        ActivityClient.shared.upload(url: "magipoke-ufield/activity/publish/",
+                                                     method: .post,
+                                                     headers: nil,
+                                                     parameters: parameters,
+                                                     fileData: nil,
+                                                     withName: nil,
+                                                     fileName: nil,
+                                                     mimeType: nil) { response in
+                            if let dataDict = response as? [String: Any],
+                               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+                               let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                                print(wantToWatchResponseData)
+                            }
+                        } failure: { error in
+                            print(error)
+                            ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                        height: 36,
+                                                                        text: "服务君似乎打盹了呢",
+                                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                        textColor: .white,
+                                                                        delay: 2,
+                                                                        view: self.view,
+                                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                        cornerRadius: 18,
+                                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
                         }
-                    } failure: { error in
-                        print(error)
-                        ActivityHUD.shared.addProgressHUDView(width: 179,
-                                                                    height: 36,
-                                                                    text: "服务君似乎打盹了呢",
-                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                    textColor: .white,
-                                                                    delay: 2,
-                                                                    view: self.view,
-                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                    cornerRadius: 18,
-                                                                    yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
                     }
-                }
+                } else { print("未选择活动类型")}
             }
-            else { print("未选择活动类型")}
+        } else {
+            ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                        height: 36,
+                                                        text: "请设置有效的结束时间！",
+                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                        textColor: .white,
+                                                        delay: 2,
+                                                        view: self.view,
+                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                        cornerRadius: 18,
+                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
         }
         self.confirmButton.isEnabled = true
     }
@@ -259,6 +283,13 @@ class ActivityAddVC: UIViewController,
         cropViewController.dismiss(animated: true, completion: nil)
         scrollView.coverImgView.image = image
         isSetImage = true
+        // 获取UIImageView中的图像
+        imageData = image.pngData()
+        var dataSizeInMB = Double(imageData!.count) / (1024 * 1024)
+        print(String(format: "图片大小为 %.2f MB", dataSizeInMB))
+        if dataSizeInMB > 10 {
+            imageData = minipng.data2Data((image.pngData()!), 10)
+        }
     }
     
     // MARK: - 展示TOCropViewController裁剪图片
@@ -295,6 +326,8 @@ class ActivityAddVC: UIViewController,
         // Assign the selected activity type to the variable
         activityType = mapToActivityType(type)
         scrollView.typeButton.setTitle(type, for: .normal)
+        scrollView.typeImgView.removeFromSuperview()
+        scrollView.typeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         shouldConfirmButtonEnabled()
     }
     
@@ -367,7 +400,7 @@ class ActivityAddVC: UIViewController,
     }
 
     func shouldConfirmButtonEnabled() {
-        if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty || activityType == nil {
+        if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty || activityType == nil || scrollView.contactTextfield.text?.count != 11 {
             confirmButton.isEnabled = false
             confirmButton.removeGradientBackground()
         } else {
@@ -375,6 +408,13 @@ class ActivityAddVC: UIViewController,
             confirmButton.setupGradient()
         }
     }
+
+    func timeIntervalToNow(from date: Date) -> TimeInterval {
+        let currentTime = Date()
+        let timeInterval = date.timeIntervalSince(currentTime)
+        return timeInterval
+    }
+    
 }
 
 extension ActivityAddVC: UITextFieldDelegate {

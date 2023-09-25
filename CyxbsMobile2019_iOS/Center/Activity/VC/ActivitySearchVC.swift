@@ -13,8 +13,8 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
     
     var activities: [Activity] = []
     var activityType: String = "all"
-    let textLimitManager = TextLimitManager.shared
-    var titleParagraphStyle = NSMutableParagraphStyle()
+    let textLimitManager = TextManager.shared
+    var detailParagraphStyle = NSMutableParagraphStyle()
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor(red: 0.984, green: 0.988, blue: 1, alpha: 1)
@@ -23,7 +23,7 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
         view.addSubview(searchButton)
         view.addSubview(selectBar)
         view.addSubview(tableView)
-        titleParagraphStyle.lineHeightMultiple = 0.85
+        detailParagraphStyle.lineHeightMultiple = 0.8
         tableView.dataSource = self
         tableView.delegate = self
         setPosition()
@@ -157,7 +157,7 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
         let parameters: Parameters = [
             "activity_type": activityType,
             "order_by": "start_timestamp_but_ongoing_first",
-            "activity_num": "10",
+            "activity_num": "50",
             "contain_keyword": searchTextField.text!
         ]
         ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
@@ -183,7 +183,7 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
                                                                 view: self.view,
                                                                 backGroundColor: UIColor(hexString: "#2a4e84"),
                                                                 cornerRadius: 18,
-                                                                yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
                 }
             } else {
                 print("Invalid response data")
@@ -195,9 +195,9 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! ActivitySearchTableViewCell
         cell.coverImgView.sd_setImage(with: URL(string: activities[indexPath.item].activityCoverURL))
-//        cell.titleLabel.text = activities[indexPath.item].activityTitle
-        cell.titleLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.paragraphStyle: titleParagraphStyle])
-        cell.detailLabel.text = activities[indexPath.item].activityDetail
+        cell.titleLabel.text = activities[indexPath.item].activityTitle
+//        cell.titleLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.paragraphStyle: titleParagraphStyle])
+        cell.detailLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityDetail, attributes: [NSAttributedString.Key.paragraphStyle: detailParagraphStyle])
         cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activities[indexPath.item].activityStartAt)))
         if (activities[indexPath.item].ended ?? true){
             cell.statusImgView.image = UIImage(named: "activityEnded")

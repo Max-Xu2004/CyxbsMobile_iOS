@@ -67,6 +67,7 @@ struct SearchActivityResponse: Codable {
 }
 
 struct standardResponse: Codable {
+    let data: String?
     let status: Int
     let info: String
 }
@@ -90,6 +91,7 @@ struct MineActivityData: Codable {
         case published = "published"
     }
 }
+
 
 
 

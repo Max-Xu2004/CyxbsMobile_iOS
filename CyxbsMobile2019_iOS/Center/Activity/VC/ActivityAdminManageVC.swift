@@ -12,7 +12,7 @@ import JXSegmentedView
 class ActivityAdminManageVC: UIViewController {
     
     var reviewingVC: ActivityAdminReviewingVC!
-    var reviewedVC: ActivityAdminReviewingVC!
+    var reviewedVC: ActivityAdminReviewedVC!
     var segmentedDataSource: JXSegmentedTitleDataSource!
     var segmentedView: JXSegmentedView!
     var listContainerView: JXSegmentedListContainerView!
@@ -35,7 +35,7 @@ class ActivityAdminManageVC: UIViewController {
         //配置指示器
         let indicator = JXSegmentedIndicatorImageView()
         indicator.indicatorWidth = 66
-        indicator.verticalOffset = -8
+        indicator.verticalOffset = -5
         indicator.image = UIImage(named: "选中效果2")
         indicator.indicatorColor = .blue
         segmentedView.indicators = [indicator]
@@ -79,7 +79,7 @@ class ActivityAdminManageVC: UIViewController {
         shadowLayer.fillColor = UIColor.white.cgColor
 
         // 设置阴影属性
-        shadowLayer.shadowColor = UIColor.gray.cgColor
+        shadowLayer.shadowColor = UIColor(red: 0.176, green: 0.325, blue: 0.553, alpha: 0.03).cgColor
         shadowLayer.shadowOpacity = 0.1
         shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
         shadowLayer.shadowRadius = 4
@@ -92,6 +92,9 @@ class ActivityAdminManageVC: UIViewController {
         reviewingVC = ActivityAdminReviewingVC()
         reviewingVC.title = "待处理"
         addChild(reviewingVC)
+        reviewedVC = ActivityAdminReviewedVC()
+        reviewedVC.title = "已处理"
+        addChild(reviewedVC)
     }
     
     @objc func popController() {
@@ -106,8 +109,8 @@ extension ActivityAdminManageVC: JXSegmentedListContainerViewDataSource {
     
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         switch index {
-        case 1: return reviewingVC
-        case 2: return reviewedVC
+        case 0: return reviewingVC
+        case 1: return reviewedVC
         default: return reviewingVC
         }
     }
@@ -115,17 +118,32 @@ extension ActivityAdminManageVC: JXSegmentedListContainerViewDataSource {
 
 extension ActivityAdminManageVC: JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-//        if (tableViewControllers[index].activities.count == 0) {
-//            ActivityHUD.shared.addProgressHUDView(width: 138,
-//                                                        height: 36,
-//                                                        text: "暂无更多内容",
-//                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
-//                                                        textColor: .white,
-//                                                        delay: 2,
-//                                                        view: self.view,
-//                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
-//                                                        cornerRadius: 18,
-//                                                  yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
-//        }
+        switch index {
+        case 0: if (reviewingVC.activities.count == 0) {
+            ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                        height: 36,
+                                                        text: "暂无更多内容",
+                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                        textColor: .white,
+                                                        delay: 2,
+                                                        view: self.view,
+                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                        cornerRadius: 18,
+                                                  yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
+        }
+        case 1: if (reviewedVC.activities.count == 0) {
+            ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                        height: 36,
+                                                        text: "暂无更多内容",
+                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                        textColor: .white,
+                                                        delay: 2,
+                                                        view: self.view,
+                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                        cornerRadius: 18,
+                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+        }
+        default: break
+        }
     }
 }

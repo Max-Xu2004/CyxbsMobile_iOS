@@ -16,7 +16,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     
     let coverImgView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.frame = CGRectMake(0, 0, 167, 145)
+        imageView.frame = CGRectMake(0, 0, (UIScreen.main.bounds.width - 41) / 2, 145)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -68,7 +68,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(activityTypeLabel)
         contentView.addSubview(startTimeLabel)
         contentView.addSubview(clockImgView)
-        coverImgView.frame = CGRectMake(0, 0, contentView.frame.width, 145)
+//        coverImgView.frame = CGRectMake(0, 0, contentView.frame.width, 145)
         //设置阴影
         layer.shadowColor = UIColor(red: 0.568, green: 0.603, blue: 0.921, alpha: 0.1).cgColor
         layer.shadowOffset = CGSize(width: 0, height: 0)

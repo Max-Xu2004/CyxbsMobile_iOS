@@ -10,6 +10,8 @@ import UIKit
 
 class ActivityReviewingTableViewCell: UITableViewCell {
     
+    var activityId: Int = 0
+    
     let cardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -63,9 +65,9 @@ class ActivityReviewingTableViewCell: UITableViewCell {
         let button = UIButton()
         button.size = CGSize(width: 93, height: 34)
         button.setTitle("驳回", for: .normal)
-        button.titleLabel?.textColor = UIColor(red: 0.392, green: 0.388, blue: 0.51, alpha: 1)
         button.titleLabel?.font = UIFont(name: PingFangSCRegular, size: 14)
-        button.backgroundColor = UIColor(red: 0.392, green: 0.388, blue: 0.51, alpha: 1)
+        button.setTitleColor(UIColor(red: 0.392, green: 0.388, blue: 0.51, alpha: 1), for: .normal)
+        button.backgroundColor = UIColor(red: 0.929, green: 0.929, blue: 0.957, alpha: 1)
         button.layer.cornerRadius = 17
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -75,11 +77,12 @@ class ActivityReviewingTableViewCell: UITableViewCell {
         let button = UIButton()
         button.size = CGSize(width: 93, height: 34)
         button.setTitle("同意", for: .normal)
-        button.titleLabel?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont(name: PingFangSCRegular, size: 14)
         button.backgroundColor = UIColor(red: 0.29, green: 0.27, blue: 0.89, alpha: 1)
         button.layer.cornerRadius = 17
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(agreeButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -124,5 +127,38 @@ class ActivityReviewingTableViewCell: UITableViewCell {
         refuseButton.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 136).isActive = true
         refuseButton.heightAnchor.constraint(equalToConstant: 34).isActive = true
         refuseButton.widthAnchor.constraint(equalToConstant: 93).isActive = true
+    }
+    
+    @objc func agreeButtonTapped() {
+        var hudText: String = ""
+        ActivityClient.shared.request(url:"magipoke-ufield/activity/action/examine/?activity_id=\(activityId)&decision=pass",
+                                      method: .put,
+                                      headers: nil,
+                                      parameters: nil) { responseData in
+            if let dataDict = responseData as? [String: Any],
+               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+               let examineResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                print(examineResponseData)
+                if (examineResponseData.status == 10000) {
+                    hudText = "审核成功"
+                } else {
+                    hudText = examineResponseData.info
+                }
+                if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+                    ActivityHUD.shared.addProgressHUDView(width: TextManager.shared.calculateTextWidth(text: hudText, font: UIFont(name: PingFangSCMedium, size: 13)!)+40,
+                                                                height: 36,
+                                                                text: hudText,
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: window,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 18,
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+                }
+            }
+        } failure: { responseData in
+            print(responseData)
+        }
     }
 }

@@ -56,10 +56,18 @@ class ActivityAddScrollView: UIScrollView {
     
     lazy var typeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("请选择 >", for: .normal)
+        button.setTitle("请选择", for: .normal)
         button.titleLabel?.font = UIFont(name: PingFangSCMedium, size: 14)
-        button.setTitleColor(UIColor(hexString: "#2921D1", alpha: 0.8), for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -13, bottom: 0, right: 0)
+        button.setTitleColor(UIColor(red: 0.161, green: 0.129, blue: 0.82, alpha: 0.6), for: .normal)
         return button
+    }()
+    
+    lazy var typeImgView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "图标-收纳")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     lazy var startTimeView: UILabel = {
@@ -266,6 +274,13 @@ class ActivityAddScrollView: UIScrollView {
             make.height.equalTo(20)
         }
         
+        self.typeImgView.snp.makeConstraints { make in
+            make.left.equalTo(self.typeLabel.snp.right).offset(55)
+            make.top.equalToSuperview().offset(84.5)
+            make.width.equalTo(5)
+            make.height.equalTo(9.13)
+        }
+        
         self.startTimeView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(136)
@@ -383,6 +398,7 @@ class ActivityAddScrollView: UIScrollView {
         textFields.append(titleTextfield)
         addSubview(typeLabel)
         addSubview(typeButton)
+        addSubview(typeImgView)
         addSubview(startTimeView)
         addSubview(endTimeView)
         addSubview(startTimeLabel)

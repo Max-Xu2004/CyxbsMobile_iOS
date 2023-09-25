@@ -77,7 +77,7 @@ class ActivityMineTableViewCell: UITableViewCell {
         titleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 40).isActive = true
         //detailLabel位置设置
         detailLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 127).isActive = true
-        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -2).isActive = true
+        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2).isActive = true
         detailLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
         detailLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 40).isActive = true
     }

@@ -16,6 +16,7 @@ class ActivityAdminReviewedVC: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestReviewingActivities()
         titleParagraphStyle.lineHeightMultiple = 0.85
         view.addSubview(tableView)
         self.tableView.snp.makeConstraints { make in
@@ -24,7 +25,6 @@ class ActivityAdminReviewedVC: UIViewController, UITableViewDataSource, UITableV
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        requestReviewingActivities()
     }
     
     //活动展示tableView
@@ -97,6 +97,18 @@ class ActivityAdminReviewedVC: UIViewController, UITableViewDataSource, UITableV
                 }
                 print("已审核活动数量\(self.activities.count)")
                 self.tableView.reloadData()
+                if self.activities.count == 0 {
+                    ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: "暂无更多内容",
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: self.view,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 18,
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+                }
             } else {
                 print("Invalid response data")
                 print(responseData)

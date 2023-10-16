@@ -6,4 +6,12 @@
 //  Copyright © 2023 Redrock. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ActivityAdminRejectVC: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let contentView = UIView()
+    }
+}

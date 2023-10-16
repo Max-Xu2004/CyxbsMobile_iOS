@@ -30,7 +30,6 @@ class ActivityAdminManageVC: UIViewController {
         segmentedDataSource.titleNormalColor = UIColor(red: 0.078, green: 0.173, blue: 0.322, alpha: 0.4)
         segmentedDataSource.titleSelectedColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 1)
         segmentedDataSource.isTitleColorGradientEnabled = true
-        segmentedView.delegate = self
         segmentedView.dataSource = segmentedDataSource
         //配置指示器
         let indicator = JXSegmentedIndicatorImageView()
@@ -112,38 +111,6 @@ extension ActivityAdminManageVC: JXSegmentedListContainerViewDataSource {
         case 0: return reviewingVC
         case 1: return reviewedVC
         default: return reviewingVC
-        }
-    }
-}
-
-extension ActivityAdminManageVC: JXSegmentedViewDelegate {
-    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        switch index {
-        case 0: if (reviewingVC.activities.count == 0) {
-            ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                        height: 36,
-                                                        text: "暂无更多内容",
-                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                        textColor: .white,
-                                                        delay: 2,
-                                                        view: self.view,
-                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                        cornerRadius: 18,
-                                                  yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
-        }
-        case 1: if (reviewedVC.activities.count == 0) {
-            ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                        height: 36,
-                                                        text: "暂无更多内容",
-                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                        textColor: .white,
-                                                        delay: 2,
-                                                        view: self.view,
-                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                        cornerRadius: 18,
-                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
-        }
-        default: break
         }
     }
 }

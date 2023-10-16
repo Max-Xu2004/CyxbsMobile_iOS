@@ -16,6 +16,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestReviewingActivities()
         titleParagraphStyle.lineHeightMultiple = 0.85
         view.addSubview(tableView)
         self.tableView.snp.makeConstraints { make in
@@ -24,7 +25,6 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        requestReviewingActivities()
     }
     
     //活动展示tableView
@@ -53,6 +53,10 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
         cell.creatorView.contentLabel.text = activities[indexPath.item].activityCreator
         cell.phoneView.contentLabel.text = activities[indexPath.item].phone
         cell.activityId = activities[indexPath.item].activityId
+        cell.agreeButton.addTarget(self, action: #selector(refreshReviewingActivities), for: .touchUpInside)
+        cell.agreeButtonTappedHandler = { [weak self] activityId in
+            self?.agreeButtonTapped(activityId: activityId)
+        }
         return cell
     }
     
@@ -99,12 +103,61 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
                 print("待审核活动数量\(self.activities.count)")
                 self.tableView.reloadData()
                 if self.activities.count == 0 {
-                    
+                    ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: "暂无更多内容",
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: self.view,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 18,
+                                                          yOffset: Float(-UIScreen.main.bounds.width + UIApplication.shared.statusBarFrame.height) + 78)
                 }
             } else {
                 print("Invalid response data")
                 print(responseData)
             }
+        }
+    }
+    
+    @objc func refreshReviewingActivities() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.requestReviewingActivities()
+        }
+    }
+    
+    func agreeButtonTapped(activityId: Int) {
+        var hudText: String = ""
+        ActivityClient.shared.request(url:"magipoke-ufield/activity/action/examine/?activity_id=\(activityId)&decision=pass",
+                                      method: .put,
+                                      headers: nil,
+                                      parameters: nil) { responseData in
+            if let dataDict = responseData as? [String: Any],
+               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+               let examineResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                print(examineResponseData)
+                if (examineResponseData.status == 10000) {
+                    hudText = "审核成功"
+                } else {
+                    hudText = examineResponseData.info
+                }
+                if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+                    ActivityHUD.shared.addProgressHUDView(width: TextManager.shared.calculateTextWidth(text: hudText, font: UIFont(name: PingFangSCMedium, size: 13)!)+40,
+                                                                height: 36,
+                                                                text: hudText,
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: window,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 18,
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+                }
+                self.requestReviewingActivities()
+            }
+        } failure: { responseData in
+            print(responseData)
         }
     }
 }

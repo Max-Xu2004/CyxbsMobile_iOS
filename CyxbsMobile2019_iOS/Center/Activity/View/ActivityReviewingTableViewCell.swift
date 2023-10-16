@@ -11,6 +11,7 @@ import UIKit
 class ActivityReviewingTableViewCell: UITableViewCell {
     
     var activityId: Int = 0
+    var agreeButtonTappedHandler: ((Int) -> Void)?
     
     let cardView: UIView = {
         let view = UIView()
@@ -130,35 +131,6 @@ class ActivityReviewingTableViewCell: UITableViewCell {
     }
     
     @objc func agreeButtonTapped() {
-        var hudText: String = ""
-        ActivityClient.shared.request(url:"magipoke-ufield/activity/action/examine/?activity_id=\(activityId)&decision=pass",
-                                      method: .put,
-                                      headers: nil,
-                                      parameters: nil) { responseData in
-            if let dataDict = responseData as? [String: Any],
-               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let examineResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
-                print(examineResponseData)
-                if (examineResponseData.status == 10000) {
-                    hudText = "审核成功"
-                } else {
-                    hudText = examineResponseData.info
-                }
-                if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
-                    ActivityHUD.shared.addProgressHUDView(width: TextManager.shared.calculateTextWidth(text: hudText, font: UIFont(name: PingFangSCMedium, size: 13)!)+40,
-                                                                height: 36,
-                                                                text: hudText,
-                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                textColor: .white,
-                                                                delay: 2,
-                                                                view: window,
-                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                cornerRadius: 18,
-                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
-                }
-            }
-        } failure: { responseData in
-            print(responseData)
-        }
+        agreeButtonTappedHandler?(activityId)
     }
 }

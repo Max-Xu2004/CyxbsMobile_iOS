@@ -11,7 +11,7 @@ import Alamofire
 
 class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var activities: [Activity] = []
+    let activitiesModel = ActivitiesModel()
     var activityType: String = "all"
     let textLimitManager = TextManager.shared
     var detailParagraphStyle = NSMutableParagraphStyle()
@@ -133,19 +133,12 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
         default:
             break
         }
-        activities = []
-        if searchTextField.text?.count != 0 {
-            requestActivity()
-        }
-        tableView.reloadData()
+        refreshSearchActivities()
     }
     
     //搜索按钮点击
     @objc func searchButtonTapped() {
-        activities = []
-        if searchTextField.text?.count != 0 {
-            requestActivity()
-        }
+        refreshSearchActivities()
     }
     
     //返回上一级界面
@@ -153,53 +146,15 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
         self.navigationController?.popViewController(animated: true)
     }
     
-    func requestActivity() {
-        let parameters: Parameters = [
-            "activity_type": activityType,
-            "order_by": "start_timestamp_but_ongoing_first",
-            "activity_num": "50",
-            "contain_keyword": searchTextField.text!
-        ]
-        ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
-                                      method: .get,
-                                      headers: nil,
-                                      parameters: parameters) { responseData in
-            print(responseData as Any)
-            if let dataDict = responseData as? [String: Any],
-            let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-            let searchActivityResponseData = try? JSONDecoder().decode(SearchActivityResponse.self, from: jsonData) {
-                for activity in searchActivityResponseData.data {
-                    self.activities.append(activity)
-                }
-                print(self.activities.count)
-                self.tableView.reloadData()
-                if self.activities.count == 0 {
-                    ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                                height: 36,
-                                                                text: "暂无更多内容",
-                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                textColor: .white,
-                                                                delay: 2,
-                                                                view: self.view,
-                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                cornerRadius: 18,
-                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
-                }
-            } else {
-                print("Invalid response data")
-            }
-        }
-    }
-    
     // UITableViewDataSource方法
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! ActivitySearchTableViewCell
-        cell.coverImgView.sd_setImage(with: URL(string: activities[indexPath.item].activityCoverURL))
-        cell.titleLabel.text = activities[indexPath.item].activityTitle
+        cell.coverImgView.sd_setImage(with: URL(string: activitiesModel.activities[indexPath.item].activityCoverURL))
+        cell.titleLabel.text = activitiesModel.activities[indexPath.item].activityTitle
 //        cell.titleLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.paragraphStyle: titleParagraphStyle])
-        cell.detailLabel.attributedText = NSMutableAttributedString(string: activities[indexPath.item].activityDetail, attributes: [NSAttributedString.Key.paragraphStyle: detailParagraphStyle])
-        cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activities[indexPath.item].activityStartAt)))
-        if (activities[indexPath.item].ended ?? true){
+        cell.detailLabel.attributedText = NSMutableAttributedString(string: activitiesModel.activities[indexPath.item].activityDetail, attributes: [NSAttributedString.Key.paragraphStyle: detailParagraphStyle])
+        cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activitiesModel.activities[indexPath.item].activityStartAt)))
+        if (activitiesModel.activities[indexPath.item].ended ?? true){
             cell.statusImgView.image = UIImage(named: "activityEnded")
         } else{
             cell.statusImgView.image = UIImage(named: "activityOngoing")
@@ -212,17 +167,51 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        return activitiesModel.activities.count
     }
     
     // UITableViewDelegate方法
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = ActivityDetailVC()
-        detailVC.activity = activities[indexPath.row]
+        detailVC.activity = activitiesModel.activities[indexPath.row]
         detailVC.numOfIndexPath = indexPath.row
         detailVC.delegate = self
         self.navigationController?.pushViewController(detailVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func refreshSearchActivities() {
+        if searchTextField.text?.count != 0 {
+            activitiesModel.requestSearchActivity(keyword: searchTextField.text!, activityType: activityType) { activities in
+                print(self.activitiesModel.activities.count)
+                if (self.activitiesModel.activities.count == 0) {
+                    ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                                height: 36,
+                                                                text: "暂无更多内容",
+                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                textColor: .white,
+                                                                delay: 2,
+                                                                view: self.view,
+                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                cornerRadius: 18,
+                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+                } else {
+                    self.tableView.reloadData()
+                }
+            } failure: { error in
+                print(error)
+                ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                            height: 36,
+                                                            text: "服务君似乎打盹了呢",
+                                                            font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                            textColor: .white,
+                                                            delay: 2,
+                                                            view: self.view,
+                                                            backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                            cornerRadius: 18,
+                                                            yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+            }
+        }
     }
     
     struct DateConvert {
@@ -238,7 +227,7 @@ class ActivitySearchVC: UIViewController, UITableViewDataSource, UITableViewDele
 //为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
 extension ActivitySearchVC: ActivityDetailVCDelegate {
     func updateModel(indexPathNum: Int, wantToWatch: Bool) {
-        self.activities[indexPathNum].wantToWatch = wantToWatch
+        self.activitiesModel.activities[indexPathNum].wantToWatch = wantToWatch
     }
 }
 

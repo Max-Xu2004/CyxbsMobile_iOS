@@ -16,7 +16,9 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     
     let coverImgView: UIImageView = {
         let imageView = UIImageView()
-        imageView.frame = CGRectMake(0, 0, (UIScreen.main.bounds.width - 41) / 2, 145)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width - 41) / 2, height: 145)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

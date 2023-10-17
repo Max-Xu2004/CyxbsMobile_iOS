@@ -12,6 +12,7 @@ class ActivityAdminRejectVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view
         let contentView = UIView()
     }
 }

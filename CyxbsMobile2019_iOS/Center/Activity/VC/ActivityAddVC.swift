@@ -62,6 +62,7 @@ class ActivityAddVC: UIViewController,
         scrollView.endTimeLabel.isUserInteractionEnabled = true
         scrollView.endTimeLabel.text = formatDateToCustomString(date: endTime)
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: 696)
+        //为textFiled和textView设定最大输入字数限制
         textLimitManager.setupLimitForTextField(scrollView.titleTextfield, maxLength: 12)
         textLimitManager.setupLimitForTextField(scrollView.placeTextfield, maxLength: 10)
         textLimitManager.setupLimitForTextField(scrollView.registrationTextfield, maxLength: 15)
@@ -283,13 +284,32 @@ class ActivityAddVC: UIViewController,
         cropViewController.dismiss(animated: true, completion: nil)
         scrollView.coverImgView.image = image
         isSetImage = true
-        // 获取UIImageView中的图像
-        imageData = image.pngData()
-        var dataSizeInMB = Double(imageData!.count) / (1024 * 1024)
-        print(String(format: "图片大小为 %.2f MB", dataSizeInMB))
-        if dataSizeInMB > 10 {
-            imageData = minipng.data2Data((image.pngData()!), 10)
+        // 获取原始图片数据
+        guard let originalData = image.pngData() else {
+            return
         }
+        let targetSizeInMB: Double = 1.0 // 目标大小（单位：MB）
+        let targetSizeInBytes = Int(targetSizeInMB * 1024 * 1024)
+
+        // 压缩图片数据
+        var compressedData = originalData
+        var dataSizeInBytes = compressedData.count
+
+        while dataSizeInBytes > targetSizeInBytes {
+            guard let compressedImage = UIImage(data: compressedData),
+                  let resizedImage = compressedImage.resized(withPercentage: 0.9),
+                  let resizedData = resizedImage.pngData() else {
+                break
+            }
+            compressedData = resizedData
+            dataSizeInBytes = compressedData.count
+        }
+        // 输出压缩后的图片大小
+        let dataSizeInMB = Double(dataSizeInBytes) / (1024 * 1024)
+        print(String(format: "图片大小为 %.2f MB", dataSizeInMB))
+
+        // 使用压缩后的图片数据
+        imageData = compressedData
     }
     
     // MARK: - 展示TOCropViewController裁剪图片
@@ -426,6 +446,16 @@ extension ActivityAddVC: UITextFieldDelegate {
 extension ActivityAddVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         shouldConfirmButtonEnabled()
+    }
+}
+
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
 

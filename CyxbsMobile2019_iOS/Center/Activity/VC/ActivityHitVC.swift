@@ -12,7 +12,7 @@ import SDWebImage
 
 class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var hitActivities: [Activity] = []
+    let hitActivities = ActivitiesModel()
     var contentView: UIView!
     
     override func viewDidLoad() {
@@ -25,7 +25,22 @@ class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         setPosition()
         tableView.dataSource = self
         tableView.delegate = self
-        requestHitActivity()
+        hitActivities.requestHitActivity { activities in
+            print("活动数量\(self.hitActivities.activities.count)")
+            self.tableView.reloadData()
+        } failure: { error in
+            print(error)
+            ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                        height: 36,
+                                                        text: "服务君似乎打盹了呢",
+                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                        textColor: .white,
+                                                        delay: 2,
+                                                        view: self.view,
+                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                        cornerRadius: 18,
+                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+        }
     }
     
     // 返回按钮
@@ -93,43 +108,43 @@ class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    func requestHitActivity() {
-        let parameters: Parameters = [
-            "activity_type": "all",
-            "order_by": "watch",
-            "activity_num": "50"
-        ]
-        ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
-                                      method: .get,
-                                      headers: nil,
-                                      parameters: parameters) { responseData in
-            print(responseData as Any)
-            if let dataDict = responseData as? [String: Any],
-            let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-            let hitActivityResponseData = try? JSONDecoder().decode(SearchActivityResponse.self, from: jsonData) {
-                for activity in hitActivityResponseData.data {
-                    self.hitActivities.append(activity)
-                }
-                print(self.hitActivities)
-                print(self.hitActivities.count)
-                self.tableView.reloadData()
-            } else {
-                print("Invalid response data")
-            }
-        }
-    }
+//    func requestHitActivity() {
+//        let parameters: Parameters = [
+//            "activity_type": "all",
+//            "order_by": "watch",
+//            "activity_num": "50"
+//        ]
+//        ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
+//                                      method: .get,
+//                                      headers: nil,
+//                                      parameters: parameters) { responseData in
+//            print(responseData as Any)
+//            if let dataDict = responseData as? [String: Any],
+//            let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+//            let hitActivityResponseData = try? JSONDecoder().decode(SearchActivityResponse.self, from: jsonData) {
+//                for activity in hitActivityResponseData.data {
+//                    self.hitActivities.append(activity)
+//                }
+//                print(self.hitActivities)
+//                print(self.hitActivities.count)
+//                self.tableView.reloadData()
+//            } else {
+//                print("Invalid response data")
+//            }
+//        }
+//    }
     
     // UITableViewDataSource方法
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "hitCell", for: indexPath) as! ActivityHitTableViewCell
-        //对前三个cell的特殊样式进行取消，防止因为cell复用导致样式错误
+        //对前三个cell的特殊样式进行取消，防止因为cell的自动复用复用导致样式错误
         cell.rankingImgView.removeFromSuperview()
         cell.contentView.addSubview(cell.rankingLabel)
         cell.hotImgView.removeFromSuperview()
-        cell.coverImgView.sd_setImage(with: URL(string: hitActivities[indexPath.item].activityCoverURL))
-        cell.titleLabel.attributedText = NSMutableAttributedString(string: hitActivities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.kern: 0.54])
+        cell.coverImgView.sd_setImage(with: URL(string: hitActivities.activities[indexPath.item].activityCoverURL))
+        cell.titleLabel.attributedText = NSMutableAttributedString(string: hitActivities.activities[indexPath.item].activityTitle, attributes: [NSAttributedString.Key.kern: 0.54])
         cell.rankingLabel.attributedText = NSMutableAttributedString(string: "\(indexPath.item + 1)", attributes: [NSAttributedString.Key.kern: 0.6])
-        cell.wantToWatchNum.attributedText = NSMutableAttributedString(string: "\(hitActivities[indexPath.item].activityWatchNumber)", attributes: [NSAttributedString.Key.kern: 0.54])
+        cell.wantToWatchNum.attributedText = NSMutableAttributedString(string: "\(hitActivities.activities[indexPath.item].activityWatchNumber)", attributes: [NSAttributedString.Key.kern: 0.54])
         if indexPath.item < 3 {
             cell.rankingLabel.removeFromSuperview()
             cell.addHotImg()
@@ -144,7 +159,7 @@ class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hitActivities.count
+        return hitActivities.activities.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -154,7 +169,7 @@ class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     // UITableViewDelegate方法
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = ActivityDetailVC()
-        detailVC.activity = hitActivities[indexPath.row]
+        detailVC.activity = hitActivities.activities[indexPath.row]
         detailVC.numOfIndexPath = indexPath.row
         detailVC.delegate = self
         self.navigationController?.pushViewController(detailVC, animated: true)
@@ -165,6 +180,6 @@ class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 //为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
 extension ActivityHitVC: ActivityDetailVCDelegate {
     func updateModel(indexPathNum: Int, wantToWatch: Bool) {
-        self.hitActivities[indexPathNum].wantToWatch = wantToWatch
+        self.hitActivities.activities[indexPathNum].wantToWatch = wantToWatch
     }
 }

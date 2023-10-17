@@ -10,8 +10,8 @@ import UIKit
 
 class ActivityMainViewController: UIViewController {
     
-    var requestURL: String!
     var collectionViewVC: ActivityCollectionVC!
+    let noticeboardActivities = ActivitiesModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,7 @@ class ActivityMainViewController: UIViewController {
         addTopView()
         view.addSubview(selectBar)
         addcollectionViewVC()
-        requestURL = "magipoke-ufield/activity/list/all/"
-        requestActivity()
+        refreshCollectionView()
         isAdmin()
         
     }
@@ -56,26 +55,26 @@ class ActivityMainViewController: UIViewController {
         case 0:
             // 处理 "全部" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "magipoke-ufield/activity/list/all/"
-            requestActivity()
+            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/"
+            refreshCollectionView()
             break
         case 1:
             // 处理 "文娱活动" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "magipoke-ufield/activity/list/all/?activity_type=culture"
-            requestActivity()
+            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=culture"
+            refreshCollectionView()
             break
         case 2:
             // 处理 "体育活动" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "magipoke-ufield/activity/list/all/?activity_type=sports"
-            requestActivity()
+            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=sports"
+            refreshCollectionView()
             break
         case 3:
             // 处理 "教育活动" 按钮点击事件
             reinitializeCollectionViewVC()
-            requestURL = "magipoke-ufield/activity/list/all/?activity_type=education"
-            requestActivity()
+            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=education"
+            refreshCollectionView()
             break
         default:
             break
@@ -89,7 +88,6 @@ class ActivityMainViewController: UIViewController {
     func addTopView() {
         // 添加顶部视图
         view.addSubview(topView)
-        
         // 创建圆角路径，将左下角和右下角设置为圆角
         let cornerRadius: CGFloat = 20
         let shadowPath = UIBezierPath(roundedRect: topView.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
@@ -97,13 +95,11 @@ class ActivityMainViewController: UIViewController {
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = shadowPath.cgPath
         shadowLayer.fillColor = UIColor.white.cgColor
-
         // 设置阴影属性
         shadowLayer.shadowColor = UIColor.gray.cgColor
         shadowLayer.shadowOpacity = 0.1
         shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
         shadowLayer.shadowRadius = 4
-
         // 将阴影图层插入到顶部视图的图层中，使阴影位于底部
         topView.layer.insertSublayer(shadowLayer, at: 0)
     }
@@ -143,78 +139,66 @@ class ActivityMainViewController: UIViewController {
         }
     }
     
-    func requestActivity() {
-        ActivityClient.shared.request(url:requestURL,
-                                      method: .get,
-                                      headers: nil,
-                                      parameters: nil) { responseData in
-            if let dataDict = responseData as? [String: Any],
-               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let allActivityResponseData = try? JSONDecoder().decode(AllActivityResponse.self, from: jsonData) {
-                for activity in allActivityResponseData.data.ongoing {
-                    self.collectionViewVC.activities.append(activity)
-                }
-                for activity in allActivityResponseData.data.ended {
-                    self.collectionViewVC.activities.append(activity)
-                }
-                print("活动数量：\(self.collectionViewVC.activities.count)")
-                if(self.collectionViewVC.activities.count < self.collectionViewVC.refreshNum) {
-                    self.collectionViewVC.collectionViewCount = self.collectionViewVC.activities.count
-                } else {
-                    self.collectionViewVC.collectionViewCount = self.collectionViewVC.refreshNum
-                }
-                self.collectionViewVC.collectionView.reloadData()
-                if (self.collectionViewVC.collectionViewCount != 0) {
-                    self.collectionViewVC.addMJFooter()
-                } else {
-                    ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                                height: 36,
-                                                                text: "暂无更多内容",
-                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                textColor: .white,
-                                                                delay: 2,
-                                                                view: self.view,
-                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                cornerRadius: 18,
-                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
-                }
+    func refreshCollectionView() {
+        noticeboardActivities.requestNoticeboardActivities { activities in
+            print("请求成功：\(activities)")
+            print("活动数量：\(self.noticeboardActivities.activities.count)")
+            //请求成功将活动数组赋值给collectionViewVC
+            self.collectionViewVC.activities = self.noticeboardActivities.activities
+            //这里是做伪分页的逻辑
+            if(self.collectionViewVC.activities.count < self.collectionViewVC.refreshNum) {
+                self.collectionViewVC.collectionViewCount = self.collectionViewVC.activities.count
             } else {
-                print("Invalid response data")
-                print(responseData)
+                self.collectionViewVC.collectionViewCount = self.collectionViewVC.refreshNum
+            }
+            self.collectionViewVC.collectionView.reloadData()
+            if (self.collectionViewVC.collectionViewCount != 0) {
+                self.collectionViewVC.addMJFooter()
+            } else {
+                ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                            height: 36,
+                                                            text: "暂无更多内容",
+                                                            font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                            textColor: .white,
+                                                            delay: 2,
+                                                            view: self.view,
+                                                            backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                            cornerRadius: 18,
+                                                            yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
             }
         } failure: { error in
-            ActivityHUD.shared.addProgressHUDView(width: 179,
-                                                        height: 36,
-                                                        text: "服务君似乎打盹了呢",
-                                                        font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                        textColor: .white,
-                                                        delay: 2,
-                                                        view: self.view,
-                                                        backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                        cornerRadius: 18,
-                                                        yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+                        ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                    height: 36,
+                                                                    text: "服务君似乎打盹了呢",
+                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                    textColor: .white,
+                                                                    delay: 2,
+                                                                    view: self.view,
+                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                    cornerRadius: 18,
+                                                                    yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
         }
     }
     
     @objc func pushAddVC() {
         let addVC = ActivityAddVC()
         self.navigationController?.pushViewController(addVC, animated: true)
-    }
+    } //跳转添加活动页面
     
     @objc func pushHitVC() {
         let hitVC = ActivityHitVC()
         self.navigationController?.pushViewController(hitVC, animated: true)
-    }
+    } //跳转排行榜页面
     
     @objc func pushSearchVC() {
         let searchVC = ActivitySearchVC()
         self.navigationController?.pushViewController(searchVC, animated: true)
-    }
+    } //跳转搜索活动页面
     
     @objc func pushAdminVC() {
         let adminVC = ActivityAdminManageVC()
         self.navigationController?.pushViewController(adminVC, animated: true)
-    }
+    } //跳转管理员页面
 }
 
 

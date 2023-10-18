@@ -129,6 +129,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
     
     func agreeButtonTapped(activityId: Int) {
         var hudText: String = ""
+        //审核活动“同意”网络请求
         ActivityClient.shared.request(url:"magipoke-ufield/activity/action/examine/?activity_id=\(activityId)&decision=pass",
                                       method: .put,
                                       headers: nil,

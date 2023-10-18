@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SDWebImage
 
-class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ActivityRankingListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let hitActivities = ActivitiesModel()
     var contentView: UIView!
@@ -178,7 +178,7 @@ class ActivityHitVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 }
 
 //为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
-extension ActivityHitVC: ActivityDetailVCDelegate {
+extension ActivityRankingListVC: ActivityDetailVCDelegate {
     func updateModel(indexPathNum: Int, wantToWatch: Bool) {
         self.hitActivities.activities[indexPathNum].wantToWatch = wantToWatch
     }

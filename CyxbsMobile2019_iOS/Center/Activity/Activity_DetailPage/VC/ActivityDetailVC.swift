@@ -426,28 +426,24 @@ class ActivityDetailVC: UIViewController {
             make.width.equalTo(30)
             make.height.equalTo(30)
         }
-        
         backGroundView2.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(178)
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+176)
             make.width.equalTo(30)
             make.height.equalTo(30)
         }
-        
         backGroundView3.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(245)
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+176)
             make.width.equalTo(30)
             make.height.equalTo(30)
         }
-        
         backGroundView4.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(300)
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+176)
             make.width.equalTo(30)
             make.height.equalTo(30)
         }
-        
     }
     
     func createTimeLabelBackGroundView() -> UIView {

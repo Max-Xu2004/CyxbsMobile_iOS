@@ -9,7 +9,7 @@
 import UIKit
 import JXSegmentedView
 
-class ActivityAdminManageVC: UIViewController {
+class ActivityAdminManageMainVC: UIViewController {
     
     var reviewingVC: ActivityAdminReviewingVC!
     var reviewedVC: ActivityAdminReviewedVC!
@@ -101,7 +101,7 @@ class ActivityAdminManageVC: UIViewController {
     }
 }
 
-extension ActivityAdminManageVC: JXSegmentedListContainerViewDataSource {
+extension ActivityAdminManageMainVC: JXSegmentedListContainerViewDataSource {
     func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
         return 2
     }

@@ -186,7 +186,7 @@ class ActivityMainViewController: UIViewController {
     } //跳转添加活动页面
     
     @objc func pushHitVC() {
-        let hitVC = ActivityHitVC()
+        let hitVC = ActivityRankingListVC()
         self.navigationController?.pushViewController(hitVC, animated: true)
     } //跳转排行榜页面
     
@@ -196,7 +196,7 @@ class ActivityMainViewController: UIViewController {
     } //跳转搜索活动页面
     
     @objc func pushAdminVC() {
-        let adminVC = ActivityAdminManageVC()
+        let adminVC = ActivityAdminManageMainVC()
         self.navigationController?.pushViewController(adminVC, animated: true)
     } //跳转管理员页面
 }

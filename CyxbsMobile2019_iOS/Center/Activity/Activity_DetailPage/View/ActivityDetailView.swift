@@ -22,8 +22,6 @@ class ActivityDetailView: UIView {
     }
     
     func commonInit() {
-        self.layer.cornerRadius = 16
-        self.backgroundColor = .white
         addSubview(organizerView)
         addSubview(creatorView)
         addSubview(registrationView)

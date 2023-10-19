@@ -21,6 +21,8 @@ class ActivityDetailVC: UIViewController {
     weak var delegate: ActivityDetailVCDelegate?
     var countdownTimer: Timer?
     var detailView: ActivityDetailView!
+    var detailScrollView: UIScrollView!
+    var statusLabel: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +52,6 @@ class ActivityDetailVC: UIViewController {
         backGroundView4.addSubview(secondNumLabel)
         addDetailView()
         setPosition()
-        startCountdownTimer()
         self.wantToWatchButton.isEnabled = !(self.activity.wantToWatch ?? true)
     }
     
@@ -58,7 +59,7 @@ class ActivityDetailVC: UIViewController {
         switch activity.state {
         case "ended": setStatusView(statusText: "活动已结束")
         case "rejected": setStatusView(statusText: "活动未通过审核")
-        default: break
+        default: startCountdownTimer()
         }
     }
     
@@ -138,7 +139,6 @@ class ActivityDetailVC: UIViewController {
         let label = UILabel()
         label.textColor = UIColor(hexString: "#15315B", alpha: 0.6)
         label.font = UIFont(name: PingFangSCMedium, size: 14)
-        label.text = "距离开始还有"
         return label
     }()
     
@@ -375,7 +375,7 @@ class ActivityDetailVC: UIViewController {
         // 首次立即更新倒计时显示
         updateCountdownLabel()
         // 创建定时器，每秒更新一次倒计时显示
-        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateCountdownLabel), userInfo: nil, repeats: true)
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdownLabel), userInfo: nil, repeats: true)
     }
     
     @objc func updateCountdownLabel() {
@@ -383,6 +383,7 @@ class ActivityDetailVC: UIViewController {
         var timeRemaining: Double
         if (TimeInterval(activity.activityStartAt) - currentTimeStamp >= 0) {
             timeRemaining = max(0, TimeInterval(activity.activityStartAt) - currentTimeStamp)
+            distanceStartTimeLabel.text = "距离开始还有"
         } else {
             timeRemaining = max(0, TimeInterval(activity.activityEndAt) - currentTimeStamp)
             distanceStartTimeLabel.text = "距离结束还有"
@@ -455,9 +456,16 @@ class ActivityDetailVC: UIViewController {
     
     // MARK: - 详情页的初始化和重载
     func addDetailView() {
-        detailView = ActivityDetailView()
-        view.addSubview(detailView)
-        detailView.snp.makeConstraints { make in
+        detailScrollView = UIScrollView()
+        detailScrollView.backgroundColor = .white
+        detailScrollView.layer.cornerRadius = 16
+        detailScrollView.showsVerticalScrollIndicator = false
+        detailScrollView.showsHorizontalScrollIndicator = false
+        detailScrollView.contentSize = CGSizeMake(UIScreen.main.bounds.width, 571)
+        detailView = ActivityDetailView(frame: CGRectMake(0, 0, UIScreen.main.bounds.width, 571))
+        view.addSubview(detailScrollView)
+        detailScrollView.addSubview(detailView)
+        detailScrollView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(271)
@@ -475,7 +483,9 @@ class ActivityDetailVC: UIViewController {
     
     func reinitializeDetailView() {
         detailView.removeFromSuperview()
+        detailScrollView.removeFromSuperview()
         detailView = nil
+        detailScrollView = nil
         addDetailView()
     }
     
@@ -495,12 +505,12 @@ class ActivityDetailVC: UIViewController {
         hourNumLabel.removeFromSuperview()
         minuteNumLabel.removeFromSuperview()
         secondNumLabel.removeFromSuperview()
-        let statusLabel = UILabel()
-        statusLabel.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
-        statusLabel.font = UIFont(name: PingFangSCMedium, size: 16)
-        statusLabel.text = statusText
-        view.addSubview(statusLabel)
-        statusLabel.snp.makeConstraints { make in
+        statusLabel = UILabel()
+        statusLabel?.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.8)
+        statusLabel?.font = UIFont(name: PingFangSCMedium, size: 16)
+        view.addSubview(statusLabel!)
+        statusLabel?.text = statusText
+        statusLabel?.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+179)
             make.width.equalTo(80)

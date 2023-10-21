@@ -61,6 +61,9 @@
 /// 意见与反馈入口按钮
 @property(nonatomic, strong)MineMSSEnterBtn *suggesstionBtn;
 
+/// 活动中心按钮
+@property(nonatomic, strong)MineMSSEnterBtn *activityCenterBtn;
+
 /// 签到相关的一块 view
 @property(nonatomic, strong)MineSignView *signView;
 
@@ -98,6 +101,7 @@
     [self addMsgCenterBtn];
     [self addStampCenterBtn];
     [self addSuggesstionBtn];
+    [self addActivityCenterBtn];
     [self addTableView];
     [self addSignView];
     
@@ -287,6 +291,22 @@
     }];
     
     [btn addTarget:self action:@selector(suggesstionBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)addActivityCenterBtn {
+    MineMSSEnterBtn *btn = [[MineMSSEnterBtn alloc] init];
+    self.suggesstionBtn = btn;
+    [self.backBoardView addSubview:btn];
+    
+    [btn.iconImgView setImage:[UIImage imageNamed:@"活动中心"]];
+    [btn.nameLabel setText:@"活动中心"];
+    
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.backBoardView).offset(0.13333333*SCREEN_WIDTH);
+        make.top.equalTo(self.backBoardView).offset(0.39543186*SCREEN_WIDTH);
+    }];
+    
+    [btn addTarget:self action:@selector(activityCenterBtnClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)addSignView {

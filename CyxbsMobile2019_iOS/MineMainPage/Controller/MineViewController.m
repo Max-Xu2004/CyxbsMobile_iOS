@@ -177,7 +177,8 @@
     scrollView.showsVerticalScrollIndicator = NO;
     
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-50);
         make.top.equalTo(self.view).offset(getStatusBarHeight_Double);
     }];
 }
@@ -316,7 +317,7 @@
     
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backBoardView).offset(0.04266666667*SCREEN_WIDTH);
-        make.top.equalTo(self.backBoardView).offset(0.1773399015*SCREEN_HEIGHT);
+        make.top.equalTo(self.backBoardView).offset(0.37497537*SCREEN_HEIGHT);
     }];
     
     [view.signBtn addTarget:self action:@selector(signBtnClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -338,7 +339,7 @@
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.backBoardView);
-        make.top.equalTo(self.backBoardView).offset(0.3091133005*SCREEN_HEIGHT);
+        make.top.equalTo(self.backBoardView).offset(0.49674877*SCREEN_HEIGHT);
         
     }];
 }

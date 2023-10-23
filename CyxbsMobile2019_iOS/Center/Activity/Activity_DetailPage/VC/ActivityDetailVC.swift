@@ -382,7 +382,6 @@ class ActivityDetailVC: UIViewController {
     }
     
     @objc func updateCountdownLabel() {
-        print("倒计时")
         let currentTimeStamp = Date().timeIntervalSince1970
         var timeRemaining: Double
         if (TimeInterval(activity.activityStartAt) - currentTimeStamp >= 0) {

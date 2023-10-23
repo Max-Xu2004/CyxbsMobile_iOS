@@ -29,7 +29,8 @@
 
 //获取用户关注的人和粉丝的个人信息
 #define fansAndFollowsInfo @"/magipoke-loop/user/fansAndFollowsInfo"
-
+// swift (将Swift中的类暴露给OC)
+#import "掌上重邮-Swift.h"
 
 @interface MineViewController ()<
     UITableViewDelegate,
@@ -178,7 +179,7 @@
     
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-50);
+        make.bottom.equalTo(self.view).offset(-150);
         make.top.equalTo(self.view).offset(getStatusBarHeight_Double);
     }];
 }
@@ -429,6 +430,13 @@
     StampCenterVC * vc = [[StampCenterVC alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+/// 点击活动中心按钮后调用
+- (void)activityCenterBtnClicked {
+    ActivityCenterVC *avc = [[ActivityCenterVC alloc]init];
+    avc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:avc animated:YES];
 }
 
 /// 点击意见与反馈按钮后调用

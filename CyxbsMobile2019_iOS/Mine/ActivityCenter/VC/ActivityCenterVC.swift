@@ -70,21 +70,25 @@ class ActivityCenterVC: UIViewController {
             if let dataDict = responseData as? [String: Any],
                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
                let mineActivityResponseData = try? JSONDecoder().decode(MineActivityResponse.self, from: jsonData) {
-                for activity in mineActivityResponseData.data.wantToWatch {
-                    self.wantToWatchActivities.append(activity)
-                }
+//                for activity in mineActivityResponseData.data.wantToWatch {
+//                    self.wantToWatchActivities.append(activity)
+//                }
+                self.wantToWatchActivities = mineActivityResponseData.data.wantToWatch
                 self.tableViewControllers[0].activities = self.wantToWatchActivities
-                for activity in mineActivityResponseData.data.participated {
-                    self.participatedActivities.append(activity)
-                }
+//                for activity in mineActivityResponseData.data.participated {
+//                    self.participatedActivities.append(activity)
+//                }
+                self.participatedActivities = mineActivityResponseData.data.participated
                 self.tableViewControllers[1].activities = self.participatedActivities
-                for activity in mineActivityResponseData.data.published {
-                    self.publishedActivities.append(activity)
-                }
+//                for activity in mineActivityResponseData.data.published {
+//                    self.publishedActivities.append(activity)
+//                }
+                self.publishedActivities = mineActivityResponseData.data.published
                 self.tableViewControllers[2].activities = self.publishedActivities
-                for activity in mineActivityResponseData.data.reviewing {
-                    self.reviewingActivities.append(activity)
-                }
+//                for activity in mineActivityResponseData.data.reviewing {
+//                    self.reviewingActivities.append(activity)
+//                }
+                
                 self.tableViewControllers[3].activities = self.reviewingActivities
                 //所有子vc的tableView重新载入数据
                 for ActivityCenterTableViewVC in self.tableViewControllers {

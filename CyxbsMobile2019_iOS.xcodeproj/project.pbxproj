@@ -6207,7 +6207,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = 727CVV9PLJ;
+				DEVELOPMENT_TEAM = Q739MKHL97;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CyxbsMobile2019_iOS/Supporting\\ Files/OneSDK",
@@ -6261,7 +6261,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 6.4.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mredrock.cyxbs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mredrock1.cyxbs;
 				PRODUCT_NAME = "掌上重邮";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -6283,7 +6283,7 @@
 				CODE_SIGN_ENTITLEMENTS = "CyxbsMobile2019_iOS/掌上重邮.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = 727CVV9PLJ;
+				DEVELOPMENT_TEAM = Q739MKHL97;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CyxbsMobile2019_iOS/Supporting\\ Files/OneSDK",
@@ -6337,7 +6337,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 6.4.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mredrock.cyxbs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mredrock1.cyxbs;
 				PRODUCT_NAME = "掌上重邮";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

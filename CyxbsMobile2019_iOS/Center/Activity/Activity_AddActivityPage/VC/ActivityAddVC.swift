@@ -90,7 +90,7 @@ class ActivityAddVC: UIViewController,
         self.confirmButton.isEnabled = false // 防止重复点击
         if timeIntervalToNow(from: endTime) > 0 {
             if areTextFieldsEmpty(textFields: scrollView.textFields) || scrollView.detailTextView.text.isEmpty {
-                print("有空的")
+                print("活动信息有空的")
             } else {
                 if let type = activityType {
                     let parameters: [String: Any] = [
@@ -162,8 +162,22 @@ class ActivityAddVC: UIViewController,
                                                      mimeType: nil) { response in
                             if let dataDict = response as? [String: Any],
                                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-                               let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
-                                print(wantToWatchResponseData)
+                               let uploadResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                                print(uploadResponseData)
+                                if uploadResponseData.status == 10000 {
+                                    ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                                height: 36,
+                                                                                text: "活动发布成功",
+                                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                                textColor: .white,
+                                                                                delay: 2,
+                                                                                view: self.view,
+                                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                                cornerRadius: 18,
+                                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90) { _ in
+                                        self.popController()
+                                    }
+                                }
                             }
                         } failure: { error in
                             print(error)

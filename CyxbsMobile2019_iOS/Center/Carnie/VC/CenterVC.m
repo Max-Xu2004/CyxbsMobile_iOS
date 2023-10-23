@@ -13,6 +13,8 @@
 #import <Accelerate/Accelerate.h>
 #import "FoodVC.h"
 #import "AttitudeMainPageVC.h"
+// swift (将Swift中的类暴露给OC)
+#import "掌上重邮-Swift.h"
 
 @interface CenterVC ()
 
@@ -54,7 +56,7 @@
 //        self.tabBarController.tabBar.scrollEdgeAppearance = appearance;
 //        self.tabBarController.tabBar.standardAppearance = appearance;
 //    }
-//    
+//
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowBottomClassScheduleTabBarView" object:nil userInfo:nil];
 }
 
@@ -129,8 +131,11 @@
             break;
         }
         case 2:{  // 活动布告
-            
-//            [self.navigationController pushViewController:<#(nonnull UIViewController *)#> animated:YES];
+            ActivityMainViewController* activityVC = [[ActivityMainViewController alloc] init];
+            activityVC.hidesBottomBarWhenPushed = YES;
+            //隐藏navBar,之后自定义返回键
+            self.navigationController.navigationBar.hidden = YES;
+            [self.navigationController pushViewController:activityVC animated:YES];
             break;
         }
         default:

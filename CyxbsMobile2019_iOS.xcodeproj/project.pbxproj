@@ -230,6 +230,10 @@
 		73AAA1D526C918250084E44D /* PurchaseInfoOrderIDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C226C918240084E44D /* PurchaseInfoOrderIDView.m */; };
 		73AAA1D626C918250084E44D /* DetailsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */; };
 		73AAA1D726C918250084E44D /* DetailsCustomizeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */; };
+		756B39662AE6CC7100B4E369 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39622AE6CC7100B4E369 /* UIColorExtension.swift */; };
+		756B39672AE6CC7100B4E369 /* SwiftyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39632AE6CC7100B4E369 /* SwiftyClient.swift */; };
+		756B39682AE6CC7100B4E369 /* CompressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39642AE6CC7100B4E369 /* CompressImages.swift */; };
+		756B39692AE6CC7100B4E369 /* TextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39652AE6CC7100B4E369 /* TextManager.swift */; };
 		756C39332AE6BA6C0056A8D1 /* ActivityHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C38FF2AE6BA6C0056A8D1 /* ActivityHUD.swift */; };
 		756C39342AE6BA6C0056A8D1 /* ActivityRankingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39022AE6BA6C0056A8D1 /* ActivityRankingListVC.swift */; };
 		756C39352AE6BA6C0056A8D1 /* ActivityHitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39042AE6BA6C0056A8D1 /* ActivityHitTableViewCell.swift */; };
@@ -262,10 +266,6 @@
 		756C39572AE6BA930056A8D1 /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39522AE6BA930056A8D1 /* ActivityCenterVC.swift */; };
 		756C39582AE6BA930056A8D1 /* ActivityCenterTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39542AE6BA930056A8D1 /* ActivityCenterTopView.swift */; };
 		756C39592AE6BA930056A8D1 /* ActivityMineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39552AE6BA930056A8D1 /* ActivityMineTableViewCell.swift */; };
-		756C395F2AE6BAE20056A8D1 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C395B2AE6BAE10056A8D1 /* UIColorExtension.swift */; };
-		756C39602AE6BAE20056A8D1 /* SwiftyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C395C2AE6BAE10056A8D1 /* SwiftyClient.swift */; };
-		756C39612AE6BAE20056A8D1 /* CompressImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C395D2AE6BAE10056A8D1 /* CompressImages.swift */; };
-		756C39622AE6BAE20056A8D1 /* TextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C395E2AE6BAE10056A8D1 /* TextManager.swift */; };
 		7FBF39F4257B79F30077494E /* ByPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBF39EB257B79F20077494E /* ByPasswordViewController.m */; };
 		7FBF39F6257B79F30077494E /* ByWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBF39EF257B79F30077494E /* ByWordViewController.m */; };
 		AA0DD8FB286C50E500802324 /* MineMsgCntView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0DD8FA286C50E400802324 /* MineMsgCntView.m */; };
@@ -968,6 +968,13 @@
 		73AAA1C726C918240084E44D /* DetailsBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsBaseTableViewCell.m; sourceTree = "<group>"; };
 		73AAA1C826C918240084E44D /* DetailsCustomizeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCustomizeNavigationBar.m; sourceTree = "<group>"; };
 		73AAA1C926C918240084E44D /* DetailsBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsBaseTableViewCell.h; sourceTree = "<group>"; };
+		756B39622AE6CC7100B4E369 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		756B39632AE6CC7100B4E369 /* SwiftyClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyClient.swift; sourceTree = "<group>"; };
+		756B39642AE6CC7100B4E369 /* CompressImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompressImages.swift; sourceTree = "<group>"; };
+		756B39652AE6CC7100B4E369 /* TextManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
+		756B396B2AE6CC7F00B4E369 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		756B396C2AE6CC7F00B4E369 /* SwiftyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyClient.swift; sourceTree = "<group>"; };
+		756B396D2AE6CC8000B4E369 /* TextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
 		756C38FF2AE6BA6C0056A8D1 /* ActivityHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityHUD.swift; sourceTree = "<group>"; };
 		756C39022AE6BA6C0056A8D1 /* ActivityRankingListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityRankingListVC.swift; sourceTree = "<group>"; };
 		756C39042AE6BA6C0056A8D1 /* ActivityHitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityHitTableViewCell.swift; sourceTree = "<group>"; };
@@ -1000,10 +1007,6 @@
 		756C39522AE6BA930056A8D1 /* ActivityCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterVC.swift; sourceTree = "<group>"; };
 		756C39542AE6BA930056A8D1 /* ActivityCenterTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterTopView.swift; sourceTree = "<group>"; };
 		756C39552AE6BA930056A8D1 /* ActivityMineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMineTableViewCell.swift; sourceTree = "<group>"; };
-		756C395B2AE6BAE10056A8D1 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		756C395C2AE6BAE10056A8D1 /* SwiftyClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyClient.swift; sourceTree = "<group>"; };
-		756C395D2AE6BAE10056A8D1 /* CompressImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompressImages.swift; sourceTree = "<group>"; };
-		756C395E2AE6BAE10056A8D1 /* TextManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
 		7A64BFF32892826F007CCB1E /* NewQAHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQAHeader.h; sourceTree = "<group>"; };
 		7AA4C469288D23A700E204C8 /* MineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeader.h; sourceTree = "<group>"; };
 		7AA4C46E288FCEA800E204C8 /* ClassScheduleHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassScheduleHeader.h; sourceTree = "<group>"; };
@@ -2597,7 +2600,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0AC5F6252B235800221514 /* CyxbsMobile2019_iOS-Bridging-Header.h */,
-				756C395A2AE6BAE10056A8D1 /* Tools */,
+				756B396A2AE6CC7F00B4E369 /* Tools */,
 				1A0AC602252B259B00221514 /* Login */,
 			);
 			path = Swift;
@@ -2811,6 +2814,7 @@
 				AA0DDAC8286C8B1900802324 /* MineMainPage */,
 				1A0AC5F5252B234700221514 /* Swift */,
 				1A141339235F524B0001417E /* Tools */,
+				756B39612AE6CC7100B4E369 /* Tools */,
 				B0FE5F1A294C94540070E755 /* Rising Extension */,
 				14CED380288A594E00BADA8B /* RisingRouter */,
 				FE87CE1A27E876FE008D7148 /* Marco */,
@@ -3475,6 +3479,28 @@
 			path = "GenericClass  ";
 			sourceTree = "<group>";
 		};
+		756B39612AE6CC7100B4E369 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				756B39622AE6CC7100B4E369 /* UIColorExtension.swift */,
+				756B39632AE6CC7100B4E369 /* SwiftyClient.swift */,
+				756B39642AE6CC7100B4E369 /* CompressImages.swift */,
+				756B39652AE6CC7100B4E369 /* TextManager.swift */,
+			);
+			name = Tools;
+			path = "../../CyxbsMobile_iOS_副本/CyxbsMobile2019_iOS/Swift/Tools";
+			sourceTree = "<group>";
+		};
+		756B396A2AE6CC7F00B4E369 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				756B396B2AE6CC7F00B4E369 /* UIColorExtension.swift */,
+				756B396C2AE6CC7F00B4E369 /* SwiftyClient.swift */,
+				756B396D2AE6CC8000B4E369 /* TextManager.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		756C38FD2AE6BA6C0056A8D1 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -3735,17 +3761,6 @@
 				756C39552AE6BA930056A8D1 /* ActivityMineTableViewCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		756C395A2AE6BAE10056A8D1 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				756C395B2AE6BAE10056A8D1 /* UIColorExtension.swift */,
-				756C395C2AE6BAE10056A8D1 /* SwiftyClient.swift */,
-				756C395D2AE6BAE10056A8D1 /* CompressImages.swift */,
-				756C395E2AE6BAE10056A8D1 /* TextManager.swift */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 		7A64BFF22892826F007CCB1E /* Source */ = {
@@ -5586,7 +5601,7 @@
 				FE2C135027AEF629001CF7AF /* TodoTableViewCell.m in Sources */,
 				14D03A0B27FE69A800D6AE93 /* SSRTopBarBaseView.m in Sources */,
 				18CDF66E257F91BD006E8E5C /* EnterButton.m in Sources */,
-				756C39602AE6BAE20056A8D1 /* SwiftyClient.swift in Sources */,
+				756B39672AE6CC7100B4E369 /* SwiftyClient.swift in Sources */,
 				18CDF4C4257F8DBD006E8E5C /* SetQuestionView.m in Sources */,
 				D0101F62243587A1004337ED /* UIScrollView+GKGestureHandle.m in Sources */,
 				D0101D5B2433C885004337ED /* SDMaskGuidBGView.m in Sources */,
@@ -5742,7 +5757,7 @@
 				14E7E4A827F5762500B67469 /* QuestionSelectView.m in Sources */,
 				18CDF689257F91BD006E8E5C /* WeDateViewController.m in Sources */,
 				DB34EACE239BD4550052B65E /* DateModle.m in Sources */,
-				756C39612AE6BAE20056A8D1 /* CompressImages.swift in Sources */,
+				756B39682AE6CC7100B4E369 /* CompressImages.swift in Sources */,
 				AA49098624F3B6B4007CB3BC /* ClassSchedulInterController.m in Sources */,
 				4931630926CD7B6800140412 /* TaskTableViewCellWithProgress.m in Sources */,
 				B0FE5F2B294C94540070E755 /* RisingUIKitExtension.m in Sources */,
@@ -5806,8 +5821,8 @@
 				147842F227F080A7002359BA /* NSDate+Day.m in Sources */,
 				D0101F68243587A1004337ED /* UIImage+GKDecoder.m in Sources */,
 				FE2C136127AEF629001CF7AF /* DiscoverTodoSetRemindBasicView.m in Sources */,
-				756C395F2AE6BAE20056A8D1 /* UIColorExtension.swift in Sources */,
-				756C39622AE6BAE20056A8D1 /* TextManager.swift in Sources */,
+				756B39662AE6CC7100B4E369 /* UIColorExtension.swift in Sources */,
+				756B39692AE6CC7100B4E369 /* TextManager.swift in Sources */,
 				AA0DDB57286C8B1A00802324 /* UIView+JHFrameExtension.m in Sources */,
 				DB34EB32239BD4550052B65E /* LessonNumLabel.m in Sources */,
 				1A1691FB2430ECA70076EDC7 /* ClassTabBarController.m in Sources */,

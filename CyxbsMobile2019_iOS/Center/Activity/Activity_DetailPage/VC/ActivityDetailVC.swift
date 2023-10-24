@@ -337,7 +337,7 @@ class ActivityDetailVC: UIViewController {
                                       parameters: nil) { responseData in
             if let dataDict = responseData as? [String: Any],
                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let wantToWatchResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+               let wantToWatchResponseData = try? JSONDecoder().decode(StandardResponse.self, from: jsonData) {
                 print(wantToWatchResponseData)
                 if (wantToWatchResponseData.status == 10000) {
                     self.wantToWatchButton.isEnabled = false

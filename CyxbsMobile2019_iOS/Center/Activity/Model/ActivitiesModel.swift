@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class ActivitiesModel {
     
@@ -14,47 +15,40 @@ class ActivitiesModel {
     var activities: [Activity] = []
 
     ///用于请求活动布告栏的活动
-    func requestNoticeboardActivities(success: @escaping ([Activity]) -> Void, failure: @escaping (Error) -> Void) {
+    func requestNoticeboardActivities(activityType: String?, success: @escaping ([Activity]) -> Void, failure: @escaping (Error) -> Void) {
         activities = []
-        ActivityClient.shared.request(url: requestURL, method: .get, headers: nil, parameters: nil) { responseData in
-            if let dataDict = responseData as? [String: Any],
-               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let allActivityResponseData = try? JSONDecoder().decode(AllActivityResponse.self, from: jsonData) {
-                let activities = allActivityResponseData.data.ongoing + allActivityResponseData.data.ended
-                self.activities = activities
-                success(activities)
-            } else {
-                let error = NSError(domain: "NetworkErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response data"])
+        HttpManager.shared.magipoke_ufield_activity_list_all(activity_type: activityType).ry_JSON { response in
+            switch response {
+            case .success(let jsonData):
+                // 成功的处理逻辑
+                let allActivityResponse = AllActivityResponse(from: jsonData)
+                self.activities = allActivityResponse.data.ongoing + allActivityResponse.data.ended
+                success(self.activities)
+            case .failure(let error):
+                // 失败的处理逻辑
+                print("请求失败，错误：\(error)")
                 failure(error)
             }
-        } failure: { error in
-            failure(error)
         }
     }
     
     ///用于请求排行榜的活动
     func requestHitActivity(success: @escaping ([Activity]) -> Void, failure: @escaping (Error) -> Void) {
-        let parameters: [String: Any] = [
-            "activity_type": "all",
-            "order_by": "watch",
-            "activity_num": "50"
-        ]
-        ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
-                                      method: .get,
-                                      headers: nil,
-                                      parameters: parameters) { responseData in
-            if let dataDict = responseData as? [String: Any],
-               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let hitActivityResponseData = try? JSONDecoder().decode(SearchActivityResponse.self, from: jsonData) {
-                let activities = hitActivityResponseData.data
+        HttpManager.shared.magipoke_ufield_activity_search(activity_type: "all", activity_num: 50, order_by: "watch").ry_JSON { response in
+            switch response {
+            case .success(let jsonData):
+                print(jsonData)
+                let hitActivityResponse = SearchActivityResponse(from: jsonData)
+                print(hitActivityResponse.data.count)
+                let activities = hitActivityResponse.data
                 self.activities = activities
                 success(activities)
-            } else {
-                let error = NSError(domain: "NetworkErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response data"])
+                break
+            case .failure(let error):
+                print(error)
                 failure(error)
+                break
             }
-        } failure: { error in
-            failure(error)
         }
     }
     
@@ -89,23 +83,23 @@ class ActivitiesModel {
 
 struct Activity: Codable {
     
-    let activityTitle: String
-    let activityType: String
-    let activityId: Int
-    let activityCreateTimestamp: Int
-    let activityDetail: String
-    let activityStartAt: Int
-    let activityEndAt: Int
-    let activityWatchNumber: Int
-    let activityOrganizer: String
-    let activityCreator: String
-    let activityPlace: String
-    let activityRegistrationType: String
-    let activityCoverURL: String
+    var activityTitle: String
+    var activityType: String
+    var activityId: Int
+    var activityCreateTimestamp: Int
+    var activityDetail: String
+    var activityStartAt: Int
+    var activityEndAt: Int
+    var activityWatchNumber: Int
+    var activityOrganizer: String
+    var activityCreator: String
+    var activityPlace: String
+    var activityRegistrationType: String
+    var activityCoverURL: String
     var wantToWatch: Bool?
-    let ended: Bool?
-    let state: String?
-    let phone: String?
+    var ended: Bool?
+    var state: String?
+    var phone: String?
 
     private enum CodingKeys: String, CodingKey {
         case activityTitle = "activity_title"
@@ -128,45 +122,115 @@ struct Activity: Codable {
     }
 }
 
+extension Activity {
+    init(from json: JSON) {
+        activityTitle = json["activity_title"].stringValue
+        activityType = json["activity_type"].stringValue
+        activityId = json["activity_id"].intValue
+        activityCreateTimestamp = json["activity_create_timestamp"].intValue
+        activityDetail = json["activity_detail"].stringValue
+        activityStartAt = json["activity_start_at"].intValue
+        activityEndAt = json["activity_end_at"].intValue
+        activityWatchNumber = json["activity_watch_number"].intValue
+        activityOrganizer = json["activity_organizer"].stringValue
+        activityCreator = json["activity_creator"].stringValue
+        activityPlace = json["activity_place"].stringValue
+        activityRegistrationType = json["activity_registration_type"].stringValue
+        activityCoverURL = json["activity_cover_url"].stringValue
+        wantToWatch = json["want_to_watch"].bool
+        ended = json["ended"].bool
+        state = json["activity_state"].stringValue
+        phone = json["phone"].stringValue
+    }
+}
+
 struct AllActivityResponse: Codable {
-    let status: Int
-    let info: String
-    let data: AllActivityData
+    var status: Int
+    var info: String
+    var data: AllActivityData
+}
+
+extension AllActivityResponse {
+    init(from json: JSON) {
+        status = json["status"].intValue
+        info = json["info"].stringValue
+        data = AllActivityData(from: json["data"])
+    }
 }
 
 struct AllActivityData: Codable {
-    let ended: [Activity]
-    let ongoing: [Activity]
+    var ended: [Activity]
+    var ongoing: [Activity]
+}
+
+extension AllActivityData {
+    init(from json: JSON) {
+        ended = json["ended"].arrayValue.map { Activity(from: $0) }
+        ongoing = json["ongoing"].arrayValue.map { Activity(from: $0) }
+    }
 }
 
 struct SearchActivityResponse: Codable {
-    let status: Int
-    let info: String
-    let data: [Activity]
+    var status: Int
+    var info: String
+    var data: [Activity]
 }
 
-struct standardResponse: Codable {
-    let data: String?
-    let status: Int
-    let info: String
+extension SearchActivityResponse {
+    init(from json: JSON) {
+        status = json["status"].intValue
+        info = json["info"].stringValue
+        data = json["data"].arrayValue.map { Activity(from: $0) }
+    }
+}
+
+struct StandardResponse: Codable {
+    var data: String?
+    var status: Int
+    var info: String
+}
+
+extension StandardResponse {
+    init(from json: JSON) {
+        data = json["data"].string
+        status = json["status"].intValue
+        info = json["info"].stringValue
+    }
 }
 
 struct MineActivityResponse: Codable {
-    let status: Int
-    let info: String
-    let data: MineActivityData
+    var status: Int
+    var info: String
+    var data: MineActivityData
+}
+
+extension MineActivityResponse {
+    init(from json: JSON) {
+        status = json["status"].intValue
+        info = json["info"].stringValue
+        data = MineActivityData(from: json["data"])
+    }
 }
 
 struct MineActivityData: Codable {
-    let wantToWatch: [Activity]
-    let participated: [Activity]
-    let reviewing: [Activity]
-    let published: [Activity]
+    var wantToWatch: [Activity]
+    var participated: [Activity]
+    var reviewing: [Activity]
+    var published: [Activity]
     
     private enum CodingKeys: String, CodingKey {
         case wantToWatch = "want_to_watch"
         case participated = "participated"
         case reviewing = "reviewing"
         case published = "published"
+    }
+}
+
+extension MineActivityData {
+    init(from json: JSON) {
+        wantToWatch = json["want_to_watch"].arrayValue.map { Activity(from: $0) }
+        participated = json["participated"].arrayValue.map { Activity(from: $0) }
+        reviewing = json["reviewing"].arrayValue.map { Activity(from: $0) }
+        published = json["published"].arrayValue.map { Activity(from: $0) }
     }
 }

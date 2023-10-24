@@ -139,7 +139,7 @@ class ActivityAdminReviewingVC: UIViewController, UITableViewDataSource, UITable
                                       parameters: nil) { responseData in
             if let dataDict = responseData as? [String: Any],
                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let examineResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+               let examineResponseData = try? JSONDecoder().decode(StandardResponse.self, from: jsonData) {
                 print(examineResponseData)
                 if (examineResponseData.status == 10000) {
                     hudText = "审核成功"

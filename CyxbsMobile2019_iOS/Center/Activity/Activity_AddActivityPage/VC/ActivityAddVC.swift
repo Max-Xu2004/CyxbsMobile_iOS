@@ -121,7 +121,7 @@ class ActivityAddVC: UIViewController,
                                                      mimeType: mimeType) { response in
                             if let dataDict = response as? [String: Any],
                                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-                               let uploadResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                               let uploadResponseData = try? JSONDecoder().decode(StandardResponse.self, from: jsonData) {
                                 print(uploadResponseData)
                                 if uploadResponseData.status == 10000 {
                                     ActivityHUD.shared.addProgressHUDView(width: 179,
@@ -162,7 +162,7 @@ class ActivityAddVC: UIViewController,
                                                      mimeType: nil) { response in
                             if let dataDict = response as? [String: Any],
                                let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-                               let uploadResponseData = try? JSONDecoder().decode(standardResponse.self, from: jsonData) {
+                               let uploadResponseData = try? JSONDecoder().decode(StandardResponse.self, from: jsonData) {
                                 print(uploadResponseData)
                                 if uploadResponseData.status == 10000 {
                                     ActivityHUD.shared.addProgressHUDView(width: 179,

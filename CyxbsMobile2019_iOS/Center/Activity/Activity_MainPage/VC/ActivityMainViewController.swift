@@ -24,7 +24,7 @@ class ActivityMainViewController: UIViewController {
         addTopView()
         view.addSubview(selectBar)
         addcollectionViewVC()
-        refreshCollectionView()
+        refreshCollectionView(activityType: nil)
         isAdmin()
         
     }
@@ -56,25 +56,25 @@ class ActivityMainViewController: UIViewController {
             // 处理 "全部" 按钮点击事件
             reinitializeCollectionViewVC()
             noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/"
-            refreshCollectionView()
+            refreshCollectionView(activityType: nil)
             break
         case 1:
             // 处理 "文娱活动" 按钮点击事件
             reinitializeCollectionViewVC()
             noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=culture"
-            refreshCollectionView()
+            refreshCollectionView(activityType: "culture")
             break
         case 2:
             // 处理 "体育活动" 按钮点击事件
             reinitializeCollectionViewVC()
             noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=sports"
-            refreshCollectionView()
+            refreshCollectionView(activityType: "sports")
             break
         case 3:
             // 处理 "教育活动" 按钮点击事件
             reinitializeCollectionViewVC()
             noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=education"
-            refreshCollectionView()
+            refreshCollectionView(activityType: "education")
             break
         default:
             break
@@ -139,9 +139,8 @@ class ActivityMainViewController: UIViewController {
         }
     }
     
-    func refreshCollectionView() {
-        noticeboardActivities.requestNoticeboardActivities { activities in
-            print("请求成功：\(activities)")
+    func refreshCollectionView(activityType: String?) {
+        noticeboardActivities.requestNoticeboardActivities(activityType: activityType) { activities in
             print("活动数量：\(self.noticeboardActivities.activities.count)")
             //请求成功将活动数组赋值给collectionViewVC
             self.collectionViewVC.activities = self.noticeboardActivities.activities

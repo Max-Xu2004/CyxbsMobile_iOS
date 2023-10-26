@@ -34,12 +34,11 @@ class ActivitiesModel {
     
     ///用于请求排行榜的活动
     func requestHitActivity(success: @escaping ([Activity]) -> Void, failure: @escaping (Error) -> Void) {
+        activities = []
         HttpManager.shared.magipoke_ufield_activity_search(activity_type: "all", activity_num: 50, order_by: "watch").ry_JSON { response in
             switch response {
             case .success(let jsonData):
-                print(jsonData)
                 let hitActivityResponse = SearchActivityResponse(from: jsonData)
-                print(hitActivityResponse.data.count)
                 let activities = hitActivityResponse.data
                 self.activities = activities
                 success(activities)
@@ -54,29 +53,44 @@ class ActivitiesModel {
     
     ///用于请求搜索活动
     func requestSearchActivity(keyword: String, activityType: String, success: @escaping ([Activity]) -> Void, failure: @escaping (Error) -> Void) {
-        let parameters: [String: Any] = [
-            "activity_type": activityType,
-            "order_by": "start_timestamp_but_ongoing_first",
-            "activity_num": "50",
-            "contain_keyword": keyword
-        ]
-        ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
-                                      method: .get,
-                                      headers: nil,
-                                      parameters: parameters) { responseData in
-            if let dataDict = responseData as? [String: Any],
-               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
-               let hitActivityResponseData = try? JSONDecoder().decode(SearchActivityResponse.self, from: jsonData) {
-                let activities = hitActivityResponseData.data
+        activities = []
+        HttpManager.shared.magipoke_ufield_activity_search(activity_type: activityType, activity_num: 50, order_by: "start_timestamp_but_ongoing_first", contain_keyword: keyword).ry_JSON { response in
+            switch response {
+            case .success(let jsonData):
+                let searchResponse = SearchActivityResponse(from: jsonData)
+                let activities = searchResponse.data
                 self.activities = activities
                 success(activities)
-            } else {
-                let error = NSError(domain: "NetworkErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response data"])
+                break
+            case .failure(let error):
+                print(error)
                 failure(error)
+                break
             }
-        } failure: { error in
-            failure(error)
         }
+//        let parameters: [String: Any] = [
+//            "activity_type": activityType,
+//            "order_by": "start_timestamp_but_ongoing_first",
+//            "activity_num": "50",
+//            "contain_keyword": keyword
+//        ]
+//        ActivityClient.shared.request(url: "magipoke-ufield/activity/search/",
+//                                      method: .get,
+//                                      headers: nil,
+//                                      parameters: parameters) { responseData in
+//            if let dataDict = responseData as? [String: Any],
+//               let jsonData = try? JSONSerialization.data(withJSONObject: dataDict),
+//               let hitActivityResponseData = try? JSONDecoder().decode(SearchActivityResponse.self, from: jsonData) {
+//                let activities = hitActivityResponseData.data
+//                self.activities = activities
+//                success(activities)
+//            } else {
+//                let error = NSError(domain: "NetworkErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response data"])
+//                failure(error)
+//            }
+//        } failure: { error in
+//            failure(error)
+//        }
     }
 }
 

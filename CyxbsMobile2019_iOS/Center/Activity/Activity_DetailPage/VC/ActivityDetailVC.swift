@@ -23,6 +23,7 @@ class ActivityDetailVC: UIViewController {
     var detailView: ActivityDetailView!
     var detailScrollView: UIScrollView!
     var statusLabel: UILabel?
+    var isActivityStarted = false  // 添加标志，标记活动是否已开始
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +58,8 @@ class ActivityDetailVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         switch activity.state {
-        case "ended": setStatusView(statusText: "活动已结束")
-        case "rejected": setStatusView(statusText: "活动未通过审核")
+        case "ended": setStatusView(statusText: "活动已结束", isEnded: true)
+        case "rejected": setStatusView(statusText: "活动未通过审核", isEnded: true)
         default: startCountdownTimer()
         }
     }
@@ -382,30 +383,34 @@ class ActivityDetailVC: UIViewController {
     }
     
     @objc func updateCountdownLabel() {
+        print("倒计时")
         let currentTimeStamp = Date().timeIntervalSince1970
         var timeRemaining: Double
         if (TimeInterval(activity.activityStartAt) - currentTimeStamp >= 0) {
             timeRemaining = max(0, TimeInterval(activity.activityStartAt) - currentTimeStamp)
             distanceStartTimeLabel.text = "距离开始还有"
+            let days = Int(timeRemaining) / 86400
+            let hours = (Int(timeRemaining) % 86400) / 3600
+            let minutes = (Int(timeRemaining) % 3600) / 60
+            let seconds = Int(timeRemaining) % 60
+            
+            dayNumLabel.text = String(format: "%d", days)
+            hourNumLabel.text = String(format: "%d", hours)
+            minuteNumLabel.text = String(format: "%d", minutes)
+            secondNumLabel.text = String(format: "%d", seconds)
+        } else if(isActivityStarted == false) {
+            timeRemaining = max(0, TimeInterval(activity.activityEndAt) - currentTimeStamp)
+            setStatusView(statusText: "活动已开始", isEnded: false)
+            isActivityStarted = true
         } else {
             timeRemaining = max(0, TimeInterval(activity.activityEndAt) - currentTimeStamp)
-            distanceStartTimeLabel.text = "距离结束还有"
         }
-        let days = Int(timeRemaining) / 86400
-        let hours = (Int(timeRemaining) % 86400) / 3600
-        let minutes = (Int(timeRemaining) % 3600) / 60
-        let seconds = Int(timeRemaining) % 60
-        
-        dayNumLabel.text = String(format: "%d", days)
-        hourNumLabel.text = String(format: "%d", hours)
-        minuteNumLabel.text = String(format: "%d", minutes)
-        secondNumLabel.text = String(format: "%d", seconds)
         if timeRemaining <= 0 {
             // 倒计时结束，停止定时器
             countdownTimer?.invalidate()
             //在禁用倒计时后，它还会再执行一次，如果重复执行两次setStatusView会导致文字的textColor异常，故加上这个判断
             if countdownTimer == nil {
-                setStatusView(statusText: "活动已结束")
+                setStatusView(statusText: "活动已结束", isEnded: true)
             }
             countdownTimer = nil
         }
@@ -495,8 +500,10 @@ class ActivityDetailVC: UIViewController {
         addDetailView()
     }
     
-    // MARK: - 倒计时结束修改子视图样式
-    func setStatusView(statusText: String) {
+    // MARK: - 倒计时结束修改子视图样式(isEnded为true修改detialview中部分字体颜色）
+    func setStatusView(statusText: String, isEnded:Bool) {
+        statusLabel?.removeFromSuperview()
+        statusLabel = nil
         backGroundView1.removeFromSuperview()
         backGroundView2.removeFromSuperview()
         backGroundView3.removeFromSuperview()
@@ -521,19 +528,33 @@ class ActivityDetailVC: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(22)
         }
-        for label in detailView.informationViews {
-            label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
+        if isEnded {
+            for label in detailView.informationViews {
+                label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
+            }
+            for label in detailView.informationLabels {
+                label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
+            }
+            detailView.placeLabel.textColor = UIColor(red: 0.29, green: 0.267, blue: 0.894, alpha: 0.6)
+            detailView.placeImg.alpha = 0.4
+            statusImgView.image = UIImage(named: "activityEnded")
+            detailView.detailLabel . textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
+            detailView.informationView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
+            detailView.detailView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
+            wantToWatchButton.removeFromSuperview()
         }
-        for label in detailView.informationLabels {
-            label.textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.6)
-        }
-        detailView.placeLabel.textColor = UIColor(red: 0.29, green: 0.267, blue: 0.894, alpha: 0.6)
-        detailView.placeImg.alpha = 0.4
-        statusImgView.image = UIImage(named: "activityEnded")
-        detailView.detailLabel . textColor = UIColor(red: 0.082, green: 0.192, blue: 0.357, alpha: 0.3)
-        detailView.informationView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
-        detailView.detailView.textColor = UIColor(red: 0.067, green: 0.173, blue: 0.329, alpha: 0.6)
-        wantToWatchButton.removeFromSuperview()
+    }
+}
+
+extension ActivityDetailVC {
+    // MARK: - 获取time的天时分秒
+    func formatTime(_ time: Double) -> (Int, Int, Int, Int) {
+        let days = Int(time) / 86400
+        let hours = (Int(time) % 86400) / 3600
+        let minutes = (Int(time) % 3600) / 60
+        let seconds = Int(time) % 60
+        
+        return (days, hours, minutes, seconds)
     }
     
     // MARK: - 时间戳转换为显示的字符串
@@ -545,6 +566,4 @@ class ActivityDetailVC: UIViewController {
         return formattedDate
     }
 }
-
-
 

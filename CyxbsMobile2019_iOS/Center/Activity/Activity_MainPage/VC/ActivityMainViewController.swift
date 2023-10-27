@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class ActivityMainViewController: UIViewController {
     

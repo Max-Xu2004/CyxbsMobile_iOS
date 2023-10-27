@@ -525,7 +525,7 @@ class ActivityDetailVC: UIViewController {
         statusLabel?.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(UIApplication.shared.statusBarFrame.height+179)
-            make.width.equalTo(80)
+            make.width.equalTo(100)
             make.height.equalTo(22)
         }
         if isEnded {

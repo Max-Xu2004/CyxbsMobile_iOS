@@ -31,8 +31,6 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
         // 设置单元格之间的垂直间距
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
         // 计算每行的内边距，以保证单元格居中显示
-//        let totalCellWidth = 167 * 2 + layout.minimumInteritemSpacing
-//        let inset = (self.view.bounds.width - CGFloat(totalCellWidth)) / 2
         layout.sectionInset = UIEdgeInsets(top: 2, left: 16, bottom: 10, right: 16)
         // 使用上述布局创建一个UICollectionView实例，将其框架设置为与当前视图大小相同
         collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)

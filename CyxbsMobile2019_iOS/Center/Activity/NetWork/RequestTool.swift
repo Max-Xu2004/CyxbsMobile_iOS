@@ -23,7 +23,7 @@ class ActivityClient: NSObject {
                  method: HTTPMethod,
                  headers: [String: String]?,
                  parameters: Parameters?,
-                 completion: @escaping HttpClientResponse,
+                 completion: @escaping ActivityClientResponse,
                  failure: ((Error) -> Void)? = nil) {
         
         var requestHeaders: [String: String]

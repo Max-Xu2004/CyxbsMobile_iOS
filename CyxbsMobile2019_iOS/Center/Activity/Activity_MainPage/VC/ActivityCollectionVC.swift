@@ -14,7 +14,6 @@ import JXSegmentedView
 
 class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var
     let activitiesModel = ActivitiesModel()
     var collectionViewCount: Int = 0
     var activityType: String!

@@ -238,6 +238,9 @@
 		756B397B2AE6CF1A00B4E369 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39742AE6CF1A00B4E369 /* APIConfig.swift */; };
 		756B397D2AE6CF1A00B4E369 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39762AE6CF1A00B4E369 /* HttpManager.swift */; };
 		756B39822AE7F31E00B4E369 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39812AE7F31E00B4E369 /* SessionManager.swift */; };
+		756B39842AED2B4C00B4E369 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39832AED2B4C00B4E369 /* GradientButton.swift */; };
+		756B39862AED4B0200B4E369 /* CustomSegmentedTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39852AED4B0200B4E369 /* CustomSegmentedTitleCell.swift */; };
+		756B39882AEDF8D900B4E369 /* JXSegmentViewCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756B39872AEDF8D900B4E369 /* JXSegmentViewCustom.swift */; };
 		756C39332AE6BA6C0056A8D1 /* ActivityHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C38FF2AE6BA6C0056A8D1 /* ActivityHUD.swift */; };
 		756C39342AE6BA6C0056A8D1 /* ActivityRankingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39022AE6BA6C0056A8D1 /* ActivityRankingListVC.swift */; };
 		756C39352AE6BA6C0056A8D1 /* ActivityHitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39042AE6BA6C0056A8D1 /* ActivityHitTableViewCell.swift */; };
@@ -255,7 +258,6 @@
 		756C39412AE6BA6C0056A8D1 /* ActivitiesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C391A2AE6BA6C0056A8D1 /* ActivitiesModel.swift */; };
 		756C39422AE6BA6C0056A8D1 /* TitleContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C391C2AE6BA6C0056A8D1 /* TitleContentView.swift */; };
 		756C39432AE6BA6C0056A8D1 /* JustifiedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C391D2AE6BA6C0056A8D1 /* JustifiedLabel.swift */; };
-		756C39442AE6BA6C0056A8D1 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C391E2AE6BA6C0056A8D1 /* GradientButton.swift */; };
 		756C39452AE6BA6C0056A8D1 /* ActivitySearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39212AE6BA6C0056A8D1 /* ActivitySearchVC.swift */; };
 		756C39462AE6BA6C0056A8D1 /* ActivitySearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39232AE6BA6C0056A8D1 /* ActivitySearchTableViewCell.swift */; };
 		756C39472AE6BA6C0056A8D1 /* ActivityAdminReviewingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C39272AE6BA6C0056A8D1 /* ActivityAdminReviewingVC.swift */; };
@@ -983,6 +985,9 @@
 		756B39742AE6CF1A00B4E369 /* APIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		756B39762AE6CF1A00B4E369 /* HttpManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
 		756B39812AE7F31E00B4E369 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		756B39832AED2B4C00B4E369 /* GradientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientButton.swift; path = "../../../../../../../Library/Mobile Documents/.Trash/GradientButton.swift"; sourceTree = "<group>"; };
+		756B39852AED4B0200B4E369 /* CustomSegmentedTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedTitleCell.swift; sourceTree = "<group>"; };
+		756B39872AEDF8D900B4E369 /* JXSegmentViewCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JXSegmentViewCustom.swift; sourceTree = "<group>"; };
 		756C38FF2AE6BA6C0056A8D1 /* ActivityHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityHUD.swift; sourceTree = "<group>"; };
 		756C39022AE6BA6C0056A8D1 /* ActivityRankingListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityRankingListVC.swift; sourceTree = "<group>"; };
 		756C39042AE6BA6C0056A8D1 /* ActivityHitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityHitTableViewCell.swift; sourceTree = "<group>"; };
@@ -1000,7 +1005,6 @@
 		756C391A2AE6BA6C0056A8D1 /* ActivitiesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesModel.swift; sourceTree = "<group>"; };
 		756C391C2AE6BA6C0056A8D1 /* TitleContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleContentView.swift; sourceTree = "<group>"; };
 		756C391D2AE6BA6C0056A8D1 /* JustifiedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustifiedLabel.swift; sourceTree = "<group>"; };
-		756C391E2AE6BA6C0056A8D1 /* GradientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		756C39212AE6BA6C0056A8D1 /* ActivitySearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySearchVC.swift; sourceTree = "<group>"; };
 		756C39232AE6BA6C0056A8D1 /* ActivitySearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySearchTableViewCell.swift; sourceTree = "<group>"; };
 		756C39272AE6BA6C0056A8D1 /* ActivityAdminReviewingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityAdminReviewingVC.swift; sourceTree = "<group>"; };
@@ -3636,6 +3640,7 @@
 			children = (
 				756C39122AE6BA6C0056A8D1 /* ActivityCollectionVC.swift */,
 				756C39132AE6BA6C0056A8D1 /* ActivityMainViewController.swift */,
+				756B39872AEDF8D900B4E369 /* JXSegmentViewCustom.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3646,6 +3651,7 @@
 				756C39152AE6BA6C0056A8D1 /* ActivityTopView.swift */,
 				756C39162AE6BA6C0056A8D1 /* ActivitySelectBar.swift */,
 				756C39172AE6BA6C0056A8D1 /* ActivityCollectionViewCell.swift */,
+				756B39852AED4B0200B4E369 /* CustomSegmentedTitleCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3662,9 +3668,9 @@
 		756C391B2AE6BA6C0056A8D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				756B39832AED2B4C00B4E369 /* GradientButton.swift */,
 				756C391C2AE6BA6C0056A8D1 /* TitleContentView.swift */,
 				756C391D2AE6BA6C0056A8D1 /* JustifiedLabel.swift */,
-				756C391E2AE6BA6C0056A8D1 /* GradientButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5644,6 +5650,7 @@
 				4975628A26D5975F004499E6 /* FeedBackView.m in Sources */,
 				1A30F3AD23D33F1300FBBD83 /* CheckInModel.m in Sources */,
 				DB34EB34239BD4550052B65E /* LessonButton.m in Sources */,
+				756B39862AED4B0200B4E369 /* CustomSegmentedTitleCell.swift in Sources */,
 				1893DC8D26EA32F1007E871E /* MGDQueue.m in Sources */,
 				DB34EAD9239BD4550052B65E /* TimeHandle.m in Sources */,
 				18CDF4C1257F8DBD006E8E5C /* sendEmailModel.m in Sources */,
@@ -5681,6 +5688,7 @@
 				B09BB8312AADA35400FF88F7 /* FoodVC.m in Sources */,
 				18CDF68D257F91BD006E8E5C /* CQUPTMapPresenter.m in Sources */,
 				646B1975282CDF840015DF28 /* StationsCollectionViewCell.m in Sources */,
+				756B39882AEDF8D900B4E369 /* JXSegmentViewCustom.swift in Sources */,
 				AA0DDB6D286C8B1A00802324 /* EditMyInfoViewController.m in Sources */,
 				B0FE5F2D294C94540070E755 /* UIColor+Rising.m in Sources */,
 				D0101F66243587A1004337ED /* GKWebImageManager.m in Sources */,
@@ -5826,7 +5834,6 @@
 				AAC7CA2025F7797000E6B5D5 /* RemarkParseModel.m in Sources */,
 				493162DE26CD7B6300140412 /* StampTaskData.m in Sources */,
 				7FBF39F4257B79F30077494E /* ByPasswordViewController.m in Sources */,
-				756C39442AE6BA6C0056A8D1 /* GradientButton.swift in Sources */,
 				DB4065022466D889006CE5BC /* DLReminderView+Reset.m in Sources */,
 				14E7E4B227F57FC800B67469 /* FeedBackQuestionButton.m in Sources */,
 				756C39482AE6BA6C0056A8D1 /* ActivityAdminRejectVC.swift in Sources */,
@@ -6014,6 +6021,7 @@
 				646B19A02833983E0015DF28 /* NextStationBtn.m in Sources */,
 				AA0DDB55286C8B1900802324 /* MineTableViewCell.m in Sources */,
 				B5B4551729C19B0600875DF7 /* CenterView.m in Sources */,
+				756B39842AED2B4C00B4E369 /* GradientButton.swift in Sources */,
 				AAE3305925E2A42B00324750 /* RemarkTableViewCell.m in Sources */,
 				B51C501D28A625330011465E /* LoginView.m in Sources */,
 				DB34EB3C239BD4550052B65E /* DayLabel.m in Sources */,

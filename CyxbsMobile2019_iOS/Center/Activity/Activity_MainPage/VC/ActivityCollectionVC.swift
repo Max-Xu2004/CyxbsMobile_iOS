@@ -10,18 +10,58 @@ import UIKit
 import SDWebImage
 import Alamofire
 import MJRefresh
+import JXSegmentedView
 
 class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    var collectionView: UICollectionView!
-    var activities: [Activity] = []
-    var collectionViewCount: Int = 0
-    let refreshNum: Int = 10
-    var cellWidth: CGFloat!
     
+    var
+    let activitiesModel = ActivitiesModel()
+    var collectionViewCount: Int = 0
+    var activityType: String!
+    let refreshNum: Int = 10
 
+    private var cellWidth: CGFloat = 0.0
+    var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        activitiesModel.requestNoticeboardActivities(activityType: nil) { activities in
+            print("活动数量：\(activities.count)")
+            self.collectionViewCount = activities.count
+            //这里是做伪分页的逻辑
+            if(self.activitiesModel.activities.count < self.refreshNum) {
+                self.collectionViewCount = self.activitiesModel.activities.count
+            } else {
+                self.collectionViewCount = self.refreshNum
+            }
+            self.collectionView.reloadData()
+            if (self.collectionViewCount != 0) {
+                self.addMJFooter()
+            } else {
+                ActivityHUD.shared.addProgressHUDView(width: 138,
+                                                            height: 36,
+                                                            text: "暂无更多内容",
+                                                            font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                            textColor: .white,
+                                                            delay: 2,
+                                                            view: self.view,
+                                                            backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                            cornerRadius: 18,
+                                                            yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+            }
+        } failure: { error in
+                        ActivityHUD.shared.addProgressHUDView(width: 179,
+                                                                    height: 36,
+                                                                    text: "服务君似乎打盹了呢",
+                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
+                                                                    textColor: .white,
+                                                                    delay: 2,
+                                                                    view: self.view,
+                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
+                                                                    cornerRadius: 18,
+                                                                    yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
+        }
         // 创建一个UICollectionViewFlowLayout实例作为集合视图的布局
         let layout = UICollectionViewFlowLayout()
         //计算cell的宽度
@@ -33,7 +73,7 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
         // 计算每行的内边距，以保证单元格居中显示
         layout.sectionInset = UIEdgeInsets(top: 2, left: 16, bottom: 10, right: 16)
         // 使用上述布局创建一个UICollectionView实例，将其框架设置为与当前视图大小相同
-        collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ActivityCollectionViewCell.self, forCellWithReuseIdentifier: ActivityCollectionViewCell.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -41,14 +81,18 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         view.addSubview(collectionView)
+        self.collectionView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         collectionView.frame = self.view.bounds
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-    }
     
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -57,10 +101,10 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActivityCollectionViewCell.reuseIdentifier, for: indexPath) as! ActivityCollectionViewCell
-        cell.titleLabel.text = activities[indexPath.item].activityTitle
-        cell.coverImgView.sd_setImage(with: URL(string: activities[indexPath.item].activityCoverURL))
-        cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activities[indexPath.item].activityStartAt)))
-        switch activities[indexPath.item].activityType {
+        cell.titleLabel.text = activitiesModel.activities[indexPath.item].activityTitle
+        cell.coverImgView.sd_setImage(with: URL(string: activitiesModel.activities[indexPath.item].activityCoverURL))
+        cell.startTimeLabel.text = DateConvert.dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(activitiesModel.activities[indexPath.item].activityStartAt)))
+        switch activitiesModel.activities[indexPath.item].activityType {
         case "culture": cell.activityTypeLabel.text = "文娱活动"
         case "sports": cell.activityTypeLabel.text = "体育活动"
         case "education": cell.activityTypeLabel.text = "教育活动"  
@@ -76,7 +120,7 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = ActivityDetailVC()
-        detailVC.activity = activities[indexPath.item]
+        detailVC.activity = activitiesModel.activities[indexPath.item]
         detailVC.numOfIndexPath = indexPath.item
         detailVC.delegate = self
         self.navigationController?.pushViewController(detailVC, animated: true)
@@ -101,10 +145,10 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     @objc func refreshCollectionView() {
-        if self.collectionViewCount != self.activities.count {
+        if self.collectionViewCount != self.activitiesModel.activities.count {
             self.collectionViewCount = self.collectionViewCount + self.refreshNum
-            if self.collectionViewCount > self.activities.count {
-                self.collectionViewCount = self.activities.count
+            if self.collectionViewCount > self.activitiesModel.activities.count {
+                self.collectionViewCount = self.activitiesModel.activities.count
             }
             //延迟加载新的cell
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -136,7 +180,14 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
 //为了减少请求次数，减轻服务器压力，详情页的数据由model传过去，使用代理来实现点击想看后修改model的值
 extension ActivityCollectionVC: ActivityDetailVCDelegate {
     func updateModel(indexPathNum: Int, wantToWatch: Bool) {
-        self.activities[indexPathNum].wantToWatch = wantToWatch
+        self.activitiesModel.activities[indexPathNum].wantToWatch = wantToWatch
+    }
+}
+
+// MARK: - JXSegmentedListContainerViewListDelegate，返回containerView展示的视图
+extension ActivityCollectionVC: JXSegmentedListContainerViewListDelegate {
+    func listView() -> UIView {
+        return view
     }
 }
 

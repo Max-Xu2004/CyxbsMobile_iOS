@@ -11,8 +11,10 @@ import JXSegmentedView
 
 class ActivityMainViewController: UIViewController {
     
-    var collectionViewVC: ActivityCollectionVC!
-    let noticeboardActivities = ActivitiesModel()
+    private var collectionViewControllers: [ActivityCollectionVC] = []
+    private var segmentedDataSource: JXSegmentedActivityCustomDataSource!
+    private var segmentedView: JXSegmentedView!
+    private var listContainerView: JXSegmentedListContainerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +25,9 @@ class ActivityMainViewController: UIViewController {
             view.backgroundColor = UIColor(hexString: "#FFFFFF"	)
         }
         addTopView()
-        view.addSubview(selectBar)
-        addcollectionViewVC()
-        refreshCollectionView(activityType: nil)
         isAdmin()
-        
+        initVCs()
+        addSegmentView()
     }
     //顶部视图
     lazy var topView: ActivityTopView = {
@@ -39,48 +39,6 @@ class ActivityMainViewController: UIViewController {
         topView.adminButton.addTarget(self, action: #selector(pushAdminVC), for: .touchUpInside)
         return topView
     }()
-    //活动类型选择bar
-    lazy var selectBar: ActivitySelectBar = {
-        let selectBar = ActivitySelectBar(frame: CGRectMake(0, topView.bounds.height, view.bounds.width, 51))
-        selectBar.buttons.forEach({ button in
-            button.addTarget(self, action: #selector(catagoryButtonTapped(_:)), for: .touchUpInside)
-        })
-        return selectBar
-    }()
-    
-    
-    
-    @objc private func catagoryButtonTapped(_ sender: RadioButton) {
-        // 根据需要在这里执行相应的操作，例如根据按钮的标签来处理不同的逻辑
-        switch sender.tag {
-        case 0:
-            // 处理 "全部" 按钮点击事件
-            reinitializeCollectionViewVC()
-            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/"
-            refreshCollectionView(activityType: nil)
-            break
-        case 1:
-            // 处理 "文娱活动" 按钮点击事件
-            reinitializeCollectionViewVC()
-            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=culture"
-            refreshCollectionView(activityType: "culture")
-            break
-        case 2:
-            // 处理 "体育活动" 按钮点击事件
-            reinitializeCollectionViewVC()
-            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=sports"
-            refreshCollectionView(activityType: "sports")
-            break
-        case 3:
-            // 处理 "教育活动" 按钮点击事件
-            reinitializeCollectionViewVC()
-            noticeboardActivities.requestURL = "magipoke-ufield/activity/list/all/?activity_type=education"
-            refreshCollectionView(activityType: "education")
-            break
-        default:
-            break
-        }
-    }
     
     @objc func popController() {
         self.navigationController?.popViewController(animated: true)
@@ -105,24 +63,6 @@ class ActivityMainViewController: UIViewController {
         topView.layer.insertSublayer(shadowLayer, at: 0)
     }
     
-    func addcollectionViewVC() {
-        //collectionView活动显示，两列
-        collectionViewVC = ActivityCollectionVC()
-        collectionViewVC.view.frame = CGRectMake(0, topView.bounds.height + selectBar.height + 21, view.bounds.width, view.bounds.height - topView.height - selectBar.height - 21)
-        addChild(collectionViewVC)
-        view.addSubview(collectionViewVC.view)
-        collectionViewVC.didMove(toParent: self)
-    }
-    
-    func reinitializeCollectionViewVC() {
-        // 移除原有 collectionViewVC
-        collectionViewVC?.view.removeFromSuperview()
-        collectionViewVC?.removeFromParent()
-        collectionViewVC = nil
-        // 创建新的 collectionViewVC
-        addcollectionViewVC()
-    }
-    
     func isAdmin() {
         ActivityClient.shared.request(url:"magipoke-ufield//isadmin/",
                                       method: .get,
@@ -137,46 +77,6 @@ class ActivityMainViewController: UIViewController {
             } else {
                 print("Invalid response data")
             }
-        }
-    }
-    
-    func refreshCollectionView(activityType: String?) {
-        noticeboardActivities.requestNoticeboardActivities(activityType: activityType) { activities in
-            print("活动数量：\(self.noticeboardActivities.activities.count)")
-            //请求成功将活动数组赋值给collectionViewVC
-            self.collectionViewVC.activities = self.noticeboardActivities.activities
-            //这里是做伪分页的逻辑
-            if(self.collectionViewVC.activities.count < self.collectionViewVC.refreshNum) {
-                self.collectionViewVC.collectionViewCount = self.collectionViewVC.activities.count
-            } else {
-                self.collectionViewVC.collectionViewCount = self.collectionViewVC.refreshNum
-            }
-            self.collectionViewVC.collectionView.reloadData()
-            if (self.collectionViewVC.collectionViewCount != 0) {
-                self.collectionViewVC.addMJFooter()
-            } else {
-                ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                            height: 36,
-                                                            text: "暂无更多内容",
-                                                            font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                            textColor: .white,
-                                                            delay: 2,
-                                                            view: self.view,
-                                                            backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                            cornerRadius: 18,
-                                                            yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
-            }
-        } failure: { error in
-                        ActivityHUD.shared.addProgressHUDView(width: 179,
-                                                                    height: 36,
-                                                                    text: "服务君似乎打盹了呢",
-                                                                    font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                    textColor: .white,
-                                                                    delay: 2,
-                                                                    view: self.view,
-                                                                    backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                    cornerRadius: 18,
-                                                                    yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
         }
     }
     
@@ -199,14 +99,93 @@ class ActivityMainViewController: UIViewController {
         let adminVC = ActivityAdminManageMainVC()
         self.navigationController?.pushViewController(adminVC, animated: true)
     } //跳转管理员页面
+    
+    func addSegmentView() {
+        //初始化segmentedView
+        segmentedView = JXSegmentedView()
+        segmentedDataSource = JXSegmentedActivityCustomDataSource()
+        segmentedDataSource.titles = ["全部","文娱活动","体育活动","教育活动"]
+        segmentedDataSource.titleNormalFont = UIFont(name: PingFangSCMedium, size: 14)!
+        segmentedDataSource.titleNormalColor = UIColor(red: 0.165, green: 0.306, blue: 0.518, alpha: 0.5)
+        segmentedDataSource.titleSelectedColor = UIColor(red: 0.31, green: 0.29, blue: 0.914, alpha: 1)
+        segmentedDataSource.isTitleColorGradientEnabled = true
+        segmentedDataSource.isItemSpacingAverageEnabled = true
+        segmentedDataSource.itemWidthIncrement = 28
+        segmentedDataSource.itemSpacing = 12
+        segmentedDataSource.cornerRadius = 15
+        segmentedDataSource.backGroundNormalColor = UIColor(red: 0.37, green: 0.48, blue: 0.64, alpha: 0.05)
+        segmentedDataSource.backGroundSelectedColor = .clear
+        segmentedView.delegate = self
+        segmentedView.dataSource = segmentedDataSource
+        //配置指示器
+        let indicator = JXSegmentedIndicatorBackgroundView()
+        indicator.clipsToBounds = true
+        indicator.indicatorHeight = 30
+        indicator.indicatorWidthIncrement = 0
+        indicator.indicatorColor = .clear
+        indicator.scrollAnimationDuration = 0
+        let gradientView = JXSegmentedComponetGradientView()
+        gradientView.gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
+        gradientView.gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
+        gradientView.gradientLayer.locations = [0, 1]
+        gradientView.gradientLayer.colors = [
+            UIColor(hexString: "#4841E2", alpha: 0.1).cgColor,
+            UIColor(hexString: "#5D5DF7", alpha: 0.1).cgColor
+        ]
+        //设置gradientView布局和JXSegmentedIndicatorBackgroundView一样
+        gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        indicator.addSubview(gradientView)
+        segmentedView.indicators = [indicator]
+        view.addSubview(segmentedView)
+        listContainerView = JXSegmentedListContainerView(dataSource: self)
+        view.addSubview(listContainerView)
+        segmentedView.listContainer = listContainerView
+        //布局子控件
+        segmentedView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.height.equalTo(30)
+            make.top.equalTo(135+UIApplication.shared.statusBarFrame.height)
+        }
+        listContainerView.snp.makeConstraints { (make) in
+            //可以滑动的容器,在tab的下面,宽度屏幕宽,底部在安全区的最下边
+            make.top.equalTo(segmentedView.snp.bottom).offset(14)
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    func initVCs() {
+        let allVC = ActivityCollectionVC()
+        allVC.title = "全部"
+        addChild(allVC)
+        collectionViewControllers.append(allVC)
+        
+        let cultureVC = ActivityCollectionVC()
+        cultureVC.title = "文娱活动"
+        addChild(cultureVC)
+        collectionViewControllers.append(cultureVC)
+        
+        let sportsVC = ActivityCollectionVC()
+        sportsVC.title = "体育活动"
+        addChild(sportsVC)
+        collectionViewControllers.append(sportsVC)
+        
+        let educationVC = ActivityCollectionVC()
+        educationVC.title = "教育活动"
+        addChild(educationVC)
+        collectionViewControllers.append(educationVC)
+    }
 }
 
+extension ActivityMainViewController: JXSegmentedViewDelegate {
+    
+}
 
-
-
-
-
-
-
-
-
+extension ActivityMainViewController: JXSegmentedListContainerViewDataSource {
+    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
+        return 4
+    }
+    
+    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
+        return collectionViewControllers[index]
+    }
+}

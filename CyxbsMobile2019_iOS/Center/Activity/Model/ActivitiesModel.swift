@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class ActivitiesModel {
     
-    var requestURL: String = "magipoke-ufield/activity/list/all/"
     var activities: [Activity] = []
 
     ///用于请求活动布告栏的活动

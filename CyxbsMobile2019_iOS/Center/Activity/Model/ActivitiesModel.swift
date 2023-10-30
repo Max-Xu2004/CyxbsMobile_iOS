@@ -247,3 +247,11 @@ extension MineActivityData {
         published = json["published"].arrayValue.map { Activity(from: $0) }
     }
 }
+
+enum ActivityType {
+    case all
+    case culture
+    case sports
+    case education
+}
+

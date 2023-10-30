@@ -14,18 +14,38 @@ import JXSegmentedView
 
 class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    var activityType: ActivityType = .all
     let activitiesModel = ActivitiesModel()
-    var collectionViewCount: Int = 0
-    var activityType: String!
+    private var activityTypeString: String?
+    private var collectionViewCount: Int = 0
     let refreshNum: Int = 10
 
     private var cellWidth: CGFloat = 0.0
     var collectionView: UICollectionView!
     
+    init(activityType: ActivityType) {
+        self.activityType = activityType
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        activitiesModel.requestNoticeboardActivities(activityType: nil) { activities in
+        switch activityType {
+        case .all:
+            activityTypeString = nil
+        case .culture:
+            activityTypeString = "culture"
+        case .sports:
+            activityTypeString = "sports"
+        case .education:
+            activityTypeString = "education"
+        }
+        activitiesModel.requestNoticeboardActivities(activityType: activityTypeString) { activities in
             print("活动数量：\(activities.count)")
             self.collectionViewCount = activities.count
             //这里是做伪分页的逻辑
@@ -155,23 +175,7 @@ class ActivityCollectionVC: UIViewController, UICollectionViewDataSource, UIColl
                 self.collectionView.reloadData()
             }
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                // 要延迟执行的代码
-                if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
-//                    self.collectionView.mj_footer?.isHidden = true
-                    self.collectionView.mj_footer?.endRefreshingWithNoMoreData()
-                    ActivityHUD.shared.addProgressHUDView(width: 138,
-                                                                height: 36,
-                                                                text: "暂无更多内容",
-                                                                font: UIFont(name: PingFangSCMedium, size: 13)!,
-                                                                textColor: .white,
-                                                                delay: 2,
-                                                                view: window,
-                                                                backGroundColor: UIColor(hexString: "#2a4e84"),
-                                                                cornerRadius: 18,
-                                                                yOffset: Float(-UIScreen.main.bounds.height * 0.5 + UIApplication.shared.statusBarFrame.height) + 90)
-                }
-            }
+            
         }
     }
 }

@@ -14,6 +14,8 @@ open class JXSegmentedActivityCustomDataSource: JXSegmentedTitleDataSource {
     open var backGroundSelectedColor: UIColor = .clear
     open var backGroundNormalColor: UIColor = .clear
     open var cornerRadius: CGFloat = 0.0
+    /// title的颜色是否渐变过渡
+    open var isBackGroundColorGradientEnabled: Bool = false
     
     open override func preferredItemModelInstance() -> JXSegmentedBaseItemModel {
         return JXSegmentedActivityCustomItemModel()
@@ -55,6 +57,53 @@ open class JXSegmentedActivityCustomDataSource: JXSegmentedTitleDataSource {
             myItemModel.titleCurrentZoomScale = 1
             myItemModel.titleCurrentStrokeWidth = 0
         }
+    }
+    
+    open override func refreshItemModel(_ segmentedView: JXSegmentedView, leftItemModel: JXSegmentedBaseItemModel, rightItemModel: JXSegmentedBaseItemModel, percent: CGFloat) {
+        super.refreshItemModel(segmentedView, leftItemModel: leftItemModel, rightItemModel: rightItemModel, percent: percent)
+        
+        guard let leftModel = leftItemModel as? JXSegmentedActivityCustomItemModel, let rightModel = rightItemModel as? JXSegmentedActivityCustomItemModel else {
+            return
+        }
+
+        if isTitleZoomEnabled && isItemTransitionEnabled {
+            leftModel.titleCurrentZoomScale = JXSegmentedViewTool.interpolate(from: leftModel.titleSelectedZoomScale, to: leftModel.titleNormalZoomScale, percent: CGFloat(percent))
+            rightModel.titleCurrentZoomScale = JXSegmentedViewTool.interpolate(from: rightModel.titleNormalZoomScale, to: rightModel.titleSelectedZoomScale, percent: CGFloat(percent))
+        }
+
+        if isTitleStrokeWidthEnabled && isItemTransitionEnabled {
+            leftModel.titleCurrentStrokeWidth = JXSegmentedViewTool.interpolate(from: leftModel.titleSelectedStrokeWidth, to: leftModel.titleNormalStrokeWidth, percent: CGFloat(percent))
+            rightModel.titleCurrentStrokeWidth = JXSegmentedViewTool.interpolate(from: rightModel.titleNormalStrokeWidth, to: rightModel.titleSelectedStrokeWidth, percent: CGFloat(percent))
+        }
+
+        if isTitleColorGradientEnabled && isItemTransitionEnabled {
+            leftModel.titleCurrentColor = JXSegmentedViewTool.interpolateThemeColor(from: leftModel.titleSelectedColor, to: leftModel.titleNormalColor, percent: percent)
+            rightModel.titleCurrentColor = JXSegmentedViewTool.interpolateThemeColor(from:rightModel.titleNormalColor , to:rightModel.titleSelectedColor, percent: percent)
+        }
+        
+        if isBackGroundColorGradientEnabled && isItemTransitionEnabled {
+            leftModel.backGroundCurrentColor = JXSegmentedViewTool.interpolateThemeColor(from: leftModel.backGroundSelectedColor, to: leftModel.backGroundNormalColor, percent: percent)
+            rightModel.backGroundCurrentColor = JXSegmentedViewTool.interpolateThemeColor(from:rightModel.backGroundNormalColor , to:rightModel.backGroundSelectedColor, percent: percent)
+        }
+    }
+    
+    open override func refreshItemModel(_ segmentedView: JXSegmentedView, currentSelectedItemModel: JXSegmentedBaseItemModel, willSelectedItemModel: JXSegmentedBaseItemModel, selectedType: JXSegmentedViewItemSelectedType) {
+        super.refreshItemModel(segmentedView, currentSelectedItemModel: currentSelectedItemModel, willSelectedItemModel: willSelectedItemModel, selectedType: selectedType)
+
+        guard let myCurrentSelectedItemModel = currentSelectedItemModel as? JXSegmentedActivityCustomItemModel, let myWillSelectedItemModel = willSelectedItemModel as? JXSegmentedActivityCustomItemModel else {
+            return
+        }
+
+        myCurrentSelectedItemModel.titleCurrentColor = myCurrentSelectedItemModel.titleNormalColor
+        myCurrentSelectedItemModel.backGroundCurrentColor = myCurrentSelectedItemModel.backGroundNormalColor
+        myCurrentSelectedItemModel.titleCurrentZoomScale = myCurrentSelectedItemModel.titleNormalZoomScale
+        myCurrentSelectedItemModel.titleCurrentStrokeWidth = myCurrentSelectedItemModel.titleNormalStrokeWidth
+        myCurrentSelectedItemModel.indicatorConvertToItemFrame = CGRect.zero
+
+        myWillSelectedItemModel.titleCurrentColor = myWillSelectedItemModel.titleSelectedColor
+        myWillSelectedItemModel.backGroundCurrentColor = myWillSelectedItemModel.backGroundSelectedColor
+        myWillSelectedItemModel.titleCurrentZoomScale = myWillSelectedItemModel.titleSelectedZoomScale
+        myWillSelectedItemModel.titleCurrentStrokeWidth = myWillSelectedItemModel.titleSelectedStrokeWidth
     }
     
     //MARK: - JXSegmentedViewDataSource
@@ -136,7 +185,9 @@ class JXSegmentedActivityCustomCell: JXSegmentedTitleCell {
             //为了显示效果，使用了双遮罩。即titleMaskLayer遮罩titleLabel，maskTitleMaskLayer遮罩maskTitleLabel
             maskTitleLabel.isHidden = false
             titleLabel.textColor = myItemModel.titleNormalColor
+            titleLabel.backgroundColor = myItemModel.backGroundNormalColor
             maskTitleLabel.textColor = myItemModel.titleSelectedColor
+            maskTitleLabel.backgroundColor = myItemModel.backGroundSelectedColor
             let labelSize = maskTitleLabel.sizeThatFits(self.contentView.bounds.size)
             let labelBounds = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
             maskTitleLabel.bounds = labelBounds
@@ -186,14 +237,13 @@ class JXSegmentedActivityCustomCell: JXSegmentedTitleCell {
                 contentView.backgroundColor = myItemModel.backGroundCurrentColor
             }
         }
-
         startSelectedAnimationIfNeeded(itemModel: itemModel, selectedType: selectedType)
         
-        if myItemModel.isSelected {
-            contentView.backgroundColor = myItemModel.backGroundSelectedColor
-        } else {
-            contentView.backgroundColor = myItemModel.backGroundNormalColor
-        }
+//        if myItemModel.isSelected {
+//            contentView.backgroundColor = myItemModel.backGroundSelectedColor
+//        } else {
+//            contentView.backgroundColor = myItemModel.backGroundNormalColor
+//        }
         setNeedsLayout()
     }
     
@@ -202,7 +252,7 @@ class JXSegmentedActivityCustomCell: JXSegmentedTitleCell {
             if itemModel.isSelected {
                 //将要选中，backGroundColor从backGroundNormalColor到backGroundSelectedColor插值渐变
                 itemModel.backGroundCurrentColor = JXSegmentedViewTool.interpolateThemeColor(from: itemModel.backGroundNormalColor, to: itemModel.backGroundSelectedColor, percent: percent)
-            }else {
+            } else {
                 //将要取消选中，backGroundColor从backGroundSelectedColor到backGroundNormalColor插值渐变
                 itemModel.backGroundCurrentColor = JXSegmentedViewTool.interpolateThemeColor(from: itemModel.backGroundSelectedColor, to: itemModel.backGroundNormalColor, percent: percent)
             }

@@ -3622,7 +3622,6 @@
 			children = (
 				756C39122AE6BA6C0056A8D1 /* ActivityCollectionVC.swift */,
 				756C39132AE6BA6C0056A8D1 /* ActivityMainViewController.swift */,
-				756B39872AEDF8D900B4E369 /* JXSegmentViewCustom.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -3630,6 +3629,7 @@
 		756C39142AE6BA6C0056A8D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				756B39872AEDF8D900B4E369 /* JXSegmentViewCustom.swift */,
 				756C39152AE6BA6C0056A8D1 /* ActivityTopView.swift */,
 				756C39162AE6BA6C0056A8D1 /* ActivitySelectBar.swift */,
 				756C39172AE6BA6C0056A8D1 /* ActivityCollectionViewCell.swift */,

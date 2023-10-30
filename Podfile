@@ -54,6 +54,7 @@ target 'CyxbsMobile2019_iOS' do
   pod 'JXPagingView'
   pod 'JXSegmentedView'
   pod 'TOCropViewController'
+  pod 'ProgressHUD'
 
     post_install do |installer|
       installer.pods_project.build_configurations.each do |config|

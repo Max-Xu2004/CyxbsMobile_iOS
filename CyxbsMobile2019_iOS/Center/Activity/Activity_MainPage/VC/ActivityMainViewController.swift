@@ -29,6 +29,8 @@ class ActivityMainViewController: UIViewController {
         initVCs()
         addSegmentView()
     }
+    
+    // MARK: - 懒加载
     //顶部视图
     lazy var topView: ActivityTopView = {
         let topView = ActivityTopView(frame: CGRectMake(0, 0, view.bounds.width, 112+UIApplication.shared.statusBarFrame.height))
@@ -39,13 +41,33 @@ class ActivityMainViewController: UIViewController {
         topView.adminButton.addTarget(self, action: #selector(pushAdminVC), for: .touchUpInside)
         return topView
     }()
-    
+    //返回上一个VC
     @objc func popController() {
         self.navigationController?.popViewController(animated: true)
     }
+    //跳转添加活动页面
+    @objc func pushAddVC() {
+        let addVC = ActivityAddVC()
+        self.navigationController?.pushViewController(addVC, animated: true)
+    }
+    //跳转排行榜页面
+    @objc func pushHitVC() {
+        let hitVC = ActivityRankingListVC()
+        self.navigationController?.pushViewController(hitVC, animated: true)
+    }
+    //跳转搜索活动页面
+    @objc func pushSearchVC() {
+        let searchVC = ActivitySearchVC()
+        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
+    //跳转管理员页面
+    @objc func pushAdminVC() {
+        let adminVC = ActivityAdminManageMainVC()
+        self.navigationController?.pushViewController(adminVC, animated: true)
+    }
     
+    // 添加顶部视图
     func addTopView() {
-        // 添加顶部视图
         view.addSubview(topView)
         // 创建圆角路径，将左下角和右下角设置为圆角
         let cornerRadius: CGFloat = 20
@@ -80,26 +102,6 @@ class ActivityMainViewController: UIViewController {
         }
     }
     
-    @objc func pushAddVC() {
-        let addVC = ActivityAddVC()
-        self.navigationController?.pushViewController(addVC, animated: true)
-    } //跳转添加活动页面
-    
-    @objc func pushHitVC() {
-        let hitVC = ActivityRankingListVC()
-        self.navigationController?.pushViewController(hitVC, animated: true)
-    } //跳转排行榜页面
-    
-    @objc func pushSearchVC() {
-        let searchVC = ActivitySearchVC()
-        self.navigationController?.pushViewController(searchVC, animated: true)
-    } //跳转搜索活动页面
-    
-    @objc func pushAdminVC() {
-        let adminVC = ActivityAdminManageMainVC()
-        self.navigationController?.pushViewController(adminVC, animated: true)
-    } //跳转管理员页面
-    
     func addSegmentView() {
         //初始化segmentedView
         segmentedView = JXSegmentedView()
@@ -109,33 +111,16 @@ class ActivityMainViewController: UIViewController {
         segmentedDataSource.titleNormalColor = UIColor(red: 0.165, green: 0.306, blue: 0.518, alpha: 0.5)
         segmentedDataSource.titleSelectedColor = UIColor(red: 0.31, green: 0.29, blue: 0.914, alpha: 1)
         segmentedDataSource.isTitleColorGradientEnabled = true
+        segmentedDataSource.isBackGroundColorGradientEnabled = true
         segmentedDataSource.isItemSpacingAverageEnabled = true
         segmentedDataSource.itemWidthIncrement = 28
         segmentedDataSource.itemSpacing = 12
         segmentedDataSource.cornerRadius = 15
         segmentedDataSource.backGroundNormalColor = UIColor(red: 0.37, green: 0.48, blue: 0.64, alpha: 0.05)
-        segmentedDataSource.backGroundSelectedColor = .clear
+        segmentedDataSource.backGroundSelectedColor = UIColor(red: 0.32, green: 0.305, blue: 0.93, alpha: 0.1)
         segmentedView.delegate = self
         segmentedView.dataSource = segmentedDataSource
-        //配置指示器
-        let indicator = JXSegmentedIndicatorBackgroundView()
-        indicator.clipsToBounds = true
-        indicator.indicatorHeight = 30
-        indicator.indicatorWidthIncrement = 0
-        indicator.indicatorColor = .clear
-        indicator.scrollAnimationDuration = 0
-        let gradientView = JXSegmentedComponetGradientView()
-        gradientView.gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
-        gradientView.gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
-        gradientView.gradientLayer.locations = [0, 1]
-        gradientView.gradientLayer.colors = [
-            UIColor(hexString: "#4841E2", alpha: 0.1).cgColor,
-            UIColor(hexString: "#5D5DF7", alpha: 0.1).cgColor
-        ]
-        //设置gradientView布局和JXSegmentedIndicatorBackgroundView一样
-        gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        indicator.addSubview(gradientView)
-        segmentedView.indicators = [indicator]
+        //不需要配置指示器，这里仅改变backgroundcolor
         view.addSubview(segmentedView)
         listContainerView = JXSegmentedListContainerView(dataSource: self)
         view.addSubview(listContainerView)
@@ -154,22 +139,22 @@ class ActivityMainViewController: UIViewController {
         }
     }
     func initVCs() {
-        let allVC = ActivityCollectionVC()
+        let allVC = ActivityCollectionVC(activityType: .all)
         allVC.title = "全部"
         addChild(allVC)
         collectionViewControllers.append(allVC)
         
-        let cultureVC = ActivityCollectionVC()
+        let cultureVC = ActivityCollectionVC(activityType: .culture)
         cultureVC.title = "文娱活动"
         addChild(cultureVC)
         collectionViewControllers.append(cultureVC)
         
-        let sportsVC = ActivityCollectionVC()
+        let sportsVC = ActivityCollectionVC(activityType: .sports)
         sportsVC.title = "体育活动"
         addChild(sportsVC)
         collectionViewControllers.append(sportsVC)
         
-        let educationVC = ActivityCollectionVC()
+        let educationVC = ActivityCollectionVC(activityType: .education)
         educationVC.title = "教育活动"
         addChild(educationVC)
         collectionViewControllers.append(educationVC)
@@ -177,7 +162,9 @@ class ActivityMainViewController: UIViewController {
 }
 
 extension ActivityMainViewController: JXSegmentedViewDelegate {
-    
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        
+    }
 }
 
 extension ActivityMainViewController: JXSegmentedListContainerViewDataSource {
